@@ -1,4 +1,16 @@
-﻿@page
-@model WebdevProjectStarterTemplate.Pages.Snackbars.DeleteModel
+﻿@page "{snackbarId:int}"
+@model WebdevProjectStarterTemplate.Pages.Snackbars.Delete
 @{
+
+<div class="row">
+    <div class="col">
+        <h1>Are you sure to delete Category @(Model.Snackbar.Naam)?</h1>
+        <hr>
+        <form method="POST">
+            <button asp-page-handler="Delete" class="btn btn-success">Yes</button>
+            <button asp-page-handler="Cancel" class="btn btn-danger">Cancel</button>
+        </form>        
+    </div>
+</div>
+
 }
