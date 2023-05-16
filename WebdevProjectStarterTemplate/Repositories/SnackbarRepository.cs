@@ -28,5 +28,18 @@ namespace WebdevProjectStarterTemplate.Repositories
             return numOfEffectedRows == 1;
         }
 
+        public Snackbar Update(Snackbar snackbar)
+        {
+            string sql = @"
+                UPDATE snackbar SET 
+                    naam = @naam 
+                WHERE id = @id;
+                SELECT * FROM snackbar WHERE id = @id";
+
+            using var connection = GetConnection();
+            var updatedSnackbar= connection.QuerySingle<Snackbar>(sql, snackbar);
+            return updatedSnackbar;
+        }
+
     }
 }
