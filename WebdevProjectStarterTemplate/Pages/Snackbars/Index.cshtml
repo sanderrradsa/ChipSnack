@@ -2,3 +2,27 @@
 @model WebdevProjectStarterTemplate.Pages.Snackbars.IndexModel
 @{
 }
+
+<div class="row">
+    <div class="col">
+        <h1>Display Snackbars</h1>
+
+        <a asp-page="@nameof(CreateModel)" class="btn btn-primary">Create New Snackbar</a>
+        <hr>
+        <table class="table table-striped">
+            <tbody>
+            @foreach (var snackbar in Model.Snackbars)
+            {
+                <tr>
+                    <td>@snackbar.Naam</td>
+                    <td>
+                        <a asp-page="@nameof(Delete)" asp-route-categoryId="@snackbar.Id" class="btn btn-danger">Delete</a> |
+                        <a asp-page="@nameof(Update)" asp-route-categoryId="@snackbar.Id" class="btn btn-info">Update</a>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+
+    </div>
+</div>
