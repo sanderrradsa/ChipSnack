@@ -1,5 +1,5 @@
 ﻿@page
-@model WebdevProjectStarterTemplate.Pages.Snackbars.IndexModel
+@model WebdevProjectStarterTemplate.Pages.Snackbars.Index
 @{
 }
 
@@ -16,8 +16,8 @@
                 <tr>
                     <td>@snackbar.Naam</td>
                     <td>
-                        <a asp-page="@nameof(Delete)" asp-route-categoryId="@snackbar.Id" class="btn btn-danger">Delete</a> |
-                        <a asp-page="@nameof(Update)" asp-route-categoryId="@snackbar.Id" class="btn btn-info">Update</a>
+                        <a asp-page="@nameof(Delete)" asp-route-snackbarId="@snackbar.Id" class="btn btn-danger">Delete</a> |
+                        <a asp-page="@nameof(Update)" asp-route-snackbarId="@snackbar.Id" class="btn btn-info">Update</a>
                     </td>
                 </tr>
             }
