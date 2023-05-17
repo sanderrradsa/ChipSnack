@@ -19,6 +19,15 @@ namespace WebdevProjectStarterTemplate.Repositories
             var snackbar = connection.QuerySingle<Snackbar>(sql, new { snackbarId });
             return snackbar;
         }
+
+        public IEnumerable<Snackbar> Get()
+        {
+            string sql = "SELECT * FROM snackbar";
+
+            using var connection = GetConnection();
+            var snackbars = connection.Query<Snackbar>(sql);
+            return snackbars;
+        }
         public bool Delete(int snackbarId)
         {
             string sql = @"DELETE FROM snackbar WHERE id = @snackbarId";
@@ -37,9 +46,11 @@ namespace WebdevProjectStarterTemplate.Repositories
                 SELECT * FROM snackbar WHERE id = @id";
 
             using var connection = GetConnection();
-            var updatedSnackbar= connection.QuerySingle<Snackbar>(sql, snackbar);
+            var updatedSnackbar = connection.QuerySingle<Snackbar>(sql, snackbar);
             return updatedSnackbar;
         }
+        
+        
 
     }
 }
