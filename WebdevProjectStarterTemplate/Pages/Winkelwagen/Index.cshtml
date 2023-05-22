@@ -1,0 +1,55 @@
+﻿@page
+@model WebdevProjectStarterTemplate.Pages.Winkelwagen.Index
+@{
+    <div class="row">
+        <div class="col">
+            <h1>Display winkelwagen</h1>
+
+            <hr>
+            <table class="table table-striped">
+                <tbody>
+                    <tr>
+                        <th>Snack naam</th>
+                        <th>Hoeveelheid</th>
+                        <th>Opmerking</th>
+                        <th>Prijs</th>
+                        <th>Totaal</th>
+                    </tr>
+                    @foreach (var bestelling in Model.Bestelling)
+                    {
+                         <form method="POST">
+
+                        <tr>
+                   
+                            <td>@bestelling.Snack.Naam</td>
+                            <td>
+                                <input type="hidden" name="aantall" value="@bestelling.Aantal">
+                                <input type="hidden" name="bestellingId" value="@bestelling.Id">
+                                <button type="submit" asp-page-handler="Decrement" class="btn btn-succes">-</button>
+                                @bestelling.Aantal
+                                <button type="submit" asp-page-handler="Increment" class="btn btn-succes">+</button>
+
+                            </td>
+                            <td>
+                            @if (bestelling.Opmerking.Length == 0)
+                                {
+                                    <p>Geen opmerking</p>
+                                }
+                                else
+                                {
+                                    @bestelling.Opmerking
+                                }
+
+                                </td>
+                            <td>@bestelling.Snack.Prijs $</td>
+                            <td>@(bestelling.Snack.Prijs * bestelling.Aantal) $</td>
+                      
+                        </tr>
+                        </form>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+}
