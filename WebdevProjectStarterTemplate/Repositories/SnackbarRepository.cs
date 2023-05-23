@@ -28,6 +28,18 @@ namespace WebdevProjectStarterTemplate.Repositories
             var snackbars = connection.Query<Snackbar>(sql);
             return snackbars;
         }
+
+        public Snackbar Add(Snackbar? snackbar)
+        {
+            const string sql = @"
+                INSERT INTO snackbar (naam)
+                VALUES (@Naam);
+                SELECT * FROM snackbar WHERE snackbar.id = LAST_INSERT_ID()";
+            using var connection = GetConnection();
+            var addedSnackbar = connection.QuerySingle<Snackbar>(sql, snackbar);
+            return addedSnackbar;
+        }
+        
         public bool Delete(int snackbarId)
         {
             string sql = @"DELETE FROM snackbar WHERE id = @snackbarId";
