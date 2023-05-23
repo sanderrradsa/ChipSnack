@@ -1,0 +1,14 @@
+﻿@page "{bestellingId:int}"
+@model WebdevProjectStarterTemplate.Pages.Winkelwagen.Delete
+@{
+    <div class="row">
+        <div class="col">
+            <h1>Weet je zeker dat je @(Model.Bestelling.SnackId) wilt verwijderen ?</h1>
+            <hr>
+            <form method="POST">
+                <button asp-page-handler="Delete" class="btn btn-success">Ja</button>
+                <button asp-page-handler="Cancel" class="btn btn-danger">Nee</button>
+            </form>
+        </div>
+    </div>
+}

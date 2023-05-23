@@ -1,5 +1,6 @@
 ﻿@page
 @model WebdevProjectStarterTemplate.Pages.Winkelwagen.Index
+@using WebdevProjectStarterTemplate.Pages.Winkelwagen;
 @{
     <div class="row">
         <div class="col">
@@ -14,6 +15,7 @@
                         <th>Opmerking</th>
                         <th>Prijs</th>
                         <th>Totaal</th>
+                        <th></th>
                     </tr>
                     @foreach (var bestelling in Model.Bestelling)
                     {
@@ -28,7 +30,6 @@
                                 <button type="submit" asp-page-handler="Decrement" class="btn btn-succes">-</button>
                                 @bestelling.Aantal
                                 <button type="submit" asp-page-handler="Increment" class="btn btn-succes">+</button>
-
                             </td>
                             <td>
                             @if (bestelling.Opmerking.Length == 0)
@@ -43,10 +44,14 @@
                                 </td>
                             <td>@bestelling.Snack.Prijs $</td>
                             <td>@(bestelling.Snack.Prijs * bestelling.Aantal) $</td>
-                      
+                            <td>
+                                <a asp-page="@nameof(Delete)" asp-route-bestellingId="@bestelling.Id" class="btn btn-danger">Verwijderen</a>
+
+                            </td>
                         </tr>
                         </form>
                     }
+
                 </tbody>
             </table>
 
