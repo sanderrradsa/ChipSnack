@@ -65,6 +65,20 @@ namespace WebdevProjectStarterTemplate.Repositories
             var updatedOrder = connection.QuerySingle<Bestelling>(sql, new { aantal, bestellingId });
             return updatedOrder;
         }
+        
+        public IEnumerable<Bestelling> UpdateLockIn(int year, int week)
+        {
 
+            string sql = @"
+                UPDATE bestelling SET 
+                    bevestigd = 1
+                WHERE jaar = @year AND
+                weeknr = @week;
+                SELECT * FROM bestelling WHERE jaar = @year AND weeknr = @week";
+
+            using var connection = GetConnection();
+            var updatedOrder = connection.Query<Bestelling>(sql, new { year, week });
+            return updatedOrder;
+        }
     }
 }

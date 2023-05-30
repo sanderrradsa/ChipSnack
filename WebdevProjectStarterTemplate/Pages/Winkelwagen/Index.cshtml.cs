@@ -39,6 +39,13 @@ namespace WebdevProjectStarterTemplate.Pages.Winkelwagen
             OnGet();
             return Page();
 
+        }
+        public IActionResult OnPostLockInOrder()
+        {
+            OnGet();
+            var updatedOrder = new BestellingRepository().UpdateLockIn(year, week);
+            OnGet();
+            return Page();
 
         }
     }
