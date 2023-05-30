@@ -25,7 +25,7 @@
                    
                             <td>@bestelling.Snack.Naam</td>
                             <td>
-                                <input type="hidden" name="aantall" value="@bestelling.Aantal">
+                                <input type="hidden" name="aantal" value="@bestelling.Aantal">
                                 <input type="hidden" name="bestellingId" value="@bestelling.Id">
                                 <button type="submit" asp-page-handler="Decrement" class="btn btn-succes">-</button>
                                 @bestelling.Aantal
