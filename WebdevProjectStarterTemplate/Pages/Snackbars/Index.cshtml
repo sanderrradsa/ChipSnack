@@ -1,4 +1,5 @@
 ﻿@page
+@using WebdevProjectStarterTemplate.Pages.Categories
 @model WebdevProjectStarterTemplate.Pages.Snackbars.Index
 @{
 }
@@ -7,7 +8,7 @@
     <div class="col">
         <h1>Display Snackbars</h1>
 
-        <a asp-page="@nameof(CreateModel)" class="btn btn-primary">Create New Snackbar</a>
+        <a asp-page="@nameof(Create)" class="btn btn-primary">Create New Snackbar</a>
         <hr>
         <table class="table table-striped">
             <tbody>
