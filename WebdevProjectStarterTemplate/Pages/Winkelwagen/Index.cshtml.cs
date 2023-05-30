@@ -19,7 +19,7 @@ namespace WebdevProjectStarterTemplate.Pages.Winkelwagen
             week = cal.GetWeekOfYear(dt, CalendarWeekRule.FirstDay, DayOfWeek.Monday) -1;
             string date = DateTime.Now.ToString("yyyy");
             year = Convert.ToInt32(date);
-            Bestelling = new BestellingRepository().GetBestellingWithSnack(1, year, week);
+            Bestelling = new BestellingRepository().GetBestellingWithSnack(year, week);
         }
 
         public IActionResult OnPostIncrement(int bestellingId)
