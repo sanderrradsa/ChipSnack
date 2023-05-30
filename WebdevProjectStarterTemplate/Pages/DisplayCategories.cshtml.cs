@@ -11,7 +11,7 @@ public class DisplayCategories : PageModel
     
     public void OnGet()
     {
-        Categories = new CategoryRepository().GetCategoriesWithProducts();
+        // Categories = new CategoryRepository().GetCategoriesWithProducts();
     }
 
     

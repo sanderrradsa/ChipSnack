@@ -44,7 +44,25 @@ namespace WebdevProjectStarterTemplate.Repositories
             return GetFromSnackBar(snackbar.Id);
         }
 
-        
+        public IEnumerable<Snack> GetFromCategory(int categoryId)
+        {
+            string sql = @"SELECT * FROM snack WHERE categorieId = @categoryId";
+
+            using var connection = GetConnection();
+            var snacks = connection.Query<Snack>(sql, new { categoryId });
+            return snacks;
+        }
+
+        public IEnumerable<Snack> GetFromBarAndCategory(int snackbarId, int categoryId)
+        {
+            string sql = @"SELECT * FROM snack WHERE snackbarId = @snackbarId AND categorieId = @categoryID";
+
+            using var connection = GetConnection();
+            var snacks = connection.Query<Snack>(sql, new { snackbarId, categoryId });
+            return snacks;
+        }
+
+
         public bool Delete(int snackId)
         {
             string sql = @"DELETE FROM snack WHERE id = @snackId";
