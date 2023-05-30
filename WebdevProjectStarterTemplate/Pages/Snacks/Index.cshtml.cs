@@ -31,7 +31,7 @@ namespace WebdevProjectStarterTemplate.Pages.Snacks
             {
                 SelectedSnacks = SnackRepository.GetFromBarAndCategory((int)snackbarID, (int)categoryId);
             }
-            else if (snackbarID is not null)
+            else if (snackbarID is  not null)
             {
                 SelectedSnacks = SnackRepository.GetFromSnackBar((int)snackbarID);
             }
