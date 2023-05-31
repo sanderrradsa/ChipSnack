@@ -4,7 +4,7 @@
 @{
     <div class="row">
         <div class="col">
-            <h1>Display winkelwagen</h1>
+            <h1>Mijn bestelling</h1>
 
             <hr>
             <table class="table table-striped">
@@ -45,7 +45,10 @@
                             <td>@bestelling.Snack.Prijs $</td>
                             <td>@(bestelling.Snack.Prijs * bestelling.Aantal) $</td>
                             <td>
-                                <a asp-page="@nameof(Delete)" asp-route-bestellingId="@bestelling.Id" class="btn btn-danger">Verwijderen</a>
+                            @if (bestelling.Bevestigd == 0)
+                                    {
+                                        <a asp-page="@nameof(Delete)" asp-route-bestellingId="@bestelling.Id" class="btn btn-danger">Verwijderen</a>
+                                    }
 
                             </td>
                         </tr>
@@ -54,7 +57,9 @@
 
                 </tbody>
             </table>
-
+            <form method="POST">
+                <button type="submit" asp-page-handler="LockInOrder" class="btn btn-danger">Bestelling opslaan</button>
+            </form>
         </div>
     </div>
 }

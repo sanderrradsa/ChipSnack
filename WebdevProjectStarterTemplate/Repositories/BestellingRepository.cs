@@ -35,9 +35,9 @@ namespace WebdevProjectStarterTemplate.Repositories
             int numOfEffectedRows = connection.Execute(sql, new { bestellingId });
             return numOfEffectedRows == 1;
         }
-        public IEnumerable<Bestelling> GetBestellingWithSnack(int gebruikerId, int year, int week)
+        public IEnumerable<Bestelling> GetBestellingWithSnack(int year, int week)
         {
-            string sql = @"SELECT * FROM bestelling as b JOIN snack as s ON b.snackId = s.id WHERE gebruikerId = @gebruikerId AND jaar = @year AND weeknr = @week";
+            string sql = @"SELECT * FROM bestelling as b JOIN snack as s ON b.snackId = s.id WHERE jaar = @year AND weeknr = @week";
 
             using var connection = GetConnection();
             var BestellingWithSnack = connection.Query<Bestelling, Snack, Bestelling>(
@@ -47,8 +47,8 @@ namespace WebdevProjectStarterTemplate.Repositories
                     bestelling.Snack = snack;
                     return bestelling;
                 },
-                            new { gebruikerId, year, week},
-                splitOn: "snackId"
+                            new { year, week},
+                splitOn: "Id"
             );
             return BestellingWithSnack;
         }
@@ -65,6 +65,20 @@ namespace WebdevProjectStarterTemplate.Repositories
             var updatedOrder = connection.QuerySingle<Bestelling>(sql, new { aantal, bestellingId });
             return updatedOrder;
         }
+        
+        public IEnumerable<Bestelling> UpdateLockIn(int year, int week)
+        {
 
+            string sql = @"
+                UPDATE bestelling SET 
+                    bevestigd = 1
+                WHERE jaar = @year AND
+                weeknr = @week;
+                SELECT * FROM bestelling WHERE jaar = @year AND weeknr = @week";
+
+            using var connection = GetConnection();
+            var updatedOrder = connection.Query<Bestelling>(sql, new { year, week });
+            return updatedOrder;
+        }
     }
 }
