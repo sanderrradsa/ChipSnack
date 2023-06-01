@@ -1,0 +1,26 @@
+﻿@page
+@model WebdevProjectStarterTemplate.Pages.BudgetMax.IndexModel
+<div class="row">
+    <div class="col">
+        <h1>Max budget</h1>
+
+        <hr>
+        <table class="table table-striped">
+            <tbody>
+                @foreach (var budgets in Model.budgets)
+                {
+                    <tr>
+                        <td>
+                            <p>Het maximale bedrag dat een medewerker mag uitgeven: @budgets.BudgetMax $</p>
+                            
+                        </td>
+                        <td>
+                            <a asp-page="@nameof(Update)" asp-route-budgetId="@budgets.Id" class="btn btn-info">Max budget aanpassen</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>
