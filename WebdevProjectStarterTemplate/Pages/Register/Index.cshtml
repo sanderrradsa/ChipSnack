@@ -1,0 +1,43 @@
+﻿@page
+@model WebdevProjectStarterTemplate.Pages.Register.IndexModel
+@{
+
+
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Registreer nieuwe gebruiker</title>
+    </head>
+    <body>
+        <h1>Registreer nieuwe gebruiker</h1>
+
+        <form method="post">
+            <div>
+                <label for="naam">Naam:</label>
+                <input type="text" id="naam" name="naam" />
+            </div>
+            <div>
+                <label for="email">E-mail:</label>
+                <input type="text" id="email" name="email" />
+            </div>
+
+            <div>
+                <label for="password">Password:</label>
+                <input type="password" id="Password" name="Password" />
+            </div>
+            <div>
+                <label for="microID">Microsoft Id:</label>
+                <input type="number" id="microID" name="microID" />
+            </div>
+            <div>
+                <label for="admin">Admin:</label>
+                <input type="number" id="admin" name="admin" />
+            </div>
+
+            <button type="submit">Login</button>
+        </form>
+    </body>
+    </html>
+
+}

@@ -1,27 +1,30 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebdevProjectStarterTemplate.Models;
 using WebdevProjectStarterTemplate.Repositories;
 
-namespace WebdevProjectStarterTemplate.Pages.Categories;
-
-public class Delete : PageModel
+namespace WebdevProjectStarterTemplate.Pages.Categories
 {
-    public Category Category { get; set; } = null!;
-    
-    public void OnGet([FromRoute] int categoryId)
+    [Authorize]
+    public class Delete : PageModel
     {
-        Category = new CategoryRepository().Get(categoryId);
-    }
+        public Category Category { get; set; } = null!;
 
-    public IActionResult OnPostDelete([FromRoute]int categoryId)
-    {
-        bool success = new CategoryRepository().Delete(categoryId);
-        return RedirectToPage(nameof(Index));
-    }
+        public void OnGet([FromRoute] int categoryId)
+        {
+            Category = new CategoryRepository().Get(categoryId);
+        }
 
-    public IActionResult OnPostCancel()
-    {
-        return RedirectToPage(nameof(Index));
+        public IActionResult OnPostDelete([FromRoute] int categoryId)
+        {
+            bool success = new CategoryRepository().Delete(categoryId);
+            return RedirectToPage(nameof(Index));
+        }
+
+        public IActionResult OnPostCancel()
+        {
+            return RedirectToPage(nameof(Index));
+        }
     }
 }
