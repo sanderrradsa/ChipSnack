@@ -66,5 +66,30 @@ namespace WebdevProjectStarterTemplate.Repositories
             return updatedOrder;
         }
 
+        public Bestelling Add(int snackId, int weeknr, int jaarnr, int gebruikerId, string opmerking = "")
+        {
+            string sql = "INSERT INTO bestelling (gebruikerId, aantal, opmerking, weeknr, jaar, herhalen, snackId) " +
+                         "VALUE (@gebruikerId, 1, @opmerking, @weeknr, @jaarnr, 0, @snackId);" +
+                         @"SELECT * FROM bestelling WHERE id = LAST_INSERT_ID()";
+
+            using var connection = GetConnection();
+            var bestelling = connection.QuerySingle<Bestelling>(sql, new
+            {
+                gebruikerId, opmerking, weeknr,  jaarnr, snackId
+            });
+
+            return bestelling;
+        }
+
+        public Bestelling AddFavorite(int snackId, int gebruikerId, string opmerking = "")
+        {
+            string sql = "INSERT INTO bestelling (gebruikerId, aantal, opmerking, herhalen, snackId)" +
+                         "VALUE (@gebruikerId, 1, @opmerking, 1, @snackId);" +
+                         @"SELECT * FROM bestelling WHERE id = LAST_INSERT_ID();";
+
+            using var connection = GetConnection();
+            var bestelling = connection.QuerySingle<Bestelling>(sql, new { gebruikerId, opmerking, snackId });
+            return bestelling;
+        }
     }
 }
