@@ -7,7 +7,7 @@
     <div class="col">
         <h1 id="title">Snacks</h1>
 
-        <a asp-page="@nameof(CreateModel)" class="btn btn-primary">Create New Snack</a>
+        <a asp-page="@nameof(Create)" class="btn btn-primary">Create New Snack</a>
         <form method="get">
             <span>Snackbar: </span>
             <button type="submit" name="snackbarID" value="-1" class="btn btn-outline-secondary">alle</button>
@@ -50,7 +50,7 @@
                     <td>@snack.Naam</td>
                     <td>
                         <a asp-page="@nameof(Delete)" asp-route-snackId="@snack.Id" class="btn btn-danger">Delete</a> |
-                        <a asp-page="@nameof(UpdateModel)" asp-route-snackId="@snack.Id" class="btn btn-info">Update</a> <!-- UpdateModel hernoemen naar Update?-->
+                        <a asp-page="@nameof(Update)" asp-route-snackId="@snack.Id" class="btn btn-info">Update</a> <!-- UpdateModel hernoemen naar Update?-->
                     </td>
                 </tr>
             }

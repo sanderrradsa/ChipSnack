@@ -12,11 +12,11 @@ namespace WebdevProjectStarterTemplate.Pages.Snacks
     {
         public IEnumerable<Snack> SelectedSnacks;
         public IEnumerable<Snackbar> SnackbarFilters;
-        public IEnumerable<Category> CategoryFilters;
+        public IEnumerable<Categorie> CategoryFilters;
 
         public SnackReposiroty SnackRepository;
         public SnackbarRepository SnackbarRepository;
-        public CategoryRepository CategoryRepository;
+        public CategorieRepository CategorieRepository;
 
         public int selectedSnackbarId = -1;
         public int selectedCategoryId = -1;
@@ -24,7 +24,7 @@ namespace WebdevProjectStarterTemplate.Pages.Snacks
         {
             SnackRepository = new SnackReposiroty();
             SnackbarRepository = new SnackbarRepository();
-            CategoryRepository = new CategoryRepository();
+            CategorieRepository = new CategorieRepository();
 
             selectedSnackbarId = snackbarID ?? -1;
             selectedCategoryId = categoryId ?? -1;
@@ -47,7 +47,7 @@ namespace WebdevProjectStarterTemplate.Pages.Snacks
             }
             
             SnackbarFilters = SnackbarRepository.Get();
-            CategoryFilters = CategoryRepository.Get();
+            CategoryFilters = CategorieRepository.Get();
         }
 
     }
