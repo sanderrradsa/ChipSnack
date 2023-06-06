@@ -1,0 +1,27 @@
+﻿@using Microsoft.AspNetCore.Authentication
+
+@{
+    bool isAuthenticated = Context.User.Identity.IsAuthenticated;
+    var userName = isAuthenticated ? Context.User.Identity.Name : string.Empty;
+    var isAdmin = Context.User.IsInRole("admin");
+
+
+}
+
+
+@if (isAdmin && Context.User.Identity.IsAuthenticated)
+{
+    //if Role = admin show welcome message for the admin
+    <span>Welcome Admin, @userName!</span>
+    <a href="Login/Logout">Logout</a>
+}
+else {
+    //else show user welcome message
+    if (Context.User.Identity.IsAuthenticated)
+    {
+        <span>Welcome, @userName!</span>
+        <a href="Login/Logout">Logout</a>
+    };
+}
+
+

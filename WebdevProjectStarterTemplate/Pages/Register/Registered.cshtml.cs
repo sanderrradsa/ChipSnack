@@ -2,11 +2,12 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace WebdevProjectStarterTemplate.Pages.Snacks
+namespace WebdevProjectStarterTemplate.Pages.Register
 {
-    [Authorize]
-    public class CreateModel : PageModel
+    [Authorize(Roles = "admin")]
+    public class RegisteredModel : PageModel
     {
+        
         public void OnGet()
         {
         }

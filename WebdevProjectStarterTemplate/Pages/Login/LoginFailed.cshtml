@@ -1,0 +1,43 @@
+﻿@page
+@model WebdevProjectStarterTemplate.Pages.Login.LoginFailed
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+</head>
+<body>
+    <h1>Login</h1>
+
+    <form method="post">
+        <!-- Email input -->
+        <div class="form-outline mb-4">
+            <label class="form-label" for="username">Email address</label>
+            <input type="email" id="username" name="Username" class="form-control" />
+
+        </div>
+
+        <!-- Password input -->
+        <div class="form-outline mb-4">
+            <label class="form-label" for="password">Password</label>
+            <input type="password" id="password" name="Password" class="form-control" />
+
+        </div>
+        <div>
+            <p style="color: red">Verkeerde email of wachtwoord ingevoerd om:  <span id="datetime" /></p>
+        </div>
+
+        <script>
+            var dt = new Date();
+            document.getElementById("datetime").innerHTML = dt.toLocaleString();
+        </script>
+
+
+        <!-- Submit button -->
+        <button type="submit" class="btn btn-primary btn-block mb-4">Sign in</button>
+
+
+    </form>
+</body>
+</html>

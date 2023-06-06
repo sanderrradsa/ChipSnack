@@ -1,18 +1,21 @@
 using System.Collections;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebdevProjectStarterTemplate.Models;
 using WebdevProjectStarterTemplate.Repositories;
 
-namespace WebdevProjectStarterTemplate.Pages;
-
-public class DisplayCategories : PageModel
+namespace WebdevProjectStarterTemplate.Pages
 {
-    public IEnumerable<Category> Categories { get; set; } = null!;
-    
-    public void OnGet()
+    [Authorize]
+    public class DisplayCategories : PageModel
     {
-        // Categories = new CategoryRepository().GetCategoriesWithProducts();
-    }
+        public IEnumerable<Category> Categories { get; set; } = null!;
 
-    
+        public void OnGet()
+        {
+            Categories = new CategoryRepository().GetCategoriesWithProducts();
+        }
+
+
+    }
 }
