@@ -5,17 +5,17 @@
     <div class="col">
         <h1>Display Categories</h1>
 
-        <a asp-page="@nameof(Create)" class="btn btn-primary">Create New Category</a>
+        <a asp-page="@nameof(Create)" class="btn btn-primary">Create New Categorie</a>
         <hr>
         <table class="table table-striped">
             <tbody>
-            @foreach (var category in Model.Categories)
+            @foreach (var Categorie in Model.Categories)
             {
                 <tr>
-                    <td>@category.Name</td>
+                    <td>@Categorie.Naam</td>
                     <td>
-                        <a asp-page="@nameof(Delete)" asp-route-categoryId="@category.CategoryId" class="btn btn-danger">Delete</a> |
-                        <a asp-page="@nameof(Update)" asp-route-categoryId="@category.CategoryId" class="btn btn-info">Update</a>
+                        <a asp-page="@nameof(Delete)" asp-route-CategorieId="@Categorie.Id" class="btn btn-danger">Delete</a> |
+                        <a asp-page="@nameof(Update)" asp-route-CategorieId="@Categorie.Id" class="btn btn-info">Update</a>
                     </td>
                 </tr>
             }

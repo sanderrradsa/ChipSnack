@@ -5,112 +5,63 @@ using WebdevProjectStarterTemplate.Models;
 
 namespace WebdevProjectStarterTemplate.Repositories
 {
-    public class CategoryRepository
+    public class CategorieRepository
     {
         private IDbConnection GetConnection()
         {
             return new DbUtils().GetDbConnection();
         }
 
-        public Category Get(int categoryId)
+        public Categorie Get(int Id)
         {
-            string sql = "SELECT * FROM Category WHERE CategoryId = @categoryId";
-            
+            string sql = "SELECT * FROM Categorie WHERE id = @Id";
+
             using var connection = GetConnection();
-            var category = connection.QuerySingle<Category>(sql, new { categoryId });
-            return category;
+            var Categorie = connection.QuerySingle<Categorie>(sql, new { Id });
+            return Categorie;
         }
 
-        public IEnumerable<Category> Get()
+        public IEnumerable<Categorie> Get()
         {
-            string sql = "SELECT * FROM Category ORDER BY Name";
-            
+            string sql = "SELECT * FROM categorie ORDER BY naam";
+
             using var connection = GetConnection();
-            var categories = connection.Query<Category>(sql);
+            var categories = connection.Query<Categorie>(sql);
             return categories;
         }
 
-        
-        
-        public IEnumerable<Category> GetCategoriesWithProducts()
-        {
-            //het vullen van een lijst met categorieën is lastig met dapper (parent (Cagegory) with children (Products from Category))
-            //ik heb idee van stackoverflow wat aangepast om het ook met LEFT JOIN te laten werken
-
-            //https://stackoverflow.com/questions/6379155/multi-mapper-to-create-object-hierarchy#6380756
-            //https://stackoverflow.com/questions/9350467/how-do-i-write-one-to-many-query-in-dapper-net
-            
-            string sql = @"SELECT * FROM 
-                    Category as C LEFT JOIN Product 
-                        as P ON C.CategoryId = P.CategoryId
-                        
-                    ORDER BY C.CategoryId, P.Name";
-            
-            using var connection = GetConnection();
-            var categoryLookup = new Dictionary<int, Category>();
-            var categories = connection.Query<Category, Product, Category>(sql, (category, product) =>
-            {
-                if(categoryLookup.TryGetValue(category.CategoryId, out var existingCategory))
-                {
-                    existingCategory.Products.Add(product);
-                    return existingCategory;
-                }
-                else
-                {
-                    if (product is not null) //de LEFT JOIN zorgt voor null product (wanneer een category geen producten heeft)!
-                    {                  
-                        category.Products.Add(product);
-                    }
-
-                    categoryLookup.Add(category.CategoryId, category);
-                    return category;
-                }
-            }, splitOn: "ProductId");
-
-            //ophalen van de categorieën uit de categoryLookup
-            var result = categoryLookup.Values.OrderBy(x => x.Name); 
-            
-            //sorteren van producten binnen een category, gebruik liever ORDER BY in de SQL query om de product te sorteren binnen een category
-            // foreach (var category in result)
-            // {
-            //     category.Products = category.Products.OrderBy(x => x.Name).ToList();
-            // }
-            
-            return result;
-        }
-
-        public Category Add(Category? category)
+        public Categorie Add(Categorie? Categorie)
         {
             string sql = @"
-                INSERT INTO Category (Name) 
+                INSERT INTO Categorie (Name) 
                 VALUES (@Name); 
-                SELECT * FROM Category WHERE CategoryId = LAST_INSERT_ID()";
+                SELECT * FROM Categorie WHERE CategorieId = LAST_INSERT_ID()";
             
             using var connection = GetConnection();
-            var addedCategory = connection.QuerySingle<Category>(sql, category);
-            return addedCategory;
+            var addedCategorie = connection.QuerySingle<Categorie>(sql, Categorie);
+            return addedCategorie;
         }
 
-        public bool Delete(int categoryId)
+        public bool Delete(int CategorieId)
         {
-            string sql = @"DELETE FROM Category WHERE CategoryId = @categoryId";
+            string sql = @"DELETE FROM Categorie WHERE CategorieId = @CategorieId";
             
             using var connection = GetConnection();
-            int numOfEffectedRows = connection.Execute(sql, new { categoryId });
+            int numOfEffectedRows = connection.Execute(sql, new { CategorieId });
             return numOfEffectedRows == 1;
         }
 
-        public Category Update(Category category)
+        public Categorie Update(Categorie Categorie)
         {
             string sql = @"
-                UPDATE Category SET 
+                UPDATE Categorie SET 
                     Name = @Name 
-                WHERE CategoryId = @CategoryId;
-                SELECT * FROM Category WHERE CategoryId = @CategoryId";
+                WHERE CategorieId = @CategorieId;
+                SELECT * FROM Categorie WHERE CategorieId = @CategorieId";
             
             using var connection = GetConnection();
-            var updatedCategory = connection.QuerySingle<Category>(sql, category);
-            return updatedCategory;
+            var updatedCategorie = connection.QuerySingle<Categorie>(sql, Categorie);
+            return updatedCategorie;
         }
     }
 }

@@ -11,23 +11,23 @@ public class ProductRepository
         return new DbUtils().GetDbConnection();
     }
     
-    public IEnumerable<Product> GetProductWithCategory()
+    public IEnumerable<Product> GetProductWithCategorie()
     {
         string sql = @"    SELECT * 
                             FROM Product as P
-                                JOIN Category as C ON P.CategoryId = C.CategoryId 
+                                JOIN Categorie as C ON P.CategorieId = C.CategorieId 
                             ORDER BY C.Name, P.Name";
             
         using var connection = GetConnection();
-        var productsWithCategory = connection.Query<Product, Category, Product>(
+        var productsWithCategorie = connection.Query<Product, Categorie, Product>(
             sql, 
-            map: (product, category) =>
+            map: (product, Categorie) =>
             {
-                product.Category = category;
+                product.Categorie = Categorie;
                 return product;
             }, 
-            splitOn: "CategoryId"
+            splitOn: "CategorieId"
         );
-        return productsWithCategory;
+        return productsWithCategorie;
     }
 }

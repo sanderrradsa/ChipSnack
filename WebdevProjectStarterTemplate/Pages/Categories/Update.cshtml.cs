@@ -7,21 +7,21 @@ namespace WebdevProjectStarterTemplate.Pages.Categories;
 
 public class Update : PageModel
 {
-    public Category Category { get; set; } = null!;
+    public Categorie Categorie { get; set; } = null!;
     
-    public void OnGet(int categoryId)
+    public void OnGet(int CategorieId)
     {
-        Category = new CategoryRepository().Get(categoryId);
+        Categorie = new CategorieRepository().Get(CategorieId);
     }
 
-    public IActionResult OnPost(Category category)
+    public IActionResult OnPost(Categorie Categorie)
     {
         if (!ModelState.IsValid)
         {
             return Page();
         }
 
-        var updatedCategory = new CategoryRepository().Update(category);
+        var updatedCategorie = new CategorieRepository().Update(Categorie);
 
         return RedirectToPage(nameof(Index));
     }

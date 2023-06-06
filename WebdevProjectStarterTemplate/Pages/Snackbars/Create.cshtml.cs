@@ -20,7 +20,7 @@ namespace WebdevProjectStarterTemplate.Pages.Snackbars
                 return Page();
             }
         
-            var createdCategory = new SnackbarRepository().Add(Snackbar);
+            var createdCategorie = new SnackbarRepository().Add(Snackbar);
             return RedirectToPage(nameof(Index));
         }
 

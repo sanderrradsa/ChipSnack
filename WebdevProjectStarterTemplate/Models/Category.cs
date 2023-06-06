@@ -2,13 +2,12 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WebdevProjectStarterTemplate.Models
 {
-    public class Category
+    public class Categorie
     {
-        public int CategoryId { get; set; }
+        public int Id { get; set; }
 
         [Required, MinLength(2), MaxLength(128)]
-        public string Name { get; set; } = null!;
+        public string Naam { get; set; } = null!;
 
-        public List<Product?> Products { get; set; } = new List<Product?>();
     }
 }

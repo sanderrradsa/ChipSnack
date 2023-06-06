@@ -7,16 +7,16 @@ namespace WebdevProjectStarterTemplate.Pages.Categories;
 
 public class Delete : PageModel
 {
-    public Category Category { get; set; } = null!;
+    public Categorie Categorie { get; set; } = null!;
     
-    public void OnGet([FromRoute] int categoryId)
+    public void OnGet([FromRoute] int CategorieId)
     {
-        Category = new CategoryRepository().Get(categoryId);
+        Categorie = new CategorieRepository().Get(CategorieId);
     }
 
-    public IActionResult OnPostDelete([FromRoute]int categoryId)
+    public IActionResult OnPostDelete([FromRoute]int CategorieId)
     {
-        bool success = new CategoryRepository().Delete(categoryId);
+        bool success = new CategorieRepository().Delete(CategorieId);
         return RedirectToPage(nameof(Index));
     }
 

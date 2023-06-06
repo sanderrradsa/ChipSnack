@@ -1,4 +1,41 @@
-﻿@page
-@model WebdevProjectStarterTemplate.Pages.Snacks.UpdateModel
-@{
-}
+﻿@page "{snackId:int}"
+@model WebdevProjectStarterTemplate.Pages.Snacks.Update
+
+<div class="row">
+    <div class="col">
+        <h1>Update Snack</h1>
+        <form method="POST">
+            <input type="hidden" asp-for="Snack.Id" />
+            <div class="form-group">
+                <label asp-for="Snack.Naam">Naam:</label>
+                <input asp-for="Snack.Naam" class="form-control" />
+                <span asp-validation-for="Snack.Naam"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Snack.Prijs">Prijs:</label>
+                <input asp-for="Snack.Prijs" class="form-control" />
+                <span asp-validation-for="Snack.Prijs"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Snack.Beschrijving">Beschrijving:</label>
+                <textarea asp-for="Snack.Beschrijving" class="form-control" rows="3"></textarea>
+                <span asp-validation-for="Snack.Beschrijving"></span>
+            </div>
+@*            <div class="form-group">
+                <label asp-for="Snack.CategorieID">Categorie:</label>
+                <select asp-for="Snack.CategorieID" class="form-control">
+                    <option value="">Choose a Categorie</option>
+                    @foreach (var categorie in ViewBag.Categorieen)
+                    {
+                        <option value="@categorie.Id">@categorie.Naam</option>
+                    }
+                </select>
+                <span asp-validation-for="Snack.CategorieID"></span>
+            </div>*@
+            <div class="mt-3">
+                <button type="submit" class="btn btn-success">Update</button>
+                <button asp-page-handler="Cancel" class="btn btn-danger">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>

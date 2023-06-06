@@ -7,7 +7,7 @@ namespace WebdevProjectStarterTemplate.Pages.Categories;
 
 public class Create : PageModel
 {
-    [BindProperty] public Category Category { get; set; } = null!;
+    [BindProperty] public Categorie Categorie { get; set; } = null!;
     
     public void OnGet()
     {
@@ -20,7 +20,7 @@ public class Create : PageModel
             return Page();
         }
         
-        var createdCategory = new CategoryRepository().Add(Category);
+        var createdCategorie = new CategorieRepository().Add(Categorie);
         return RedirectToPage(nameof(Index));
     }
 
