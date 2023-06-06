@@ -8,13 +8,14 @@
         <h1>History</h1>
         
         <form method="GET">
-            <select name="jaar">
+            <label for="jaar">Jaar: </label>
+            <select name="jaar" id="jaar">
                 <option>elk</option>
                 @foreach (int jaar in Model.BeschikbareJaren)
                 {
                     @if (Model.geselecteerdJaar == jaar)
                     {
-                        <option value="@jaar" selected="selected">@jaar</option>    
+                        <option value="@jaar" selected="selected">@jaar</option>
                     }
                     else
                     {
@@ -22,15 +23,16 @@
                     }
                 }
             </select>
+            <label for="week">Week: </label>
             @if (Model.BeschikbareWeken is not null)
             {
-                <select name="week">
+                <select name="week" id="week">
                     <option>elke</option>
                     @foreach (int week in Model.BeschikbareWeken)
                     {
                         @if (week == Model.geselecteerdeWeek)
                         {
-                            <option value="@week" selected="selected">@week</option>    
+                            <option value="@week" selected="selected">@week</option>
                         }
                         else
                         {
@@ -41,11 +43,17 @@
             }
             else
             {
-                <select disabled="disabled">
+                <select disabled="disabled" id="week">
                     <option>Selecteer eerst jaar</option>
                 </select>
             }
-            
+
+            @foreach (var relativiteit in Enum.GetNames<TijdsRelativiteit>())
+            {
+                <label for="rel_@relativiteit">@relativiteit: </label>
+                <input type="radio" name="relativiteit" value="@relativiteit" id="rel_@relativiteit">
+            }
+
             <input type="submit" value="submit" name="submit">
         </form>
         
