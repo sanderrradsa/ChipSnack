@@ -13,8 +13,8 @@ namespace WebdevProjectStarterTemplate.Models
         public decimal Price { get; set; }
 
         [Required]
-        public int CategoryId { get; set; }
+        public int CategorieId { get; set; }
         
-        public Category Category { get; set; } = null!;
+        public Categorie Categorie { get; set; } = null!;
     }
 }
