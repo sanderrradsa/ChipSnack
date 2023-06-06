@@ -6,6 +6,7 @@ using WebdevProjectStarterTemplate.Repositories;
 
 namespace WebdevProjectStarterTemplate.Pages.Snacks
 {
+    [Authorize]
     public class IndexModel : PageModel
     {
         public IEnumerable<Snack> SelectedSnacks;

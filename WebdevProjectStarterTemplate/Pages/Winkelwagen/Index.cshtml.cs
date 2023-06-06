@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Globalization;
@@ -6,6 +7,7 @@ using WebdevProjectStarterTemplate.Repositories;
 
 namespace WebdevProjectStarterTemplate.Pages.Winkelwagen
 {
+    [Authorize]
     public class Index : PageModel
     {
         public IEnumerable<Bestelling> Bestelling { get; set; } = null!;

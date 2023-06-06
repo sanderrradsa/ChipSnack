@@ -1,0 +1,17 @@
+﻿@using Microsoft.AspNetCore.Authentication
+
+@{
+    bool isAuthenticated = Context.User.Identity.IsAuthenticated;
+    var userName = isAuthenticated ? Context.User.Identity.Name : string.Empty;
+    bool isAdmin = Context.User.IsInRole("admin"); 
+
+
+}
+
+@if (isAdmin)
+{
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-page="/Register/Index">Register</a>
+    </li>
+}
+

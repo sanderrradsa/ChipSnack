@@ -1,17 +1,18 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebdevProjectStarterTemplate.Models;
 using WebdevProjectStarterTemplate.Repositories;
 
 namespace WebdevProjectStarterTemplate.Pages.Categories;
-
+[Authorize]
 public class Update : PageModel
 {
-    public Category Categorie { get; set; } = null!;
-    
+    public Category Category { get; set; } = null!;
+
     public void OnGet(int categoryId)
     {
-        Categorie = new CategoryRepository().Get(categoryId);
+        Category = new CategoryRepository().Get(categoryId);
     }
 
     public IActionResult OnPost(Category category)
