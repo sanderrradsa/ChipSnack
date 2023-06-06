@@ -7,7 +7,7 @@ using WebdevProjectStarterTemplate.Models;
 namespace WebdevProjectStarterTemplate.Repositories
 {
     [Authorize]
-    public class CategoryRepository
+    public class CategorieRepository
     {
         private IDbConnection GetConnection()
         {

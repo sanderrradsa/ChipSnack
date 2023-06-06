@@ -9,7 +9,7 @@ namespace WebdevProjectStarterTemplate.Pages.Categories
     [Authorize]
     public class Create : PageModel
     {
-        [BindProperty] public Categorie Category { get; set; } = null!;
+        [BindProperty] public Categorie Categorie { get; set; } = null!;
 
         public void OnGet()
         {
@@ -21,6 +21,8 @@ namespace WebdevProjectStarterTemplate.Pages.Categories
         {
             return Page();
         }
+
+        Categorie = new Categorie();
         
         var createdCategorie = new CategorieRepository().Add(Categorie);
         return RedirectToPage(nameof(Index));
