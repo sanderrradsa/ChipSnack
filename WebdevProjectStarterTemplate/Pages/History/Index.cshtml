@@ -7,6 +7,48 @@
         
         <h1>History</h1>
         
+        <form method="GET">
+            <select name="jaar">
+                <option>elk</option>
+                @foreach (int jaar in Model.BeschikbareJaren)
+                {
+                    @if (Model.geselecteerdJaar == jaar)
+                    {
+                        <option value="@jaar" selected="selected">@jaar</option>    
+                    }
+                    else
+                    {
+                        <option value="@jaar">@jaar</option>
+                    }
+                }
+            </select>
+            @if (Model.BeschikbareWeken is not null)
+            {
+                <select name="week">
+                    <option>elke</option>
+                    @foreach (int week in Model.BeschikbareWeken)
+                    {
+                        @if (week == Model.geselecteerdeWeek)
+                        {
+                            <option value="@week" selected="selected">@week</option>    
+                        }
+                        else
+                        {
+                            <option value="@week">@week</option>
+                        }
+                    }
+                </select>
+            }
+            else
+            {
+                <select disabled="disabled">
+                    <option>Selecteer eerst jaar</option>
+                </select>
+            }
+            
+            <input type="submit" value="submit" name="submit">
+        </form>
+        
         <table class="table table-striped">
         <tbody>
         <tr>
