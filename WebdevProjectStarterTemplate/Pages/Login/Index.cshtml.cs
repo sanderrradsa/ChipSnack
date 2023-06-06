@@ -8,18 +8,23 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Dapper;
+using System.Data;
 
 namespace WebdevProjectStarterTemplate.Pages.Login
 {
     
     public class IndexModel : PageModel
     {
+        private IDbConnection GetConnection()
+        {
+            return new DbUtils().GetDbConnection();
+        }
+
         [HttpPost]
         public async Task<IActionResult> OnPostAsync(string username, string password)
         {
-            
-            string connectionString = "Server=127.0.0.1;Port=3306;Database=WebdevProject;Uid=root;";
 
+            string connectionString = GetConnection().ConnectionString;
             using (var connection = new MySqlConnection(connectionString))
             {
                 connection.Open();
@@ -38,18 +43,13 @@ namespace WebdevProjectStarterTemplate.Pages.Login
                         MySqlDataReader reader = command1.ExecuteReader();
                         bool admin = reader.Read();
 
-                        //string temp = command1.Transaction.ToString();
-                        /* if ()
-                         {
-
-                         }*/
 
                         if (count == 1 && admin)
                         {
 
                             // Login successful, redirect to a different page
 
-                        var claims = new List<Claim>{
+                            var claims = new List<Claim>{
                         new Claim(ClaimTypes.Name, username),
                         new Claim(ClaimTypes.Role, "admin")
                         // Add any additional claims you need
@@ -69,9 +69,8 @@ namespace WebdevProjectStarterTemplate.Pages.Login
 
                             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, authProperties);
 
-                            //return RedirectToPage("/Index");
 
-                            return RedirectToPage("/Privacy");
+                            return RedirectToPage("/Index");
                         }
                         else if (count == 1 && !admin)
                         {
@@ -104,8 +103,7 @@ namespace WebdevProjectStarterTemplate.Pages.Login
                         }
                         else
                         {
-                            // Login failed, display an error message
-                            //ModelState.AddModelError(string.Empty, "Invalid username or password.");
+                            // Login failed, display error page
                             return RedirectToPage("/Login/LoginFailed");
                         }
                     }

@@ -3,25 +3,25 @@
 @{
     bool isAuthenticated = Context.User.Identity.IsAuthenticated;
     var userName = isAuthenticated ? Context.User.Identity.Name : string.Empty;
-   // var isAdmin = isAuthenticated ? Context.User.IsInRole("admin") 
+    var isAdmin = Context.User.IsInRole("admin");
 
 
 }
 
-@if (Context.User.Identity.IsAuthenticated)
+
+@if (isAdmin && Context.User.Identity.IsAuthenticated)
 {
-    <span>Welcome, @userName!</span>
+    //if Role = admin show welcome message for the admin
+    <span>Welcome Admin, @userName!</span>
     <a href="Login/Logout">Logout</a>
 }
-
-else
-{
-    //<a href = "Login">Login</a>
-   // if(Request.Url("/login/index")){
-
-    //}
-
-    //<span>Welcome, @userName!</span>
-    //<a href="Login/Logout">Logout</a>
+else {
+    //else show user welcome message
+    if (Context.User.Identity.IsAuthenticated)
+    {
+        <span>Welcome, @userName!</span>
+        <a href="Login/Logout">Logout</a>
+    };
 }
+
 

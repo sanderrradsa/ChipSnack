@@ -18,12 +18,4 @@ namespace WebdevProjectStarterTemplate.Pages.Login
 }
     
 
-/*{
-    public class LogoutModel : PageModel
-    {
-        public void OnGet()
-        {
 
-        }
-    }
-}*/
