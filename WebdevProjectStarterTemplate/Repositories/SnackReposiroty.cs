@@ -77,6 +77,7 @@ namespace WebdevProjectStarterTemplate.Repositories
             naam = @Naam,
             prijs = @Prijs,
             beschrijving = @Beschrijving,
+            snackbarId = @Snackbarid,
             categorieID = @CategorieID
         WHERE id = @Id;
         SELECT * FROM snack WHERE id = @Id";

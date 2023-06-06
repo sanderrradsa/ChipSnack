@@ -9,7 +9,9 @@ namespace WebdevProjectStarterTemplate.Pages.Snacks
     public class Update : PageModel
     {
         [BindProperty]
-        public Snack Snack { get; set; } = null!;
+        public Snack snack { get; set; } = null!;
+        public List<Snackbar> ListSnackBars = new List<Snackbar>();
+        public List<Categorie> ListCategorie = new List<Categorie>();
         //public SelectList Categorieen { get; set; }
         //public async Task<IActionResult> OnGetAsync(int snackId)
         //{
@@ -27,9 +29,26 @@ namespace WebdevProjectStarterTemplate.Pages.Snacks
 
         public void OnGet(int snackId)
         {
-             Snack = new SnackReposiroty().Get(snackId);
+            snack = new SnackReposiroty().Get(snackId);
+            GetSnackbars();
+            GetCategorie();
         }
-
+        public void GetSnackbars()
+        {
+            var Snackbars = new SnackbarRepository().Get();
+            foreach (var snackbar in Snackbars)
+            {
+                ListSnackBars.Add(snackbar);
+            }
+        }
+        public void GetCategorie()
+        {
+            var Categorie = new CategorieRepository().Get();
+            foreach (var categorie in Categorie)
+            {
+                ListCategorie.Add(categorie);
+            }
+        }
         public IActionResult OnPost(Snack snack)
         {
             if (!ModelState.IsValid)
