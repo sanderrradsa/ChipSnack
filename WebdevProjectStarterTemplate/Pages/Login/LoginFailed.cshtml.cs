@@ -77,7 +77,7 @@ namespace WebdevProjectStarterTemplate.Pages.Login
 
                             // Login successful, redirect to a different page
 
-                            var claims = new List<Claim>{
+                        var claims = new List<Claim>{
                         new Claim(ClaimTypes.Name, username),
                         new Claim(ClaimTypes.Role, "gebruiker")
                         // Add any additional claims you need

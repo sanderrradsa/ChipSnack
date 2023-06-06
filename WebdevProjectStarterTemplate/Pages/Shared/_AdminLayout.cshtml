@@ -3,25 +3,15 @@
 @{
     bool isAuthenticated = Context.User.Identity.IsAuthenticated;
     var userName = isAuthenticated ? Context.User.Identity.Name : string.Empty;
-   // var isAdmin = isAuthenticated ? Context.User.IsInRole("admin") 
+    bool isAdmin = Context.User.IsInRole("admin"); 
 
 
 }
 
-@if (Context.User.IsInRole("admin"))
+@if (isAdmin)
 {
     <li class="nav-item">
         <a class="nav-link text-dark" asp-area="" asp-page="/Register/Index">Register</a>
     </li>
-}
-else
-{
-    //<a href = "Login">Login</a>
-   // if(Request.Url("/login/index")){
-
-    //}
-
-    //<span>Welcome, @userName!</span>
-    //<a href="Login/Logout">Logout</a>
 }
 
