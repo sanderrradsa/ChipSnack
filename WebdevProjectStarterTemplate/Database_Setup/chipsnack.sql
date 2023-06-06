@@ -185,7 +185,7 @@ CREATE TABLE `budget` (
     budget int PRIMARY KEY NOT NULL
 );
 
-
+SET sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));
 
 
 COMMIT;

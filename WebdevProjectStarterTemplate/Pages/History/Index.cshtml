@@ -2,35 +2,28 @@
 @using WebdevProjectStarterTemplate.Models
 @using WebdevProjectStarterTemplate.Pages
 @model WebdevProjectStarterTemplate.Pages.History.Index
-
-@{
-    Layout = null;
-}
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <title></title>
-</head>
-<body>
-<table class="table">
-    <tbody>
-    <tr>
-        <td>Snack</td> <td>aantal</td>
-    </tr>
-    @foreach (History history in Model.History)
-    {
+<div class="row">
+    <div class="col">
+        
+        <h1>History</h1>
+        
+        <table class="table table-striped">
+        <tbody>
         <tr>
-            <td>
-                <a asp-page="@nameof(Pages.Snacks.UpdateModel)" asp-route-snackId="@history.Snack.Id"> @history.Snack.Naam </a>
-            </td>
-            <td>
-                @history.Totaal
-            </td>
+            <td>Snack</td> <td>aantal</td>
         </tr>
-    }
-    </tbody>
-</table>
-</body>
-</html>
+        @foreach (History history in Model.History)
+        {
+            <tr>
+                <td>
+                    <a asp-page="@nameof(Pages.Snacks.UpdateModel)" asp-route-snackId="@history.Snack.Id"> @history.Snack.Naam </a>
+                </td>
+                <td>
+                    @history.Totaal
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
+</div>
