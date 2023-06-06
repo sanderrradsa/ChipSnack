@@ -7,19 +7,24 @@ using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Data;
+
 namespace WebdevProjectStarterTemplate.Pages.Login
 {
 
     public class LoginFailed : PageModel
     {
-        
+
+        private IDbConnection GetConnection()
+        {
+            return new DbUtils().GetDbConnection();
+        }
 
         [HttpPost]
         public async Task<IActionResult> OnPostAsync(string username, string password)
         {
 
-            string connectionString = "Server=127.0.0.1;Port=3306;Database=WebdevProject;Uid=root;";
-
+            string connectionString = GetConnection().ConnectionString;
             using (var connection = new MySqlConnection(connectionString))
             {
                 connection.Open();
@@ -31,40 +36,76 @@ namespace WebdevProjectStarterTemplate.Pages.Login
                     command.Parameters.AddWithValue("@Password", password);
 
                     int count = Convert.ToInt32(command.ExecuteScalar());
-
-                    if (count == 1)
+                    string query1 = "SELECT * FROM gebruiker where email = @Username and rol = 1";
+                    using (var command1 = new MySqlCommand(@query1, connection))
                     {
+                        command1.Parameters.AddWithValue("@Username", username);
+                        MySqlDataReader reader = command1.ExecuteReader();
+                        bool admin = reader.Read();
 
-                        // Login successful, redirect to a different page
 
-                        var claims = new List<Claim>{
-                        new Claim(ClaimTypes.Name, username)
+                        if (count == 1 && admin)
+                        {
+
+                            // Login successful, redirect to a different page
+
+                            var claims = new List<Claim>{
+                        new Claim(ClaimTypes.Name, username),
+                        new Claim(ClaimTypes.Role, "admin")
                         // Add any additional claims you need
                         };
 
-                        var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                            var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
-                        var principal = new ClaimsPrincipal(identity);
+                            var principal = new ClaimsPrincipal(identity);
 
-                        var authProperties = new AuthenticationProperties
+                            var authProperties = new AuthenticationProperties
+                            {
+                                IsPersistent = true, // Set the cookie to be persistent
+                                ExpiresUtc = DateTime.UtcNow.AddMonths(1) // Set the expiration date of the cookie
+
+
+                            };
+
+                            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, authProperties);
+
+
+                            return RedirectToPage("/Index");
+                        }
+                        else if (count == 1 && !admin)
                         {
-                            IsPersistent = true, // Set the cookie to be persistent
-                            ExpiresUtc = DateTime.UtcNow.AddMonths(1) // Set the expiration date of the cookie
 
+                            // Login successful, redirect to a different page
 
+                        var claims = new List<Claim>{
+                        new Claim(ClaimTypes.Name, username),
+                        new Claim(ClaimTypes.Role, "gebruiker")
+                        // Add any additional claims you need
                         };
 
-                        await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, authProperties);
+                            var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
-                        //return RedirectToPage("/Index");
+                            var principal = new ClaimsPrincipal(identity);
 
-                        return RedirectToPage("/Privacy");
-                    }
-                    else
-                    {
-                        // Login failed, display an error message
-                        //ModelState.AddModelError(string.Empty, "Invalid username or password.");
-                        return RedirectToPage("/Login/LoginFailed");
+                            var authProperties = new AuthenticationProperties
+                            {
+                                IsPersistent = true, // Set the cookie to be persistent
+                                ExpiresUtc = DateTime.UtcNow.AddMonths(1) // Set the expiration date of the cookie
+
+
+                            };
+
+                            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, authProperties);
+
+                            //return RedirectToPage("/Index");
+
+                            return RedirectToPage("/Index");
+                        }
+                        else
+                        {
+                            // Login failed, display error page
+                            return RedirectToPage("/Login/LoginFailed");
+                        }
                     }
                 }
             }
