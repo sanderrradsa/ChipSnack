@@ -13,9 +13,7 @@ namespace WebdevProjectStarterTemplate.Pages
 
         public void OnGet()
         {
-            Categories = new CategoryRepository().GetCategoriesWithProducts();
+            // Categories = new CategoryRepository().GetCategoriesWithProducts();
         }
-
-
     }
 }

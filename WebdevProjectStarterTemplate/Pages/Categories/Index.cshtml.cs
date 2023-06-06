@@ -14,7 +14,7 @@ namespace WebdevProjectStarterTemplate.Pages.Categories
         public void OnGet()
         {
             Categories = new CategoryRepository().Get();
-            CategoriesWithProduct = new CategoryRepository().GetCategoriesWithProducts();
+            // CategoriesWithProduct = new CategoryRepository().GetCategoriesWithProducts();
         }
 
 
