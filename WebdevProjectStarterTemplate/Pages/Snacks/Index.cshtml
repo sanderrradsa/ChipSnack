@@ -2,3 +2,60 @@
 @model WebdevProjectStarterTemplate.Pages.Snacks.IndexModel
 @{
 }
+
+<div class="row">
+    <div class="col">
+        <h1 id="title">Snacks</h1>
+
+        <a asp-page="@nameof(CreateModel)" class="btn btn-primary">Create New Snack</a>
+        <form method="get">
+            <span>Snackbar: </span>
+            <button type="submit" name="snackbarID" value="-1" class="btn btn-outline-secondary">alle</button>
+            <div class="btn-group" role="group">
+                @foreach (var snackbar in Model.SnackbarFilters)
+                {
+                    @if (Model.selectedSnackbarId == snackbar.Id)
+                    {
+                        <button type="submit" name="snackbarID" value="@snackbar.Id" class="btn btn-secondary">@snackbar.Naam</button>
+                    }
+                    else
+                    {
+                        <button type="submit" name="snackbarID" value="@snackbar.Id" class="btn btn-outline-secondary">@snackbar.Naam</button>
+                    }
+                }
+            </div>
+            <br/>
+            <span>Categorie: </span>
+            <button type="submit" name="snackbarID" value="-1" class="btn btn-outline-secondary">alle</button>
+            <div class="btn-group" role="group">
+                @foreach (var category in Model.CategoryFilters)
+                {
+                    @if (Model.selectedCategoryId == category.Id)
+                    {
+                        <button type="submit" name="categoryID" value="@category.Id" class="btn btn-secondary">@category.Naam</button>
+                    }
+                    else
+                    {
+                        <button type="submit" name="categoryID" value="@category.Id" class="btn btn-outline-secondary">@category.Naam</button>
+                    }
+                }
+            </div>
+        </form>
+        <hr>
+        <table class="table table-striped">
+            <tbody>
+            @foreach (var snack in Model.SelectedSnacks)
+            {
+                <tr>
+                    <td>@snack.Naam</td>
+                    <td>
+                        <a asp-page="@nameof(Delete)" asp-route-snackId="@snack.Id" class="btn btn-danger">Delete</a> |
+                        <a asp-page="@nameof(UpdateModel)" asp-route-snackId="@snack.Id" class="btn btn-info">Update</a> <!-- UpdateModel hernoemen naar Update?-->
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+
+    </div>
+</div>

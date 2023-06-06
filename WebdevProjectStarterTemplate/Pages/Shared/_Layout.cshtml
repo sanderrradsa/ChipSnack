@@ -32,13 +32,26 @@
                         <a class="nav-link text-dark" asp-area="" asp-page="/DisplayCategories">Categories</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
+                        <a class="nav-link text-dark" asp-area="" asp-page="/BudgetMax/Index">Max budget</a>
                     </li>
+                    @Html.Partial("_AdminLayout")
+
+                     
                 </ul>
+                    <ul class="navbar-nav justify-content-end">
+                        <a class="nav-link text-dark" asp-area="" asp-page="/Winkelwagen/Index">Mijn bestelling </a>
+                </ul>
+                    <div id="header">
+                        @Html.Partial("_LoggedInUser")
+                    </div>
+
             </div>
         </div>
     </nav>
 </header>
+<div class="">
+
+</div>
 <div class="container">
     <main role="main" class="pb-3">
         @RenderBody()

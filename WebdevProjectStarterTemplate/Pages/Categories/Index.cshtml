@@ -12,10 +12,10 @@
             @foreach (var category in Model.Categories)
             {
                 <tr>
-                    <td>@category.Name</td>
+                    <td>@category.Naam</td>
                     <td>
-                        <a asp-page="@nameof(Delete)" asp-route-categoryId="@category.CategoryId" class="btn btn-danger">Delete</a> |
-                        <a asp-page="@nameof(Update)" asp-route-categoryId="@category.CategoryId" class="btn btn-info">Update</a>
+                        <a asp-page="@nameof(Delete)" asp-route-categoryId="@category.Id" class="btn btn-danger">Delete</a> |
+                        <a asp-page="@nameof(Update)" asp-route-categoryId="@category.Id" class="btn btn-info">Update</a>
                     </td>
                 </tr>
             }
