@@ -7,8 +7,10 @@ using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Security.Cryptography;
 using Dapper;
 using System.Data;
+using System.Text;
 
 namespace WebdevProjectStarterTemplate.Pages.Login
 {
@@ -25,6 +27,7 @@ namespace WebdevProjectStarterTemplate.Pages.Login
         {
 
             string connectionString = GetConnection().ConnectionString;
+            string hashedPassword = HashPassword(password);
             using (var connection = new MySqlConnection(connectionString))
             {
                 connection.Open();
@@ -33,7 +36,7 @@ namespace WebdevProjectStarterTemplate.Pages.Login
                 using (var command = new MySqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@Username", username);
-                    command.Parameters.AddWithValue("@Password", password);
+                    command.Parameters.AddWithValue("@Password", hashedPassword);
 
                     int count = Convert.ToInt32(command.ExecuteScalar());
                     string query1 = "SELECT * FROM gebruiker where email = @Username and rol = 1";
@@ -80,6 +83,7 @@ namespace WebdevProjectStarterTemplate.Pages.Login
                             var claims = new List<Claim>{
                         new Claim(ClaimTypes.Name, username),
                         new Claim(ClaimTypes.Role, "gebruiker")
+                        
                         // Add any additional claims you need
                         };
 
@@ -108,6 +112,20 @@ namespace WebdevProjectStarterTemplate.Pages.Login
                         }
                     }
                 }
+            }
+        }
+        private string HashPassword(string password)
+        {
+            using (SHA256 sha256Hash = SHA256.Create())
+            {
+                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(password));
+
+                StringBuilder builder = new StringBuilder();
+                for (int i = 0; i < bytes.Length; i++)
+                {
+                    builder.Append(bytes[i].ToString("x2"));
+                }
+                return builder.ToString();
             }
         }
     }

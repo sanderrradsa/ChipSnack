@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MySql.Data.MySqlClient;
 using System.Security.Claims;
+using System.Security.Cryptography;
+using System.Text;
+using System.Threading.Tasks;
 using Dapper;
 using Microsoft.AspNetCore.Authorization;
 using static Dapper.SqlMapper;
@@ -36,7 +39,7 @@ namespace WebdevProjectStarterTemplate.Pages.Register
         {
 
             string connectionString = GetConnection().ConnectionString;
-
+            string hashedPassword = HashPassword(password);
             using (var connection = new MySqlConnection(connectionString))
             {
                 connection.Open();
@@ -45,7 +48,7 @@ namespace WebdevProjectStarterTemplate.Pages.Register
                 await using (var command = new MySqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@Email", email);
-                    command.Parameters.AddWithValue("@Password", password);
+                    command.Parameters.AddWithValue("@Password", hashedPassword);
                     command.Parameters.AddWithValue("@Naam", naam);
                     command.Parameters.AddWithValue("@MicrosoftId", microsoftId);
                     command.Parameters.AddWithValue("@Admin", admin);
@@ -62,6 +65,20 @@ namespace WebdevProjectStarterTemplate.Pages.Register
 
 
 
+        }
+        private string HashPassword(string password)
+        {
+            using (SHA256 sha256Hash = SHA256.Create())
+            {
+                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(password));
+
+                StringBuilder builder = new StringBuilder();
+                for (int i = 0; i < bytes.Length; i++)
+                {
+                    builder.Append(bytes[i].ToString("x2"));
+                }
+                return builder.ToString();
+            }
         }
     }
 }
