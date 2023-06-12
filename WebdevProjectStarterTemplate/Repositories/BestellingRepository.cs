@@ -35,9 +35,9 @@ namespace WebdevProjectStarterTemplate.Repositories
             int numOfEffectedRows = connection.Execute(sql, new { bestellingId });
             return numOfEffectedRows == 1;
         }
-        public IEnumerable<Bestelling> GetBestellingWithSnack(int year, int week)
+        public IEnumerable<Bestelling> GetBestellingWithSnack(int year, int week, int userId)
         {
-            string sql = @"SELECT * FROM bestelling as b JOIN snack as s ON b.snackId = s.id WHERE jaar = @year AND weeknr = @week";
+            string sql = @"SELECT * FROM bestelling as b JOIN snack as s ON b.snackId = s.id WHERE jaar = @year AND weeknr = @week AND gebruikerId = @userId";
 
             using var connection = GetConnection();
             var BestellingWithSnack = connection.Query<Bestelling, Snack, Bestelling>(
@@ -47,7 +47,7 @@ namespace WebdevProjectStarterTemplate.Repositories
                     bestelling.Snack = snack;
                     return bestelling;
                 },
-                            new { year, week},
+                            new { year, week, userId},
                 splitOn: "Id"
             );
             return BestellingWithSnack;
@@ -66,18 +66,19 @@ namespace WebdevProjectStarterTemplate.Repositories
             return updatedOrder;
         }
         
-        public IEnumerable<Bestelling> UpdateLockIn(int year, int week)
+        public IEnumerable<Bestelling> UpdateLockIn(int year, int week, int gebruikerId)
         {
 
             string sql = @"
                 UPDATE bestelling SET 
                     bevestigd = 1
                 WHERE jaar = @year AND
-                weeknr = @week;
-                SELECT * FROM bestelling WHERE jaar = @year AND weeknr = @week";
+                weeknr = @week AND
+                gebruikerId = @gebruikerId;
+                SELECT * FROM bestelling WHERE jaar = @year AND weeknr = @week AND gebruikerId = @gebruikerId";
 
             using var connection = GetConnection();
-            var updatedOrder = connection.Query<Bestelling>(sql, new { year, week });
+            var updatedOrder = connection.Query<Bestelling>(sql, new { year, week, gebruikerId });
             return updatedOrder;
         }
     }
