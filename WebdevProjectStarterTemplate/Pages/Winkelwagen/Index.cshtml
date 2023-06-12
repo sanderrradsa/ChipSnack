@@ -27,9 +27,16 @@
                             <td>
                                 <input type="hidden" name="aantal" value="@bestelling.Aantal">
                                 <input type="hidden" name="bestellingId" value="@bestelling.Id">
-                                <button type="submit" asp-page-handler="Decrement" class="btn btn-succes">-</button>
+                                    @if (bestelling.Bevestigd == 0)
+                                    {
+                                    <button type="submit" asp-page-handler="Decrement" class="btn btn-succes">-</button>
+                                    }
+
                                 @bestelling.Aantal
+                                    @if (bestelling.Bevestigd == 0)
+                                    {
                                 <button type="submit" asp-page-handler="Increment" class="btn btn-succes">+</button>
+                                    }
                             </td>
                             <td>
                             @if (bestelling.Opmerking.Length == 0)
