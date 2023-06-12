@@ -59,11 +59,24 @@
 
                             </td>
                         </tr>
+
                         </form>
                     }
 
                 </tbody>
             </table>
+            <p>
+            van
+                @foreach (var budget in Model.budgets)
+                {
+
+                    @budget.BudgetMax.ToString()
+                    ;
+
+                }
+            </p>
+           
+            
             <form method="POST">
                 <button type="submit" asp-page-handler="LockInOrder" class="btn btn-danger">Bestelling opslaan</button>
             </form>
