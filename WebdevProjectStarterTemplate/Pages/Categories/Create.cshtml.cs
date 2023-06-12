@@ -9,23 +9,30 @@ namespace WebdevProjectStarterTemplate.Pages.Categories
     [Authorize]
     public class Create : PageModel
     {
-        [BindProperty] public Categorie Categorie { get; set; } = null!;
-
+        [BindProperty] public Categorie categorie { get; set; } = null!;
+        public List<Categorie> ListCategorie = new List<Categorie>();
         public void OnGet()
         {
+            GetCategorie();
         }
-
-    public IActionResult OnPost()
+        public void GetCategorie()
+        {
+            var Categorie = new CategorieRepository().Get();
+            foreach (var categorie in Categorie)
+            {
+                ListCategorie.Add(categorie);
+            }
+        }
+        public IActionResult OnPost()
     {
         if (!ModelState.IsValid)
         {
             return Page();
         }
 
-        Categorie = new Categorie();
-        
-        var createdCategorie = new CategorieRepository().Add(Categorie);
-        return RedirectToPage(nameof(Index));
+            // Categorie = new Categorie();
+            var createdCategorie = new CategorieRepository().Add(categorie);
+        return RedirectToPage("Index");
     }
 
     public IActionResult OnPostCancel()

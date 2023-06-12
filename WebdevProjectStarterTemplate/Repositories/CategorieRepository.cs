@@ -6,7 +6,7 @@ using WebdevProjectStarterTemplate.Models;
 
 namespace WebdevProjectStarterTemplate.Repositories
 {
-    [Authorize]
+   // [Authorize]
     public class CategorieRepository
     {
         private IDbConnection GetConnection()
@@ -25,44 +25,44 @@ namespace WebdevProjectStarterTemplate.Repositories
 
         public IEnumerable<Categorie> Get()
         {
-            string sql = "SELECT * FROM categorie ORDER BY naam";
+            string sql = "SELECT * FROM categorie"; //ORDER BY naam
 
             using var connection = GetConnection();
             var categories = connection.Query<Categorie>(sql);
             return categories;
         }
 
-        public Categorie Add(Categorie? Categorie)
+        public Categorie Add(Categorie categorie)
         {
-            string sql = @"
+            const string sql = @"
                 INSERT INTO categorie (naam) 
-                VALUES (@Name); 
+                VALUES (@Naam); 
                 SELECT * FROM categorie WHERE id = LAST_INSERT_ID()";
-            
+
             using var connection = GetConnection();
-            var addedCategorie = connection.QuerySingle<Categorie>(sql, Categorie);
+            var addedCategorie = connection.QuerySingle<Categorie>(sql, categorie);
             return addedCategorie;
         }
 
-        public bool Delete(int CategorieId)
+        public bool Delete(int Id)
         {
-            string sql = @"DELETE FROM categorie WHERE id = @categoryId";
+            string sql = @"DELETE FROM categorie WHERE id = @Id";
             
             using var connection = GetConnection();
-            int numOfEffectedRows = connection.Execute(sql, new { CategorieId });
+            int numOfEffectedRows = connection.Execute(sql, new { Id });
             return numOfEffectedRows == 1;
         }
 
-        public Categorie Update(Categorie Categorie)
+        public Categorie Update(Categorie categorie)
         {
             string sql = @"
                 UPDATE categorie SET 
-                    naam = @Name 
-                WHERE id = @CategoryId;
-                SELECT * FROM categorie WHERE id = @CategoryId";
+                    naam = @Naam 
+                WHERE id = @Id;
+                SELECT * FROM categorie WHERE id = @Id";
             
             using var connection = GetConnection();
-            var updatedCategorie = connection.QuerySingle<Categorie>(sql, Categorie);
+            var updatedCategorie = connection.QuerySingle<Categorie>(sql, categorie);
             return updatedCategorie;
         }
     }
