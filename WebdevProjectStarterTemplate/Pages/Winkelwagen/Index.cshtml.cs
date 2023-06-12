@@ -11,6 +11,7 @@ namespace WebdevProjectStarterTemplate.Pages.Winkelwagen
     public class Index : PageModel
     {
         public IEnumerable<Bestelling> Bestelling { get; set; } = null!;
+        public IEnumerable<Budget> budgets { get; set; } = null!;
 
         public int year { get; set; }
         public int week { get; set; }
@@ -22,6 +23,8 @@ namespace WebdevProjectStarterTemplate.Pages.Winkelwagen
             string date = DateTime.Now.ToString("yyyy");
             year = Convert.ToInt32(date);
             Bestelling = new BestellingRepository().GetBestellingWithSnack(year, week);
+            budgets = new BudgetRepository().Get();
+
         }
 
         public IActionResult OnPostIncrement(int bestellingId)
@@ -50,5 +53,8 @@ namespace WebdevProjectStarterTemplate.Pages.Winkelwagen
             return Page();
 
         }
+
+    
+
     }
 }
