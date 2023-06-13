@@ -6,7 +6,9 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
+using System.Text;
 using System.Data;
 
 namespace WebdevProjectStarterTemplate.Pages.Login
@@ -25,6 +27,8 @@ namespace WebdevProjectStarterTemplate.Pages.Login
         {
 
             string connectionString = GetConnection().ConnectionString;
+
+            string hashedPassword = HashPassword(password);
             using (var connection = new MySqlConnection(connectionString))
             {
                 connection.Open();
@@ -77,7 +81,7 @@ namespace WebdevProjectStarterTemplate.Pages.Login
 
                             // Login successful, redirect to a different page
 
-                        var claims = new List<Claim>{
+                            var claims = new List<Claim>{
                         new Claim(ClaimTypes.Name, username),
                         new Claim(ClaimTypes.Role, "gebruiker")
                         // Add any additional claims you need
@@ -108,6 +112,21 @@ namespace WebdevProjectStarterTemplate.Pages.Login
                         }
                     }
                 }
+            }
+
+        }
+        private string HashPassword(string password)
+        {
+            using (SHA256 sha256Hash = SHA256.Create())
+            {
+                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(password));
+
+                StringBuilder builder = new StringBuilder();
+                for (int i = 0; i < bytes.Length; i++)
+                {
+                    builder.Append(bytes[i].ToString("x2"));
+                }
+                return builder.ToString();
             }
         }
     }
