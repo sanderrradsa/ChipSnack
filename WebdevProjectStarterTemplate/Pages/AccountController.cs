@@ -97,5 +97,63 @@ namespace WebdevProjectStarterTemplate.Pages
             
 
         }
+        [HttpGet]
+        public bool IsAdmin(string username)
+        {
+            var ReaderInt = 0;
+
+            try
+            {
+
+
+                string connectionString = GetConnection().ConnectionString;
+                using (var connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    string query = "SELECT rol FROM gebruiker WHERE email = @Username;";
+                    using (var command = new MySqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@Username", username);
+
+                        MySqlDataReader reader = command.ExecuteReader();
+                        while (reader.Read())
+                        {
+                            ReaderInt = reader.GetInt32("rol");
+                        }
+
+
+
+
+                        int count = Convert.ToInt32(command.ExecuteScalar());
+                        string query1 = "SELECT * FROM gebruiker where email = @Username and rol = 1";
+                    }
+                }
+                if (ReaderInt == 1)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+
+            }
+            catch
+            {
+                ///
+                if (ReaderInt == 1)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+
+
+        }
     }
 }
