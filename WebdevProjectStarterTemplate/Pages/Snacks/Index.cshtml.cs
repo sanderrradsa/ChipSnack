@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebdevProjectStarterTemplate.Models;
 using WebdevProjectStarterTemplate.Repositories;
 using Microsoft.AspNetCore.Authorization;
+using System.Globalization;
 
 namespace WebdevProjectStarterTemplate.Pages.Snacks
 {
@@ -12,6 +13,9 @@ namespace WebdevProjectStarterTemplate.Pages.Snacks
     {
         AccountController ac = new AccountController();
         public bool isAdmin { get; set; }
+        public int userId { get; set; }
+        public int year { get; set; }
+        public int week { get; set; }
         public IEnumerable<Snack> SelectedSnacks;
         public IEnumerable<Snackbar> SnackbarFilters;
         public IEnumerable<Categorie> CategoryFilters;
@@ -24,6 +28,12 @@ namespace WebdevProjectStarterTemplate.Pages.Snacks
         public int selectedCategoryId = -1;
         public void OnGet(int? snackbarID = null, int? categoryId = null)
         {
+            userId = ac.GetID(User.Identity.Name);
+            var dt = DateTime.Today;
+            Calendar cal = new CultureInfo("en-US").Calendar;
+            week = cal.GetWeekOfYear(dt, CalendarWeekRule.FirstDay, DayOfWeek.Monday) - 1;
+            string date = DateTime.Now.ToString("yyyy");
+            year = Convert.ToInt32(date);
             isAdmin = ac.IsAdmin(User.Identity.Name);
 
             SnackRepository = new SnackReposiroty();
@@ -52,6 +62,15 @@ namespace WebdevProjectStarterTemplate.Pages.Snacks
             
             SnackbarFilters = SnackbarRepository.Get();
             CategoryFilters = CategorieRepository.Get();
+        }
+        public IActionResult OnPostAdd(int snackId, string opmerking)
+        {
+            OnGet();
+            var AddOrder = new BestellingRepository().Add(week, year, userId, snackId, opmerking);
+            OnGet();
+
+            return Page();
+
         }
 
     }

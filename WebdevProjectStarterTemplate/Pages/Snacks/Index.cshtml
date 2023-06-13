@@ -58,6 +58,15 @@
                                 <a asp-page="@nameof(Delete)" asp-route-snackId="@snack.Id" class="btn btn-danger">Delete</a> |
                                 <a asp-page="@nameof(Update)" asp-route-snackId="@snack.Id" class="btn btn-info">Update</a> <!-- UpdateModel hernoemen naar Update?-->
                             </td>
+                        }else{
+                            <td>
+                            <form method="post">
+                                <input type="hidden" name="snackId" value="@snack.Id">
+                                <input type="text" name="opmerking">
+                                <button type="submit" asp-page-handler="Add" class="btn btn-succes">+</button>
+                            </form>
+                            </td>
+                         
                         }
                          
                         
