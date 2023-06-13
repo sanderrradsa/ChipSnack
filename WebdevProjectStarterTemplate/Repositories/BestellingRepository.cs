@@ -27,6 +27,14 @@ namespace WebdevProjectStarterTemplate.Repositories
             var bestelling = connection.QuerySingle<Bestelling>(sql, new { bestellingId });
             return bestelling;
         }
+        public Bestelling Add(int week, int year, int userid, int snackId, string opmerking)
+        {
+            string sql = "INSERT INTO bestelling (gebruikerId, aantal, opmerking, weeknr, jaar, snackId) VALUES (@userid,1, @opmerking,@week,@year,@snackId); SELECT * FROM bestelling WHERE id = LAST_INSERT_ID()";
+
+            using var connection = GetConnection();
+            var bestelling = connection.QuerySingle<Bestelling>(sql, new { week, year, userid, snackId, opmerking});
+            return bestelling;
+        }
         public bool Delete(int bestellingId)
         {
             string sql = @"DELETE FROM bestelling WHERE id = @bestellingId";
