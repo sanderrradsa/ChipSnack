@@ -10,6 +10,8 @@ namespace WebdevProjectStarterTemplate.Pages.Snacks
     [Authorize]
     public class IndexModel : PageModel
     {
+        AccountController ac = new AccountController();
+        public bool isAdmin { get; set; }
         public IEnumerable<Snack> SelectedSnacks;
         public IEnumerable<Snackbar> SnackbarFilters;
         public IEnumerable<Categorie> CategoryFilters;
@@ -22,6 +24,8 @@ namespace WebdevProjectStarterTemplate.Pages.Snacks
         public int selectedCategoryId = -1;
         public void OnGet(int? snackbarID = null, int? categoryId = null)
         {
+            isAdmin = ac.IsAdmin(User.Identity.Name);
+
             SnackRepository = new SnackReposiroty();
             SnackbarRepository = new SnackbarRepository();
             CategorieRepository = new CategorieRepository();
