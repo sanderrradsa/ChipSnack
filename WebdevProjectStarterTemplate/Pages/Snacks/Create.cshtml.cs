@@ -12,6 +12,7 @@ namespace WebdevProjectStarterTemplate.Pages.Snacks
         [BindProperty] public Snack snack { get; set; } = null!;
         public List<Snackbar> ListSnackBars = new List<Snackbar>();
         public List<Categorie> ListCategorie = new List<Categorie>();
+        AccountController _accountController = new AccountController();
         public void OnGet()
         {
             GetSnackbars();
@@ -35,20 +36,18 @@ namespace WebdevProjectStarterTemplate.Pages.Snacks
         }
         public IActionResult OnPost()
         {
+ 
             if (!ModelState.IsValid)
             {
-                return Page();
+                return Redirect("~/Snackbars/Index");
             }
 
             var createdSnack = new SnackReposiroty().Add(snack);
 
-            return RedirectToPage("Index");
+            return Redirect("~/Snackbars/Index");
         }
 
 
-        public IActionResult OnPostCancel()
-        {
-            return RedirectToPage("Index");
-        }
+
     }
 }

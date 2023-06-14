@@ -18,3 +18,25 @@
         </form>
     </div>
 </div>
+<div class="row">
+    <br />
+    <h1>Snacks van deze Snackbar</h1>
+    <br />
+    <a href="~/Snacks/Create" class="btn btn-primary">Create New Snack</a>
+</div>
+<div class="row">
+    <table class="table table-striped">
+        <tbody>
+            @foreach (var snack in Model.ListSnacks)
+            {
+                <tr>
+                    <td>@snack.Naam</td>
+                    <td>
+                        <a asp-page="/Snacks/Delete" asp-route-snackId="@snack.Id" class="btn btn-danger">Delete</a> |
+                        <a asp-page="/Snacks/Update" asp-route-snackId="@snack.Id" class="btn btn-info">Update</a> <!-- UpdateModel hernoemen naar Update?-->
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

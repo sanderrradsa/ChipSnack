@@ -19,12 +19,12 @@ namespace WebdevProjectStarterTemplate.Pages.Snacks
         public IActionResult OnPostDelete([FromRoute] int snackId)
         {
             bool success = new SnackReposiroty().Delete(snackId);
-            return RedirectToPage(nameof(Index));
+            return Redirect("~/Snackbars/Index");
         }
 
-        public IActionResult OnPostCancel()
+        /*public IActionResult OnPostCancel()
         {
-            return RedirectToPage(nameof(Index));
-        }
+            //return redirecttopre(nameof(Index));
+        }*/
     }
 }
