@@ -10,12 +10,12 @@ namespace WebdevProjectStarterTemplate.Repositories
         {
             return new DbUtils().GetDbConnection();
         }
-        public IEnumerable<Budget> Get()
+        public Budget Get()
         {
             string sql = "SELECT * FROM budget";
 
             using var connection = GetConnection();
-            var budget = connection.Query<Budget>(sql);
+            var budget = connection.QuerySingle<Budget>(sql);
             return budget;
         }
 

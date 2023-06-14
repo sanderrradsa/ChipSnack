@@ -65,21 +65,25 @@
 
                 </tbody>
             </table>
-            <p> @Model.userId
+            <p>
+                @(Model.TotalOrderValue / 100.0)
             van
-                @foreach (var budget in Model.budgets)
-                {
-
-                    @budget.BudgetMax.ToString()
-                    ;
-
-                }
+                @(Model.budgets / 100.0)
             </p>
-           
+            @if (Model.TotalOrderValue > Model.budgets)
+            {
+                <h3 class="text-danger">Je zit boven het budget</h3>
+            }
+            else
+            {
+                <form method="POST">
+                    <button type="submit" asp-page-handler="LockInOrder" class="btn btn-danger">Bestelling opslaan</button>
+                </form>
+            }
+       
+          
             
-            <form method="POST">
-                <button type="submit" asp-page-handler="LockInOrder" class="btn btn-danger">Bestelling opslaan</button>
-            </form>
+       
         </div>
     </div>
 }

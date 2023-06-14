@@ -13,7 +13,9 @@ namespace WebdevProjectStarterTemplate.Pages.Winkelwagen
     public class Index : PageModel
     {
         public IEnumerable<Bestelling> Bestelling { get; set; } = null!;
-        public IEnumerable<Budget> budgets { get; set; } = null!;
+        public int budgets { get; set; } = 0;
+
+        public int TotalOrderValue { get; set; } = 0;
 
         AccountController ac = new AccountController();
 
@@ -30,8 +32,9 @@ namespace WebdevProjectStarterTemplate.Pages.Winkelwagen
             string date = DateTime.Now.ToString("yyyy");
             year = Convert.ToInt32(date);
             Bestelling = new BestellingRepository().GetBestellingWithSnack(year, week, userId);
-            budgets = new BudgetRepository().Get();
-
+            var getbudgets = new BudgetRepository().Get();
+            budgets = Convert.ToInt32(getbudgets.BudgetMax);
+            GetTotalOrderValue();
         }
 
         public IActionResult OnPostIncrement(int bestellingId)
@@ -61,7 +64,14 @@ namespace WebdevProjectStarterTemplate.Pages.Winkelwagen
 
         }
 
-    
+        public void GetTotalOrderValue()
+        {
+            TotalOrderValue = 0;
+            foreach (Bestelling bestelling in Bestelling)
+            {
+                TotalOrderValue += bestelling.Snack.Prijs * bestelling.Aantal;
+            }
+        }
 
     }
 }

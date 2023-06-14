@@ -2,7 +2,7 @@
 @model WebdevProjectStarterTemplate.Pages.BudgetMax.Update
 <div class="row">
     <div class="col">
-        <h1>Update Category</h1>
+        <h1>Budget aanpassen</h1>
         <form method="POST">
             <input type="hidden" asp-for="budget.Id" />
             <div class="form-group">
@@ -11,8 +11,8 @@
                 <span asp-validation-for="budget.BudgetMax"></span>
             </div>
             <div class="mt-3">
-                <button type="submit" class="btn btn-success">Update</button>
-                <button asp-page-handler="Cancel" class="btn btn-danger">Cancel</button>
+                <button type="submit" class="btn btn-success">Opslaan</button>
+                <button asp-page-handler="Cancel" class="btn btn-danger">Annuleren</button>
             </div>
         </form>
     </div>

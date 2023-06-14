@@ -7,7 +7,7 @@ namespace WebdevProjectStarterTemplate.Pages.BudgetMax
 {
     public class IndexModel : PageModel
     {
-        public IEnumerable<Budget> budgets { get; set; } = null!;
+        public Budget budgets { get; set; } = null!;
 
         public void OnGet()
         {
