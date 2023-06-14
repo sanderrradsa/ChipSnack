@@ -56,17 +56,17 @@ namespace WebdevProjectStarterTemplate.Pages.Snacks
         {
             if (!ModelState.IsValid)
             {
-                return Page();
+                return Redirect("~/Snackbars/Index");
             }
 
             var updatedSnack = new SnackReposiroty().Update(snack);
 
-            return RedirectToPage(nameof(Index));
+            return Redirect("~/Snackbars/Index");
         }
 
-        public IActionResult OnPostCancel()
+        /*public IActionResult OnPostCancel()
         {
             return RedirectToPage(nameof(Index));
-        }
+        }*/
     }
 }
