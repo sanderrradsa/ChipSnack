@@ -4,7 +4,16 @@
 @{
 
 }
+<style>
+    .snack-naam {
+        width: 150px;
+    }
 
+    .snack-descriptie {
+        width: 350px;
+        word-wrap: break-word;
+    }
+</style>
 <div class="row">
     <div class="col">
         <h1 id="title">Snacks</h1>
@@ -13,14 +22,15 @@
             <a asp-page="@nameof(Create)" class="btn btn-primary">Nieuwe Snack</a>
         }
         <form method="get">
-            <span>Snackbar: </span>
-            <button type="submit" name="snackbarID" value="-1" class="btn btn-outline-secondary">alle</button>
+            <div class="my-3">
+            <span class ="d-inline-block w-100 text-truncate">Snackbar: </span>
+            <a href="/Snacks" class="btn btn-secondary">alle</a>
             <div class="btn-group" role="group">
                 @foreach (var snackbar in Model.SnackbarFilters)
                 {
                     @if (Model.selectedSnackbarId == snackbar.Id)
                     {
-                        <button type="submit" name="snackbarID" value="@snackbar.Id" class="btn btn-secondary">@snackbar.Naam</button>
+                        <button type="submit" name="snackbarID" value="@snackbar.Id" class="btn btn-outline-secondary">@snackbar.Naam</button>
                     }
                     else
                     {
@@ -29,14 +39,14 @@
                 }
             </div>
             <br/>
-            <span>Categorie: </span>
-            <button type="submit" name="snackbarID" value="-1" class="btn btn-outline-secondary">alle</button>
+            <span class="d-inline-block w-100 text-truncate">Categorie: </span>
+            <a href="/Snacks" class="btn btn-secondary">alle</a>
             <div class="btn-group" role="group">
                 @foreach (var category in Model.CategoryFilters)
                 {
                     @if (Model.selectedCategoryId == category.Id)
                     {
-                        <button type="submit" name="categoryID" value="@category.Id" class="btn btn-secondary">@category.Naam</button>
+                        <button type="submit" name="categoryID" value="@category.Id" class="btn btn-outline-secondary">@category.Naam</button>
                     }
                     else
                     {
@@ -44,37 +54,44 @@
                     }
                 }
             </div>
+            </div>
         </form>
         <hr>
         <table class="table table-striped">
             <tbody>
-            @foreach (var snack in Model.SelectedSnacks)
-            {
-                <tr>
-                    <td>@snack.Naam</td>
-                       @if (Model.isAdmin)
+                @foreach (var snack in Model.SelectedSnacks)
+                {
+                    <tr class="d-flex align-content-start flex-wrap">
+                        <td class="snack-naam">
+                            <strong>Naam:</strong> @snack.Naam
+                            <br />
+                            <strong>Prijs:</strong> @snack.Prijs
+                        </td>
+                        <td class="snack-descriptie">
+                            <strong>Beschrijving:</strong> @snack.Beschrijving
+                        </td>
+                        @if (Model.isAdmin)
+                        {
+                            <td class="text-right">
+                                <a asp-page="@nameof(Delete)" asp-route-snackId="@snack.Id" class="btn btn-danger mb-2">Delete</a>
+                                <br />
+                                <a asp-page="@nameof(Update)" asp-route-snackId="@snack.Id" class="btn btn-info">Update</a>
+                            </td>
+                        }
+                        else
                         {
                             <td>
-                                <a asp-page="@nameof(Delete)" asp-route-snackId="@snack.Id" class="btn btn-danger">Delete</a> |
-                                <a asp-page="@nameof(Update)" asp-route-snackId="@snack.Id" class="btn btn-info">Update</a> <!-- UpdateModel hernoemen naar Update?-->
+                                <form method="post">
+                                    <input type="hidden" name="snackId" value="@snack.Id">
+                                    <input type="text" name="opmerking">
+                                    <button type="submit" asp-page-handler="Add" class="btn btn-succes">+</button>
+                                </form>
                             </td>
-                        }else{
-                            <td>
-                            <form method="post">
-                                <input type="hidden" name="snackId" value="@snack.Id">
-                                <input type="text" name="opmerking">
-                                <button type="submit" asp-page-handler="Add" class="btn btn-succes">+</button>
-                            </form>
-                            </td>
-                         
+
                         }
-                         
-                        
-                       
-                </tr>
-            }
+                    </tr>
+                }
             </tbody>
         </table>
-
     </div>
 </div>
