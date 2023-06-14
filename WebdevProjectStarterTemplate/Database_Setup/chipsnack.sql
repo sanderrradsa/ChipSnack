@@ -180,13 +180,15 @@ ALTER TABLE `snack`
   ADD CONSTRAINT `snack_ibfk_1` FOREIGN KEY (`categorieId`) REFERENCES `categorie` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `snack_ibfk_2` FOREIGN KEY (`snackbarId`) REFERENCES `snackbar` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
-
+-- Handmatige toevoegingen starten hier
 CREATE TABLE `budget` (
     budget int PRIMARY KEY NOT NULL
 );
 
 SET sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));
 
+ALTER TABLE bestelling ADD bevestigd SMALLINT NOT NULL;
+-- Handmatige toevoeginegen eidigen hier
 
 COMMIT;
 

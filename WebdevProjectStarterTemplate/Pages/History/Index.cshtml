@@ -1,4 +1,5 @@
 @page
+@using System.Globalization
 @using WebdevProjectStarterTemplate.Models
 @using WebdevProjectStarterTemplate.Pages
 @model WebdevProjectStarterTemplate.Pages.History.Index
@@ -8,51 +9,62 @@
         <h1>History</h1>
         
         <form method="GET">
-            <label for="jaar">Jaar: </label>
-            <select name="jaar" id="jaar">
-                <option>elk</option>
-                @foreach (int jaar in Model.BeschikbareJaren)
-                {
-                    @if (Model.geselecteerdJaar == jaar)
+            <div class="datum" id="startdatum">
+                <label for="jaar">Jaar: </label>
+                <select name="jaar" id="jaar">
+                    <option>elk</option>
+                    @foreach (int jaar in Model.BeschikbareJaren)
                     {
-                        <option value="@jaar" selected="selected">@jaar</option>
-                    }
-                    else
-                    {
-                        <option value="@jaar">@jaar</option>
-                    }
-                }
-            </select>
-            <label for="week">Week: </label>
-            @if (Model.BeschikbareWeken is not null)
-            {
-                <select name="week" id="week">
-                    <option>elke</option>
-                    @foreach (int week in Model.BeschikbareWeken)
-                    {
-                        @if (week == Model.geselecteerdeWeek)
+                        @if (Model.geselecteerdJaar == jaar)
                         {
-                            <option value="@week" selected="selected">@week</option>
+                            <option value="@jaar" selected="selected">@jaar</option>
                         }
                         else
                         {
-                            <option value="@week">@week</option>
+                            <option value="@jaar">@jaar</option>
                         }
                     }
                 </select>
-            }
-            else
-            {
-                <select disabled="disabled" id="week">
-                    <option>Selecteer eerst jaar</option>
-                </select>
-            }
+                <label for="week">Week: </label>
+                <input name="week" id="week" type="number" min="1" max="52">
+            </div>
 
-            @foreach (var relativiteit in Enum.GetNames<TijdsRelativiteit>())
-            {
-                <label for="rel_@relativiteit">@relativiteit: </label>
-                <input type="radio" name="relativiteit" value="@relativiteit" id="rel_@relativiteit">
-            }
+            <div id="tijdsrelativiteit">
+                @foreach (var relativiteit in Enum.GetValues<TijdsRelativiteit>())
+                {
+                    <label for="rel_@relativiteit">@TijdsRelativiteitUtil.DisplayText(relativiteit): </label>
+                    @if (relativiteit == Model.GeselecteerdeRelativiteit)
+                    {
+                        <input type="radio" name="relativiteit" value="@relativiteit" id="rel_@relativiteit" checked="checked">
+                    }
+                    else
+                    {
+                        <input type="radio" name="relativiteit" value="@relativiteit" id="rel_@relativiteit">
+                    }
+                }
+            </div>
+            
+            <div class="datum" id="einddatum" disabled="disabled">
+                <label for="jaar">Jaar: </label>
+                <select name="eindJaar" id="jaar">
+                    <option>elk</option>
+                    @foreach (int jaar in Model.BeschikbareJaren)
+                    {
+                        @if (Model.geselecteerdEindJaar == jaar)
+                        {
+                            <option value="@jaar" selected="selected">@jaar</option>
+                        }
+                        else
+                        {
+                            <option value="@jaar">@jaar</option>
+                        }
+                    }
+                </select>
+                <label for="eindWeek">Week: </label>
+                <input name="eindWeek" id="eindWeek" type="number" min="1" max="52">
+                
+            </div>
+
 
             <input type="submit" value="submit" name="submit">
         </form>
@@ -60,7 +72,7 @@
         <table class="table table-striped">
         <tbody>
         <tr>
-            <td>Snack</td> <td>aantal</td>
+            <td>Snack</td> <td>Snackbar</td> <td>Categorie</td> <td>aantal</td> <td>kosten</td>
         </tr>
         @foreach (History history in Model.History)
         {
@@ -71,9 +83,44 @@
                 <td>
                     @history.Totaal
                 </td>
+                <td>
+                    @((history.Totaal * history.Snack.Prijs / 100.0).ToString("C", new CultureInfo("nl-NL")))
+                </td>
             </tr>
         }
         </tbody>
     </table>
 </div>
 </div>
+
+@* 
+jQuery core slim V3.7.0 (newest stable version as of 13/06/2023)
+CDN: code.jquery.com
+
+Scripts in dit bestand zijn gemaakt en getest met de bovenstaande versie. Upgrade at own risk.  
+*@
+<script src="https://code.jquery.com/jquery-3.7.0.slim.min.js" integrity="sha256-tG5mcZUtJsZvyKAxYLVXrmjKBVLd6VpVccqz/r4ypFE=" crossorigin="anonymous"></script>
+<script>
+function updateEindDatumFields() {
+    const eindDatum = $("#einddatum>select, #einddatum>input")
+    
+    console.log("update")
+    selected_value = $("#tijdsrelativiteit>input:checked").val()
+    if (selected_value === "VanTotEnMet") {
+        eindDatum.prop("disabled", false)
+        return false   
+    }
+    
+    eindDatum.prop("disabled", "disabled")
+    return true
+}
+
+
+$(document).ready(function () {
+    updateEindDatumFields()
+})
+
+
+$("#tijdsrelativiteit>input").on("change", updateEindDatumFields)
+
+</script>
