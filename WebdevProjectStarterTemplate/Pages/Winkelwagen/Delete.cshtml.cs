@@ -9,12 +9,13 @@ namespace WebdevProjectStarterTemplate.Pages.Winkelwagen
     [Authorize]
     public class Delete : PageModel
     {
-      
+        public Snack snack { get; set; }
         public Bestelling Bestelling { get; set; } = null!;
 
-        public void OnGet([FromRoute] int bestellingId)
+        public void OnGet([FromRoute] int snackId)
         {
-            Bestelling = new BestellingRepository().Get(bestellingId);
+            snack = new SnackReposiroty().Get(snackId);
+
         }
         public IActionResult OnPostDelete([FromRoute] int bestellingId)
         {
