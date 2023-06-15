@@ -7,18 +7,16 @@
         <hr>
         <table class="table table-striped">
             <tbody>
-                @foreach (var budgets in Model.budgets)
-                {
                     <tr>
                         <td>
-                            <p>Het maximale bedrag dat een medewerker mag uitgeven: @budgets.BudgetMax $</p>
+                        <p>Het maximale bedrag dat een medewerker mag uitgeven: @(Model.budgets.BudgetMax / 100.0) $</p>
                             
                         </td>
                         <td>
-                            <a asp-page="@nameof(Update)" asp-route-budgetId="@budgets.Id" class="btn btn-info">Max budget aanpassen</a>
+                            <a asp-page="@nameof(Update)" asp-route-budgetId="@Model.budgets.Id" class="btn btn-info">Max budget aanpassen</a>
                         </td>
                     </tr>
-                }
+                
             </tbody>
         </table>
 
