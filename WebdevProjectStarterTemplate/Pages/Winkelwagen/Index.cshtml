@@ -48,7 +48,7 @@
                             <td>
                             @if (bestelling.Bevestigd == 0)
                                     {
-                                    <a asp-page="@nameof(Delete)" asp-route-snackId="@bestelling.Snack.Id" class="btn btn-danger">Verwijderen</a>
+                                    <a asp-page="@nameof(Delete)" asp-route-bestellingId="@bestelling.Id" class="btn btn-danger">Verwijderen</a>
                                     }
 
                             </td>
