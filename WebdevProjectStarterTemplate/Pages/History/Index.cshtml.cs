@@ -4,15 +4,16 @@ using WebdevProjectStarterTemplate.Models;
 
 namespace WebdevProjectStarterTemplate.Pages.History;
 
-
+/// Beschrijft de relatie tot een punt in tijd (te gebruiken voor filter etc)
 public enum TijdsRelativiteit
 {
     Tijdens,
     TotEnMet,
     Vanaf,
+    /// Alles van één moment tot en met een ander moment
     VanTotEnMet
 }
-
+/// <see cref="TijdsRelativiteit"/>
 public class TijdsRelativiteitUtil
 {
     public static string DisplayText(TijdsRelativiteit relativiteit)
@@ -42,7 +43,7 @@ public class Index : PageModel
     public void OnGet(int? jaar, int? week, int? eindJaar, int? eindWeek, TijdsRelativiteit relativiteit = TijdsRelativiteit.Tijdens)
     {
 
-        geselecteerdJaar = jaar; //ziet er dom uit, maar deze worden nu toegangbaar aan de model.
+        geselecteerdJaar = jaar; //ziet er dom uit, maar deze worden nu toegankelijk aan de model.
         geselecteerdeWeek = week;
 
         geselecteerdEindJaar = eindJaar;

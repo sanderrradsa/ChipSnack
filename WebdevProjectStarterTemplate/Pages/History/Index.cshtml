@@ -78,7 +78,13 @@
         {
             <tr>
                 <td>
-                    <a asp-page="@nameof(Pages.Snacks.UpdateModel)" asp-route-snackId="@history.Snack.Id"> @history.Snack.Naam </a>
+                    <a asp-page="@nameof(Snacks.UpdateModel)" asp-route-snackId="@history.Snack.Id"> @history.Snack.Naam </a>
+                </td>
+                <td>
+                    <a asp-page="@nameof(Snackbars.Update)" asp-route-snackbarId="@history.Snack.Snackbar.Id"> @history.Snack.Snackbar.Naam </a>
+                </td>
+                <td>
+                    <a asp-page="@nameof(Categories.Update)" asp-route-categoryId="@history.Snack.Categorie.Id"> @history.Snack.Categorie.Naam </a>
                 </td>
                 <td>
                     @history.Totaal
