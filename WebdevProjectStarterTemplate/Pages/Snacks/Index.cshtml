@@ -21,6 +21,7 @@
         {
             <a asp-page="@nameof(Create)" class="btn btn-primary">Nieuwe Snack</a>
         }
+   
         <form method="get">
             <div class="my-3">
             <span class ="d-inline-block w-100 text-truncate">Snackbar: </span>
@@ -70,6 +71,7 @@
                         <td class="snack-descriptie">
                             <strong>Beschrijving:</strong> @snack.Beschrijving
                         </td>
+                 
                         @if (Model.isAdmin)
                         {
                             <td class="text-right">
@@ -80,17 +82,28 @@
                         }
                         else
                         {
-                            <td>
-                                <form method="post">
-                                    <input type="hidden" name="snackId" value="@snack.Id">
-                                    <input type="text" name="opmerking">
-                                    <button type="submit" asp-page-handler="Add" class="btn btn-succes">+</button>
-                                </form>
-                            </td>
+                            if (Model.bestellingsSnackIds.Contains(snack.Id))
+                            {
+                                <td>
+                                    <button type="submit" asp-page-handler="Add" class="btn btn-succes">Toegevoegd</button>
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    <form method="post">
+                                        <input type="hidden" name="snackId" value="@snack.Id">
+                                        <input type="text" name="opmerking">
+                                        <button type="submit" asp-page-handler="Add" class="btn btn-succes">+</button>
+                                    </form>
+                                </td>
+                            }
+                     
 
                         }
                     </tr>
                 }
+         
             </tbody>
         </table>
     </div>

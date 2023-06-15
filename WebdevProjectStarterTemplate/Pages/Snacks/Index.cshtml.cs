@@ -11,6 +11,8 @@ namespace WebdevProjectStarterTemplate.Pages.Snacks
     [Authorize]
     public class IndexModel : PageModel
     {
+        public List<int> bestellingsSnackIds = new List<int>();
+
         AccountController ac = new AccountController();
         public bool isAdmin { get; set; }
         public int userId { get; set; }
@@ -62,6 +64,7 @@ namespace WebdevProjectStarterTemplate.Pages.Snacks
             
             SnackbarFilters = SnackbarRepository.Get();
             CategoryFilters = CategorieRepository.Get();
+            AddedSnacks();
         }
         public IActionResult OnPostAdd(int snackId, string opmerking)
         {
@@ -71,6 +74,19 @@ namespace WebdevProjectStarterTemplate.Pages.Snacks
 
             return Page();
 
+        }
+        /// <summary>
+        /// adds the snacks that are added in the mijn bestelling to a list.
+        /// </summary>
+        public void AddedSnacks()
+        {
+            bestellingsSnackIds.Clear();
+            var snackIds = new BestellingRepository().GetSnackIds(week, year, userId);
+            //Todo moet de bestellingsSnackIds lijst vullen 
+            foreach (var snackId in snackIds)
+            {
+                bestellingsSnackIds.Add(snackId);
+            }
         }
 
     }

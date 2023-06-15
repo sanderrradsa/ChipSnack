@@ -35,6 +35,15 @@ namespace WebdevProjectStarterTemplate.Repositories
             var bestelling = connection.QuerySingle<Bestelling>(sql, new { week, year, userid, snackId, opmerking});
             return bestelling;
         }
+
+        public IEnumerable<int> GetSnackIds(int week, int year, int userid)
+        {
+            string sql = "SELECT snackId FROM bestelling WHERE weeknr = @week AND jaar = @year AND gebruikerId = @userid";
+            using var connection = GetConnection();
+            var bestelling = connection.Query<int>(sql, new { week, year, userid });
+            return bestelling;
+
+        }
         public bool Delete(int bestellingId)
         {
             string sql = @"DELETE FROM bestelling WHERE id = @bestellingId";

@@ -12,9 +12,11 @@ namespace WebdevProjectStarterTemplate.Pages.Winkelwagen
         public Snack snack { get; set; }
         public Bestelling Bestelling { get; set; } = null!;
 
-        public void OnGet([FromRoute] int snackId)
+        public void OnGet([FromRoute] int bestellingId)
         {
-            snack = new SnackReposiroty().Get(snackId);
+            Bestelling getsnackId = new BestellingRepository().Get(bestellingId);
+            
+            snack = new SnackReposiroty().Get(getsnackId.SnackId);
 
         }
         public IActionResult OnPostDelete([FromRoute] int bestellingId)

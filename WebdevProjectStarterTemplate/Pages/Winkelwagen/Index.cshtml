@@ -39,14 +39,8 @@
                                     }
                             </td>
                             <td>
-                            @if (bestelling.Opmerking.Length == 0)
-                                {
-                                    <p>Geen opmerking</p>
-                                }
-                                else
-                                {
                                     @bestelling.Opmerking
-                                }
+                 
 
                                 </td>
                             <td>@bestelling.Snack.Prijs $</td>
@@ -54,7 +48,7 @@
                             <td>
                             @if (bestelling.Bevestigd == 0)
                                     {
-                                    <a asp-page="@nameof(Delete)" asp-route-snackId="@bestelling.Snack.Id" class="btn btn-danger">Verwijderen</a>
+                                    <a asp-page="@nameof(Delete)" asp-route-bestellingId="@bestelling.Id" class="btn btn-danger">Verwijderen</a>
                                     }
 
                             </td>
