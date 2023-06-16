@@ -7,20 +7,22 @@
 
         <a asp-page="@nameof(Create)" class="btn btn-primary">Create New Categorie</a>
         <hr>
-        <table class="table table-striped">
-            <tbody>
+
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
             @foreach (var Categorie in Model.Categories)
             {
-                <tr>
-                    <td>@Categorie.Naam</td>
-                    <td>
-                        <a asp-page="@nameof(Delete)" asp-route-CategorieId="@Categorie.Id" class="btn btn-danger">Delete</a> |
-                        <a asp-page="@nameof(Update)" asp-route-CategorieId="@Categorie.Id" class="btn btn-info">Update</a>
-                    </td>
-                </tr>
+                <div class="col mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">@Categorie.Naam</h5>
+                            <div class="card-footer">
+                                <a asp-page="@nameof(Delete)" asp-route-CategorieId="@Categorie.Id" class="btn btn-danger">Delete</a>
+                                <a asp-page="@nameof(Update)" asp-route-CategorieId="@Categorie.Id" class="btn btn-info">Update</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             }
-            </tbody>
-        </table>
-
+        </div>
     </div>
 </div>
