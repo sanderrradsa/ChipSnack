@@ -1,16 +1,16 @@
 ﻿@page
 @model WebdevProjectStarterTemplate.Pages.Snackbars.CreateModel
 
-<div class="row">
-    <div class="col">
+<div style="display: flex; justify-content: center; align-items: center;">
+    <div style="width: 400px;">
         <h1>Create New Snackbar</h1>
         <form method="POST">
             <div class="form-group">
                 <label asp-for="Snackbar.Naam">Name:</label>
-                <input asp-for="Snackbar.Naam" class="form-control"/>
+                <input asp-for="Snackbar.Naam" class="form-control" />
                 <span asp-validation-for="Snackbar.Naam"></span>
             </div>
-            <div class="mt-3">
+            <div class="d-flex justify-content-between mt-3">
                 <button type="submit" class="btn btn-primary">Create</button>
                 <button asp-page-handler="Cancel" class="btn btn-danger">Cancel</button>
             </div>

@@ -1,16 +1,22 @@
 ﻿@page "{snackId:int}"
 @model WebdevProjectStarterTemplate.Pages.Snacks.Delete
-@{
 
-<div class="row">
-    <div class="col">
-        <h1>Weet je zeker dat je @(Model.Snack.Naam) wilt verwijderen ?</h1>
-        <hr>
-        <form method="POST">
-            <button asp-page-handler="Delete" class="btn btn-success">Ja</button>
-                <button href='javascript:history.go(-1)' class="btn btn-danger">Nee</button>
-        </form>        
+<div class="row justify-content-center">
+    <div style="display: flex; justify-content: center; align-items: center;">
+        <div class="col">
+            <h1 class="text-center">Weet je zeker dat je @(Model.Snack.Naam) wilt verwijderen?</h1>
+            <hr>
+            <form method="POST">
+                <div class="text-center mt-3 d-flex justify-content-center">
+                    <div class="m-xl-2">
+                        <button asp-page-handler="Delete" class="btn btn-success btn-lg">Ja</button>
+                    </div>
+                    <div class="m-xl-2">
+                        <a href='javascript:history.go(-1)' class="btn btn-danger btn-lg">Nee</a>
+                    </div>
+                </div>
+            </form>
+
+        </div>
     </div>
 </div>
-
-}

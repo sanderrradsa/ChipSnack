@@ -1,9 +1,6 @@
 ﻿@page
 @model WebdevProjectStarterTemplate.Pages.Snacks.IndexModel
 
-@{
-
-}
 <div class="row">
     <div class="col">
         <h1 id="title">Snacks</h1>
@@ -14,87 +11,82 @@
    
         <form method="get">
             <div class="my-3">
-            <span class ="d-inline-block w-100 text-truncate">Snackbar: </span>
-            <a href="/Snacks" class="btn btn-secondary">alle</a>
-            <div class="btn-group" role="group">
-                @foreach (var snackbar in Model.SnackbarFilters)
-                {
-                    @if (Model.selectedSnackbarId == snackbar.Id)
+                <span class="d-inline-block w-100 text-truncate">Snackbar: </span>
+                <a href="/Snacks" class="btn btn-secondary">alle</a>
+                <div class="btn-group" role="group">
+                    @foreach (var snackbar in Model.SnackbarFilters)
                     {
-                        <button type="submit" name="snackbarID" value="@snackbar.Id" class="btn btn-outline-secondary">@snackbar.Naam</button>
-                    }
-                    else
-                    {
-                        <button type="submit" name="snackbarID" value="@snackbar.Id" class="btn btn-outline-secondary">@snackbar.Naam</button>
-                    }
-                }
-            </div>
-            <br/>
-            <span class="d-inline-block w-100 text-truncate">Categorie: </span>
-            <a href="/Snacks" class="btn btn-secondary">alle</a>
-            <div class="btn-group" role="group">
-                @foreach (var category in Model.CategoryFilters)
-                {
-                    @if (Model.selectedCategoryId == category.Id)
-                    {
-                        <button type="submit" name="categoryID" value="@category.Id" class="btn btn-outline-secondary">@category.Naam</button>
-                    }
-                    else
-                    {
-                        <button type="submit" name="categoryID" value="@category.Id" class="btn btn-outline-secondary">@category.Naam</button>
-                    }
-                }
-            </div>
-            </div>
-        </form>
-        <hr>
-        <table class="table table-striped">
-            <tbody>
-                @foreach (var snack in Model.SelectedSnacks)
-                {
-                    <tr class="d-flex align-content-start flex-wrap">
-                        <td class="snack-naam">
-                            <strong>Naam:</strong> @snack.Naam
-                            <br />
-                            <strong>Prijs:</strong> @snack.Prijs
-                        </td>
-                        <td class="snack-descriptie">
-                            <strong>Beschrijving:</strong> @snack.Beschrijving
-                        </td>
-                 
-                        @if (Model.isAdmin)
+                        @if (Model.selectedSnackbarId == snackbar.Id)
                         {
-                            <td class="text-right">
-                                <a asp-page="@nameof(Delete)" asp-route-snackId="@snack.Id" class="btn btn-danger mb-2">Delete</a>
-                                <br />
-                                <a asp-page="@nameof(Update)" asp-route-snackId="@snack.Id" class="btn btn-info">Update</a>
-                            </td>
+                            <button type="submit" name="snackbarID" value="@snackbar.Id" class="btn btn-outline-secondary">@snackbar.Naam</button>
                         }
                         else
                         {
-                            if (Model.bestellingsSnackIds.Contains(snack.Id))
+                            <button type="submit" name="snackbarID" value="@snackbar.Id" class="btn btn-outline-secondary">@snackbar.Naam</button>
+                        }
+                    }
+                </div>
+                <br/>
+                <span class="d-inline-block w-100 text-truncate">Categorie: </span>
+                <a href="/Snacks" class="btn btn-secondary">alle</a>
+                <div class="btn-group" role="group">
+                    @foreach (var category in Model.CategoryFilters)
+                    {
+                        @if (Model.selectedCategoryId == category.Id)
+                        {
+                            <button type="submit" name="categoryID" value="@category.Id" class="btn btn-outline-secondary">@category.Naam</button>
+                        }
+                        else
+                        {
+                            <button type="submit" name="categoryID" value="@category.Id" class="btn btn-outline-secondary">@category.Naam</button>
+                        }
+                    }
+                </div>
+            </div>
+        </form>
+        <hr>
+        <div class="row">
+            @foreach (var snack in Model.SelectedSnacks)
+            {
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">@snack.Naam</h5>
+                            <p class="card-text">
+                                <strong>Prijs:</strong> @snack.Prijs<br />
+                                <strong>Beschrijving:</strong> @snack.Beschrijving
+                            </p>
+                            @if (Model.isAdmin)
                             {
-                                <td>
-                                    <button type="submit" asp-page-handler="Add" class="btn btn-succes">Toegevoegd</button>
-                                </td>
+                                <div class="text-right">
+                                    <a asp-page="@nameof(Delete)" asp-route-snackId="@snack.Id" class="btn btn-danger mb-2">Delete</a>
+                                    <br />
+                                    <a asp-page="@nameof(Update)" asp-route-snackId="@snack.Id" class="btn btn-info">Update</a>
+                                </div>
                             }
                             else
                             {
-                                <td>
-                                    <form method="post">
-                                        <input type="hidden" name="snackId" value="@snack.Id">
-                                        <input type="text" name="opmerking">
-                                        <button type="submit" asp-page-handler="Add" class="btn btn-succes">+</button>
-                                    </form>
-                                </td>
+                                @if (Model.bestellingsSnackIds.Contains(snack.Id))
+                                {
+                                    <div>
+                                        <button type="submit" asp-page-handler="Add" class="btn btn-success">Toegevoegd</button>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div>
+                                        <form method="post">
+                                            <input type="hidden" name="snackId" value="@snack.Id">
+                                            <input type="text" name="opmerking">
+                                            <button type="submit" asp-page-handler="Add" class="btn btn-success">+</button>
+                                        </form>
+                                    </div>
+                                }
                             }
-                     
-
-                        }
-                    </tr>
-                }
-         
-            </tbody>
-        </table>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
     </div>
 </div>

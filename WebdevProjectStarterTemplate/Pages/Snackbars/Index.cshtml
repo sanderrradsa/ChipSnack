@@ -3,27 +3,32 @@
 @model WebdevProjectStarterTemplate.Pages.Snackbars.Index
 @{
 }
+
 <div class="row">
     <div class="col">
         <h1>Display Snackbars</h1>
 
         <a asp-page="@nameof(Create)" class="btn btn-primary">Create New Snackbar</a>
         <hr>
-        <table class="table table-striped">
-            <tbody>
+
+        <div class="d-flex flex-wrap">
             @foreach (var snackbar in Model.Snackbars)
             {
-                <tr class="d-flex align-content-start flex-wrap">
-                        <td class="Snackbar-naam">@snackbar.Naam</td>
-                    <td>
-                            <a asp-page="@nameof(Delete)" asp-route-snackbarId="@snackbar.Id" class="btn btn-danger mb-2">Delete</a>
-                            <br />
-                        <a asp-page="@nameof(Update)" asp-route-snackbarId="@snackbar.Id" class="btn btn-info">Update</a>
-                    </td>
-                </tr>
+                <div class="card mr-3 mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Snackbar Naam:</h5>
+                        <p class="card-text">@snackbar.Naam</p>
+                        <div class="d-flex justify-content-center">
+                            <div class="m-1">
+                                <a asp-page="@nameof(Delete)" asp-route-snackbarId="@snackbar.Id" class="btn btn-danger">Delete</a>
+                            </div>
+                            <div class="m-1">
+                                <a asp-page="@nameof(Update)" asp-route-snackbarId="@snackbar.Id" class="btn btn-info">Update</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             }
-            </tbody>
-        </table>
-
+        </div>
     </div>
 </div>

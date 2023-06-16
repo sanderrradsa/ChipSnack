@@ -1,39 +1,28 @@
 ﻿@page "{snackId:int}"
 @model WebdevProjectStarterTemplate.Pages.Snacks.Update
 
-<div class="row">
-    <div class="col">
-        <h1>Update Snack</h1>
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <h1 class="text-center">Update Snack</h1>
         <form method="POST">
             <input type="hidden" asp-for="snack.Id" />
             <div class="form-group">
                 <label asp-for="snack.Naam">Naam:</label>
                 <input asp-for="snack.Naam" class="form-control" />
-                <span asp-validation-for="snack.Naam"></span>
+                <span asp-validation-for="snack.Naam" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="snack.Prijs">Prijs:</label>
                 <input asp-for="snack.Prijs" class="form-control" />
-                <span asp-validation-for="snack.Prijs"></span>
+                <span asp-validation-for="snack.Prijs" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="snack.Beschrijving">Beschrijving:</label>
                 <textarea asp-for="snack.Beschrijving" class="form-control" rows="3"></textarea>
-                <span asp-validation-for="snack.Beschrijving"></span>
+                <span asp-validation-for="snack.Beschrijving" class="text-danger"></span>
             </div>
-@*            <div class="form-group">
-                <label asp-for="Snack.CategorieID">Categorie:</label>
-                <select asp-for="Snack.CategorieID" class="form-control">
-                    <option value="">Choose a Categorie</option>
-                    @foreach (var categorie in ViewBag.Categorieen)
-                    {
-                        <option value="@categorie.Id">@categorie.Naam</option>
-                    }
-                </select>
-                <span asp-validation-for="Snack.CategorieID"></span>
-            </div>*@
             <div class="input-group mt-3">
-                <label class="input-group-text">snackbar:</label>
+                <label class="input-group-text">Snackbar:</label>
                 <select asp-for="snack.Snackbarid" class="form-control">
                     <option></option>
                     @foreach (var SnackBars in Model.ListSnackBars)
@@ -41,10 +30,9 @@
                         <option asp-for="snack.Snackbarid" value="@SnackBars.Id">@SnackBars.Naam</option>
                     }
                 </select>
-
             </div>
             <div class="input-group mt-3">
-                <label class="input-group-text">categorie:</label>
+                <label class="input-group-text">Categorie:</label>
                 <select asp-for="snack.CategorieId" class="form-control">
                     <option></option>
                     @foreach (var Categorie in Model.ListCategorie)
@@ -52,13 +40,11 @@
                         <option asp-for="snack.CategorieId" value="@Categorie.Id">@Categorie.Naam</option>
                     }
                 </select>
-
             </div>
-            <div class="mt-3">
-                <button type="submit" class="btn btn-success">Update</button>
-                <a href="javascript:history.go(-1)"  class="btn btn-danger">Cancel</a>
+            <div class="text-center mt-3">
+                <button type="submit" class="btn btn-success mr-2">Update</button>
+                <a href="javascript:history.go(-1)" class="btn btn-danger">Cancel</a>
             </div>
- 
         </form>
     </div>
 </div>
