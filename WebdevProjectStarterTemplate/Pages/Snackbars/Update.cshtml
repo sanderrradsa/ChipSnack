@@ -22,17 +22,25 @@
     <br />
     <h1>Snacks van deze Snackbar</h1>
     <br />
-    <a href="~/Snacks/Create" class="btn btn-primary">Create New Snack</a>
+    <a href="~/Snacks/Create" class="btn btn-primary my-3">Create New Snack</a>
 </div>
 <div class="row">
     <table class="table table-striped">
         <tbody>
             @foreach (var snack in Model.ListSnacks)
             {
-                <tr>
-                    <td>@snack.Naam</td>
+                <tr class="d-flex align-content-start flex-wrap">
+                    <td class="snack-naam">
+                        <strong>Naam:</strong> @snack.Naam
+                        <br />
+                        <strong>Prijs:</strong> @snack.Prijs
+                    </td>
+                    <td class="snack-descriptie">
+                        <strong>Beschrijving:</strong> @snack.Beschrijving
+                    </td>
                     <td>
-                        <a asp-page="/Snacks/Delete" asp-route-snackId="@snack.Id" class="btn btn-danger">Delete</a> |
+                        <a asp-page="/Snacks/Delete" asp-route-snackId="@snack.Id" class="btn btn-danger mb-2">Delete</a>
+                        <br />
                         <a asp-page="/Snacks/Update" asp-route-snackId="@snack.Id" class="btn btn-info">Update</a> <!-- UpdateModel hernoemen naar Update?-->
                     </td>
                 </tr>

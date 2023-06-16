@@ -3,7 +3,6 @@
 @model WebdevProjectStarterTemplate.Pages.Snackbars.Index
 @{
 }
-
 <div class="row">
     <div class="col">
         <h1>Display Snackbars</h1>
@@ -14,10 +13,11 @@
             <tbody>
             @foreach (var snackbar in Model.Snackbars)
             {
-                <tr>
-                    <td>@snackbar.Naam</td>
+                <tr class="d-flex align-content-start flex-wrap">
+                        <td class="Snackbar-naam">@snackbar.Naam</td>
                     <td>
-                        <a asp-page="@nameof(Delete)" asp-route-snackbarId="@snackbar.Id" class="btn btn-danger">Delete</a> |
+                            <a asp-page="@nameof(Delete)" asp-route-snackbarId="@snackbar.Id" class="btn btn-danger mb-2">Delete</a>
+                            <br />
                         <a asp-page="@nameof(Update)" asp-route-snackbarId="@snackbar.Id" class="btn btn-info">Update</a>
                     </td>
                 </tr>
