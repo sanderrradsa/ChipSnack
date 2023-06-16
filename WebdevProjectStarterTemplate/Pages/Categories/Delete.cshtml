@@ -1,13 +1,21 @@
 @page "{CategorieId:int}"
 @model WebdevProjectStarterTemplate.Pages.Categories.Delete
 
-<div class="row">
-    <div class="col">
-        <h1>Are you sure to delete Categorie @(Model.Categorie.Naam)?</h1>
-        <hr>
-        <form method="POST">
-            <button asp-page-handler="Delete" class="btn btn-success">Yes</button>
-            <button asp-page-handler="Cancel" class="btn btn-danger">Cancel</button>
-        </form>        
+<div class="row justify-content-center">
+    <div style="display: flex; justify-content: center; align-items: center;">
+        <div class="col">
+            <h1 class="text-center">Weet je zeker dat je @(Model.Categorie.Naam) wilt verwijderen?</h1>
+            <hr>
+            <form method="POST">
+                <div class="text-center mt-3 d-flex justify-content-center">
+                    <div class="m-xl-2">
+                        <button asp-page-handler="Delete" class="btn btn-success btn-lg">Ja</button>
+                    </div>
+                    <div class="m-xl-2">
+                        <a href='javascript:history.go(-1)' class="btn btn-danger btn-lg">Nee</a>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 </div>

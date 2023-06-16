@@ -21,7 +21,7 @@ namespace WebdevProjectStarterTemplate.Pages.Snackbars
             GetCategorie();
         }
 
-        public IActionResult OnPost(Snackbar snackbar)
+        public IActionResult OnPostSnackbar(Snackbar snackbar)
         {
             if (!ModelState.IsValid)
             {
@@ -68,7 +68,7 @@ namespace WebdevProjectStarterTemplate.Pages.Snackbars
                 ListCategorie.Add(categorie);
             }
         }
-        public IActionResult OnPost(Snack snack)
+        public IActionResult OnPostSnack(Snack snack)
         {
 
             if (!ModelState.IsValid)
@@ -86,5 +86,5 @@ namespace WebdevProjectStarterTemplate.Pages.Snackbars
             return RedirectToPage(nameof(Index));
         }
     
-}
+    }
 }
