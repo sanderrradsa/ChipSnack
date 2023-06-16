@@ -1,24 +1,15 @@
 ﻿@page
 @model WebdevProjectStarterTemplate.Pages.BudgetMax.IndexModel
-<div class="row">
-    <div class="col">
-        <h1>Max budget</h1>
-
-        <hr>
-        <table class="table table-striped">
-            <tbody>
-                    <tr>
-                        <td>
-                        <p>Het maximale bedrag dat een medewerker mag uitgeven: @(Model.budgets.BudgetMax / 100.0) $</p>
-                            
-                        </td>
-                        <td>
-                            <a asp-page="@nameof(Update)" asp-route-budgetId="@Model.budgets.Id" class="btn btn-info">Max budget aanpassen</a>
-                        </td>
-                    </tr>
-                
-            </tbody>
-        </table>
-
+<div class="d-flex flex-column align-items-center">
+    <h1>Max budget</h1>
+    <hr>
+    <div class="d-flex flex-column align-items-center">
+        <div>
+            <p>Het maximale bedrag dat een medewerker mag uitgeven:<strong> € @(Model.budgets.BudgetMax / 100.0)</strong></p>
+        </div>
+        <div>
+            <a asp-page="@nameof(Update)" asp-route-budgetId="@Model.budgets.Id" class="btn btn-info">Max budget aanpassen</a>
+        </div>
     </div>
 </div>
+
