@@ -45,15 +45,16 @@ namespace WebdevProjectStarterTemplate.Pages.Winkelwagen
             return Page();
 
         }
-         //{
-         //   if (aantal > 1)
-         //   {
-         //       var updatedOrder = new BestellingRepository().Update(-1, bestellingId);
-         //   }
-         //   OnGet();
-         //   return Page();
-//
-        //}
+		public IActionResult OnPostDecrement(int bestellingId, int aantal)
+    	{	
+        	if (aantal > 1)
+        	{
+    			var updatedOrder = new BestellingRepository().Update(-1, bestellingId);
+        	}
+        	OnGet();
+        	return Page();
+    	}
+
         public IActionResult OnPostLockInOrder()
         {
             OnGet();
