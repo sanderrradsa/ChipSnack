@@ -6,9 +6,9 @@
 
 <div class="row">
     <div class="col">
-        <h1>Display Snackbars</h1>
+        <h1>Snackbar Weergeven</h1>
 
-        <a asp-page="@nameof(Create)" class="btn btn-primary">Create New Snackbar</a>
+        <a asp-page="@nameof(Create)" class="btn btn-primary">Nieuwe Snackbar aanmaken</a>
         <hr>
 
         <div class="d-flex flex-wrap">
@@ -16,14 +16,13 @@
             {
                 <div class="card mr-3 mb-3">
                     <div class="card-body">
-                        <h5 class="card-title">Snackbar Naam:</h5>
-                        <p class="card-text">@snackbar.Naam</p>
+                        <h5 class="card-title">@snackbar.Naam</h5>
                         <div class="d-flex justify-content-center">
                             <div class="m-1">
-                                <a asp-page="@nameof(Delete)" asp-route-snackbarId="@snackbar.Id" class="btn btn-danger">Delete</a>
+                                <a asp-page="@nameof(Delete)" asp-route-snackbarId="@snackbar.Id" class="btn btn-danger">Verwijderen</a>
                             </div>
                             <div class="m-1">
-                                <a asp-page="@nameof(Update)" asp-route-snackbarId="@snackbar.Id" class="btn btn-info">Update</a>
+                                <a asp-page="@nameof(Update)" asp-route-snackbarId="@snackbar.Id" class="btn btn-info">Bijwerken</a>
                             </div>
                         </div>
                     </div>

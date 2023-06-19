@@ -3,7 +3,7 @@
 
 <div class="row justify-content-center">
     <div class="col-lg-6">
-        <h1 class="text-center">Update Snack</h1>
+        <h1 class="text-center">Bewerk Snack</h1>
         <form method="POST">
             <input type="hidden" asp-for="snack.Id" />
             <div class="form-group">
@@ -12,7 +12,7 @@
                 <span asp-validation-for="snack.Naam" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="snack.Prijs">Prijs:</label>
+                <label asp-for="snack.Prijs">Prijs in centen:</label>
                 <input asp-for="snack.Prijs" class="form-control" />
                 <span asp-validation-for="snack.Prijs" class="text-danger"></span>
             </div>
@@ -42,8 +42,8 @@
                 </select>
             </div>
             <div class="text-center mt-3">
-                <button type="submit" class="btn btn-success mr-2">Update</button>
-                <a href="javascript:history.go(-1)" class="btn btn-danger">Cancel</a>
+                <button type="submit" class="btn btn-success mr-2">Bijwerken</button>
+                <a href="javascript:history.go(-1)" class="btn btn-danger">Annuleren</a>
             </div>
         </form>
     </div>
