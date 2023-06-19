@@ -31,7 +31,7 @@ public class HistoryRepository
         
         using var connection = GetConnection();
 
-        var history = connection.Query<History, Snack, Snackbar, Category, History>(sql, 
+        var history = connection.Query<History, Snack, Snackbar, Categorie, History>(sql, 
             map: (history, snack, snackbar, categorie) =>
             {
                 history.Snack = snack;
@@ -125,7 +125,7 @@ public class HistoryRepository
         Console.WriteLine(sql.ToString());
 
         using var connection = GetConnection();
-        var history = connection.Query<History, Snack, Snackbar, Category, History>(sql.ToString(), 
+        var history = connection.Query<History, Snack, Snackbar, Categorie, History>(sql.ToString(), 
             map: (history, snack, snackbar, categorie) =>
             {
                 history.Snack = snack;
