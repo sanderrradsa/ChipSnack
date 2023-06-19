@@ -1,6 +1,8 @@
+using System.Globalization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebdevProjectStarterTemplate.Repositories;
 using WebdevProjectStarterTemplate.Models;
+// using 
 
 namespace WebdevProjectStarterTemplate.Pages.History;
 
@@ -13,7 +15,7 @@ public enum TijdsRelativiteit
     /// Alles van één moment tot en met een ander moment
     VanTotEnMet
 }
-/// <see cref="TijdsRelativiteit"/>
+/// Utilities voor: <see cref="TijdsRelativiteit"/>
 public class TijdsRelativiteitUtil
 {
     public static string DisplayText(TijdsRelativiteit relativiteit)
@@ -43,8 +45,14 @@ public class Index : PageModel
     public void OnGet(int? jaar, int? week, int? eindJaar, int? eindWeek, TijdsRelativiteit relativiteit = TijdsRelativiteit.Tijdens)
     {
 
-        geselecteerdJaar = jaar; //ziet er dom uit, maar deze worden nu toegankelijk aan de model.
-        geselecteerdeWeek = week;
+		var dt = DateTime.Today;
+        Calendar cal = new CultureInfo("en-US").Calendar;
+        int currentWeek = cal.GetWeekOfYear(dt, CalendarWeekRule.FirstDay, DayOfWeek.Monday) -1;
+        string date = DateTime.Now.ToString("yyyy");
+        int currentYear = Convert.ToInt32(date);		
+
+        geselecteerdJaar = jaar ?? currentYear; //ziet er dom uit, maar deze worden nu toegankelijk aan de model.
+        geselecteerdeWeek = week ?? currentWeek;
 
         geselecteerdEindJaar = eindJaar;
         geselecteerdeEindWeek = eindWeek;
