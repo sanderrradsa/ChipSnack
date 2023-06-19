@@ -54,18 +54,24 @@ namespace WebdevProjectStarterTemplate.Repositories
         }
         public IEnumerable<Bestelling> GetBestellingWithSnack(int year, int week, int userId)
         {
-            string sql = @"SELECT * FROM bestelling as b JOIN snack as s ON b.snackId = s.id WHERE jaar = @year AND weeknr = @week AND gebruikerId = @userId";
+            string sql = @"SELECT b.id, b.aantal, b.jaar, b.weeknr, b.herhalen, b.bevestigd,
+                b.snackId, s.naam, s.prijs,
+                s.snackbarId, sb.naam
+                FROM bestelling AS b
+                JOIN snack s ON b.snackId = s.id
+                JOIN snackbar sb ON s.snackbarId = sb.id WHERE jaar = @year AND weeknr = @week AND gebruikerId = @userId";
 
             using var connection = GetConnection();
-            var BestellingWithSnack = connection.Query<Bestelling, Snack, Bestelling>(
+            var BestellingWithSnack = connection.Query<Bestelling, Snack, Snackbar, Bestelling>(
             sql,
-                map: (bestelling, snack) =>
+                map: (bestelling, snack,snackbar) =>
                 {
                     bestelling.Snack = snack;
+                    bestelling.Snack.Snackbar = snackbar;
                     return bestelling;
                 },
                             new { year, week, userId},
-                splitOn: "Id"
+                splitOn: "snackId, snackbarId"
             );
             return BestellingWithSnack;
         }
