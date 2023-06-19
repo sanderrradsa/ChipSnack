@@ -4,12 +4,16 @@
     {
         public int Id { get; set; }
         public string Naam { get; set; }
-
+        
         public string Beschrijving { get; set; }
         public int Prijs { get; set; }
         public int Snackbarid { get; set; }
         public int CategorieId { get; set; }
         public Snackbar Snackbar { get; set; } = null!;
+
+        public Snackbar Snackbar { get; set; }
+
+        public Category Categorie { get; set; }
 
     }
 }

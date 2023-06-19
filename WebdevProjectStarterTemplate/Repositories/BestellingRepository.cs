@@ -75,6 +75,15 @@ namespace WebdevProjectStarterTemplate.Repositories
             );
             return BestellingWithSnack;
         }
+
+        //public IEnumerable<Bestelling> GetHistoryWeek(int weeknr)
+        //{
+        //    string sql = "SELECT s.naam, SUM(b.aantal) FROM bestelling AS b JOIN snack as s ON b.snackId = s.id " +
+        //                 "WHERE b.herhalen = 0 AND b.weeknr = @weeknr " +
+        //                 "GROUP BY b.snackId";
+        //    using var connection = GetConnection();
+        //    var bestelHistory = connection.Query(sql, new { weeknr });
+        //}
         public Bestelling Update(int aantal, int bestellingId)
         {
 
