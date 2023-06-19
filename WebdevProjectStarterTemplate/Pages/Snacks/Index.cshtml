@@ -8,7 +8,7 @@
         {
             <a asp-page="@nameof(Create)" class="btn btn-primary">Nieuwe Snack</a>
         }
-   
+
         <form method="get">
             <div class="my-3">
                 <span class="d-inline-block w-100 text-truncate">Snackbar: </span>
@@ -26,7 +26,7 @@
                         }
                     }
                 </div>
-                <br/>
+                <br />
                 <span class="d-inline-block w-100 text-truncate">Categorie: </span>
                 <a href="/Snacks" class="btn btn-secondary">alle</a>
                 <div class="btn-group" role="group">
@@ -53,15 +53,15 @@
                         <div class="card-body">
                             <h5 class="card-title">@snack.Naam</h5>
                             <p class="card-text">
-                                <strong>Prijs:</strong> @snack.Prijs<br />
+                                <strong>Prijs in centen:</strong> @snack.Prijs<br />
                                 <strong>Beschrijving:</strong> @snack.Beschrijving
                             </p>
                             @if (Model.isAdmin)
                             {
                                 <div class="text-right">
-                                    <a asp-page="@nameof(Delete)" asp-route-snackId="@snack.Id" class="btn btn-danger mb-2">Delete</a>
-                                    <br />
-                                    <a asp-page="@nameof(Update)" asp-route-snackId="@snack.Id" class="btn btn-info">Update</a>
+                                    <a asp-page="@nameof(Delete)" asp-route-snackId="@snack.Id" class="btn btn-danger mb-2">Verwijder</a>
+                                    @*<br />*@
+                                    <a asp-page="@nameof(Update)" asp-route-snackId="@snack.Id" class="btn btn-info mb-2">Bijwerken</a>
                                 </div>
                             }
                             else

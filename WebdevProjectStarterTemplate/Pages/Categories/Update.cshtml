@@ -3,7 +3,7 @@
 
 <div class="row">
     <div class="col">
-        <h1>Update Categorie</h1>
+        <h1>Bijwerken Categorie</h1>
         <form method="POST">
             <input type="hidden" asp-for="Categorie.Id" />
             <div class="form-group">
@@ -12,8 +12,8 @@
                 <span asp-validation-for="Categorie.Naam"></span>
             </div>
             <div class="mt-3">
-                <button type="submit" class="btn btn-success">Update</button>
-                <button asp-page-handler="Cancel" class="btn btn-danger">Cancel</button>
+                <button type="submit" class="btn btn-success">Bijwerken</button>
+                <button asp-page-handler="Cancel" class="btn btn-danger">Annuleren</button>
             </div>
         </form>
     </div>
@@ -22,7 +22,7 @@
 <div class="row mt-4">
     <div class="col">
         <h2>Snacks van deze Categorie</h2>
-        <a href="~/Snacks/Create" class="btn btn-primary my-3">Create New Snack</a>
+        <a href="~/Snacks/Create" class="btn btn-primary my-3">Nieuwe Snack aanmaken</a>
     </div>
 </div>
 
@@ -35,8 +35,8 @@
                     <h5 class="card-title">Naam: @snack.Naam</h5>
                     <p class="card-text"><strong>Prijs:</strong> @snack.Prijs</p>
                     <p class="card-text"><strong>Beschrijving:</strong> @snack.Beschrijving</p>
-                    <a asp-page="/Snacks/Delete" asp-route-snackId="@snack.Id" class="btn btn-danger">Delete</a>
-                    <a asp-page="/Snacks/Update" asp-route-snackId="@snack.Id" class="btn btn-info">Update</a>
+                    <a asp-page="/Snacks/Delete" asp-route-snackId="@snack.Id" class="btn btn-danger">Verwijderen</a>
+                    <a asp-page="/Snacks/Update" asp-route-snackId="@snack.Id" class="btn btn-info">Bijwerken</a>
                 </div>
             </div>
         </div>

@@ -3,7 +3,7 @@
 
 <div style="display: flex; justify-content: center; align-items: center;">
     <div style="width: 400px;">
-        <h1>Create New Categorie</h1>
+        <h1>Nieuwe Categorie aanmaken</h1>
         <form method="POST">
             <div class="form-group">
                 <label asp-for="categorie.Naam">Naam:</label>
@@ -11,8 +11,8 @@
                 <span asp-validation-for="categorie.Naam"></span>
             </div>
             <div class="d-flex justify-content-between mt-3">
-                <button type="submit" class="btn btn-primary">Create</button>
-                <button asp-page-handler="Cancel" class="btn btn-danger">Cancel</button>
+                <button type="submit" class="btn btn-primary">Aanmaken</button>
+                <button asp-page-handler="Cancel" class="btn btn-danger">Annuleren</button>
             </div>
         </form>
     </div>

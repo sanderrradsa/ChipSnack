@@ -3,21 +3,23 @@
 
 <div class="row">
     <div class="col">
-        <h1>Display Categories</h1>
+        <h1>Weergeven Categorieën</h1>
 
-        <a asp-page="@nameof(Create)" class="btn btn-primary">Create New Categorie</a>
+        <a asp-page="@nameof(Create)" class="btn btn-primary">Nieuwe Categorie Creëren</a>
         <hr>
 
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
+        <div class="d-flex flex-wrap">
             @foreach (var Categorie in Model.Categories)
             {
-                <div class="col mb-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">@Categorie.Naam</h5>
-                            <div class="card-footer">
-                                <a asp-page="@nameof(Delete)" asp-route-CategorieId="@Categorie.Id" class="btn btn-danger">Delete</a>
-                                <a asp-page="@nameof(Update)" asp-route-CategorieId="@Categorie.Id" class="btn btn-info">Update</a>
+                <div class="card mr-3 mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">@Categorie.Naam</h5>
+                        <div class="d-flex justify-content-center">
+                            <div class="m-1">
+                                <a asp-page="@nameof(Delete)" asp-route-CategorieId="@Categorie.Id" class="btn btn-danger">Verwijderen</a>
+                            </div>
+                            <div class="m-1">
+                                <a asp-page="@nameof(Update)" asp-route-CategorieId="@Categorie.Id" class="btn btn-info">Bijwerken</a>
                             </div>
                         </div>
                     </div>
