@@ -45,14 +45,13 @@ namespace WebdevProjectStarterTemplate.Pages.Register
             {
                 connection.Open();
 
-                string query = "INSERT INTO gebruiker VALUES (@id, @Naam, @Email, @MicrosoftId, @Password, @Admin, @Salt)";
+                string query = "INSERT INTO gebruiker VALUES (@id, @Naam, @Email, @Password, @Admin)";
                 await using (var command = new MySqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@id", id);
                     command.Parameters.AddWithValue("@Email", email);
                     command.Parameters.AddWithValue("@Password", hashedPassword);
                     command.Parameters.AddWithValue("@Naam", naam);
-                    command.Parameters.AddWithValue("@MicrosoftId", microsoftId);
                     command.Parameters.AddWithValue("@Admin", admin);
                     int count = Convert.ToInt32(command.ExecuteScalar());
 
