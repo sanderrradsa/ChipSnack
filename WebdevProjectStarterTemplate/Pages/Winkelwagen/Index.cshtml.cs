@@ -13,6 +13,7 @@ namespace WebdevProjectStarterTemplate.Pages.Winkelwagen
     public class Index : PageModel
     {
         public IEnumerable<Bestelling> Bestelling { get; set; } = null!;
+        public IEnumerable<Snackbar> snackbars { get; set; } = null!;
         public int budgets { get; set; } = 0;
 
         public int TotalOrderValue { get; set; } = 0;
@@ -34,6 +35,7 @@ namespace WebdevProjectStarterTemplate.Pages.Winkelwagen
             Bestelling = new BestellingRepository().GetBestellingWithSnack(year, week, userId);
             var getbudgets = new BudgetRepository().Get();
             budgets = Convert.ToInt32(getbudgets.BudgetMax);
+            snackbars = new SnackbarRepository().Get();
             GetTotalOrderValue();
         }
 
