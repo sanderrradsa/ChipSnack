@@ -54,7 +54,7 @@ namespace WebdevProjectStarterTemplate.Repositories
         }
         public IEnumerable<Bestelling> GetBestellingWithSnack(int year, int week, int userId)
         {
-            string sql = @"SELECT b.id, b.aantal, b.jaar, b.weeknr, b.herhalen, b.bevestigd,
+            string sql = @"SELECT b.id, b.aantal, b.jaar, b.weeknr, b.herhalen, b.bevestigd,b.opmerking,
                 b.snackId, s.naam, s.prijs,
                 s.snackbarId, sb.naam
                 FROM bestelling AS b

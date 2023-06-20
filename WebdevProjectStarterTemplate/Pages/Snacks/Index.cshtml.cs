@@ -75,6 +75,11 @@ namespace WebdevProjectStarterTemplate.Pages.Snacks
             return Page();
 
         }
+
+        public IActionResult OnPostRedirect()
+        {
+            return RedirectToPage("/Winkelwagen/Index");
+        }
         /// <summary>
         /// adds the snacks that are added in the mijn bestelling to a list.
         /// </summary>
