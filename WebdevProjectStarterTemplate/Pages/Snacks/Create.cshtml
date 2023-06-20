@@ -6,37 +6,37 @@
         <h1 class="text-center">Create New Snack</h1>
         <form method="POST">
             <div class="form-group">
-                <label asp-for="snack.Naam">Naam:</label>
-                <input asp-for="snack.Naam" class="form-control" />
-                <span asp-validation-for="snack.Naam" class="text-danger"></span>
+                <label asp-for="@Model.snack.Naam">Naam:</label>
+                <input asp-for="@Model.snack.Naam" class="form-control" />
+                <span asp-validation-for="@Model.snack.Naam" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="snack.Prijs">Prijs in centen:</label>
-                <input asp-for="snack.Prijs" class="form-control" />
-                <span asp-validation-for="snack.Prijs" class="text-danger"></span>
+                <label asp-for="@Model.snack.Prijs">Prijs in centen:</label>
+                <input asp-for="@Model.snack.Prijs" class="form-control" />
+                <span asp-validation-for="@Model.snack.Prijs" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="snack.Beschrijving">Beschrijving:</label>
-                <input asp-for="snack.Beschrijving" class="form-control" />
-                <span asp-validation-for="snack.Beschrijving" class="text-danger"></span>
+                <label asp-for="@Model.snack.Beschrijving">Beschrijving:</label>
+                <input asp-for="@Model.snack.Beschrijving" class="form-control" />
+                <span asp-validation-for="@Model.snack.Beschrijving" class="text-danger"></span>
             </div>
             <div class="input-group mt-3">
                 <label class="input-group-text">Snackbar:</label>
-                <select asp-for="snack.Snackbarid" class="form-control">
+                <select asp-for="@Model.snack.Snackbarid" class="form-control">
                     <option></option>
                     @foreach (var SnackBars in Model.ListSnackBars)
                     {
-                        <option asp-for="snack.Snackbarid" value="@SnackBars.Id">@SnackBars.Naam</option>
+                        <option asp-for="@Model.snack.Snackbarid" value="@SnackBars.Id">@SnackBars.Naam</option>
                     }
                 </select>
             </div>
             <div class="input-group mt-3">
                 <label class="input-group-text">Categorie:</label>
-                <select asp-for="snack.CategorieId" class="form-control">
+                <select asp-for="@Model.snack.CategorieId" class="form-control">
                     <option></option>
                     @foreach (var Categorie in Model.ListCategorie)
                     {
-                        <option asp-for="snack.CategorieId" value="@Categorie.Id">@Categorie.Naam</option>
+                        <option asp-for="@Model.snack.CategorieId" value="@Categorie.Id">@Categorie.Naam</option>
                     }
                 </select>
             </div>

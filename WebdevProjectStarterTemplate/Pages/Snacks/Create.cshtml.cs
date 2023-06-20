@@ -15,6 +15,7 @@ namespace WebdevProjectStarterTemplate.Pages.Snacks
         AccountController _accountController = new AccountController();
         public void OnGet()
         {
+            snack = new Snack();
             GetSnackbars();
             GetCategorie();
         }
@@ -37,12 +38,13 @@ namespace WebdevProjectStarterTemplate.Pages.Snacks
         public IActionResult OnPost()
         {
  
-            if (!ModelState.IsValid)
-            {
-                return Redirect("~/Snackbars/Index");
-            }
+            // if (!ModelState.IsValid)
+            // {
+            //     return Redirect("~/Snackbars/Index");
+            // }
+            // TODO: ModelState.Isvalid returned altijd false??? andere manier om te validaten, of meer onderzoek naar 'IsValid'
 
-            
+
             var createdSnack = new SnackReposiroty().Add(snack);
 
             return Redirect("~/Snackbars/Index");
