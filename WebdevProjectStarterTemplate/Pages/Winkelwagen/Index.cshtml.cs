@@ -72,6 +72,17 @@ namespace WebdevProjectStarterTemplate.Pages.Winkelwagen
                 TotalOrderValue += bestelling.Snack.Prijs * bestelling.Aantal;
             }
         }
+        
+        public IActionResult OnPostAdd(int snackId, string opmerking)
+        {
+            OnGet();
+            var AddOrder = new BestellingRepository().Add(week, year, userId, snackId, opmerking);
+            OnGet();
 
+            return Page();
+
+        }
+        
+        
     }
 }
