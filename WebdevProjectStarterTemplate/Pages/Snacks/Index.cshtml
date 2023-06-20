@@ -53,7 +53,7 @@
                         <div class="card-body">
                             <h5 class="card-title">@snack.Naam</h5>
                             <p class="card-text">
-                                <strong>Prijs in centen:</strong> @snack.Prijs<br />
+                                <strong>Prijs in centen:</strong> @((snack.Prijs / 100m).ToString("0.00"))<br />
                                 <strong>Beschrijving:</strong> @snack.Beschrijving
                             </p>
                             @if (Model.isAdmin)
@@ -68,7 +68,7 @@
                             {
                                 @if (Model.bestellingsSnackIds.Contains(snack.Id))
                                 {
-                                    <form method="post">
+                                    <form method="g">
                                         <div>
                                             <button type="submit" asp-page-handler="Redirect" class="btn btn-success">Toegevoegd</button>
                                         </div>
