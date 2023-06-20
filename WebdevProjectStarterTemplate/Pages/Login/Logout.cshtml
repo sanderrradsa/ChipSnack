@@ -1,16 +1,19 @@
 ﻿@page
 @model WebdevProjectStarterTemplate.Pages.Login.LogoutModel
-@{
-    <head>
-        <div>
-            <title>Wil je uitloggen?</title>
-        </div>
-    </head>
-    <body>
-        <h1>Weet je het zeker?</h1>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Wil je uitloggen?</title>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">Weet je het zeker?</h1>
         <form method="post">
-          
-        <button type="submit" class="btn btn-primary btn-block mb-4">Ja</button>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary mr-2">Ja</button>
+                <a href="/Snacks/Index" class="btn btn-danger">Nee</a>
+            </div>
         </form>
-    </body>
-}
+    </div>
+</body>
+</html>

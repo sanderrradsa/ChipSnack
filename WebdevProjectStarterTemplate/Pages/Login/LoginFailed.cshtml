@@ -1,43 +1,44 @@
 ﻿@page
 @model WebdevProjectStarterTemplate.Pages.Login.LoginFailed
 
-
 <!DOCTYPE html>
 <html>
 <head>
     <title>Login</title>
 </head>
 <body>
-    <h1>Login</h1>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <h1 class="text-center">Login</h1>
+                <form method="post">
+                    <!-- Email input -->
+                    <div class="form-group">
+                        <label class="form-label" for="username">Email adres</label>
+                        <input type="email" id="username" name="Username" class="form-control" />
+                    </div>
 
-    <form method="post">
-        <!-- Email input -->
-        <div class="form-outline mb-4">
-            <label class="form-label" for="username">Email adres</label>
-            <input type="email" id="username" name="Username" class="form-control" />
+                    <!-- Password input -->
+                    <div class="form-group">
+                        <label class="form-label" for="password">Wachtwoord</label>
+                        <input type="password" id="password" name="Password" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <p style="color: red">Verkeerde email of wachtwoord ingevoerd om: <span id="datetime"></span></p>
+                    </div>
 
+                    <script>
+                        var dt = new Date();
+                        document.getElementById("datetime").textContent = dt.toLocaleString();
+                    </script>
+
+                    <!-- Submit button -->
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">Log in</button>
+                    </div>
+                </form>
+            </div>
         </div>
-
-        <!-- Password input -->
-        <div class="form-outline mb-4">
-            <label class="form-label" for="password">Wachtwoord</label>
-            <input type="password" id="password" name="Password" class="form-control" />
-
-        </div>
-        <div>
-            <p style="color: red">Verkeerde email of wachtwoord ingevoerd om:  <span id="datetime" /></p>
-        </div>
-
-        <script>
-            var dt = new Date();
-            document.getElementById("datetime").innerHTML = dt.toLocaleString();
-        </script>
-
-
-        <!-- Submit button -->
-        <button type="submit" class="btn btn-primary btn-block mb-4">Log in</button>
-
-
-    </form>
+    </div>
 </body>
 </html>

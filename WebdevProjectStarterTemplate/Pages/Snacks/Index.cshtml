@@ -1,4 +1,5 @@
 ﻿@page
+@using System.Globalization;
 @model WebdevProjectStarterTemplate.Pages.Snacks.IndexModel
 
 <div class="row">
@@ -53,7 +54,7 @@
                         <div class="card-body">
                             <h5 class="card-title">@snack.Naam</h5>
                             <p class="card-text">
-                                <strong>Prijs in centen:</strong> @((snack.Prijs / 100m).ToString("0.00"))<br />
+                                <strong>Prijs:</strong> @((snack.Prijs / 100m).ToString("C", new CultureInfo("nl-NL")))<br />
                                 <strong>Beschrijving:</strong> @snack.Beschrijving
                             </p>
                             @if (Model.isAdmin)

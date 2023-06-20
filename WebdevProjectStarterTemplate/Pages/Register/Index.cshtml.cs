@@ -53,6 +53,7 @@ namespace WebdevProjectStarterTemplate.Pages.Register
                     command.Parameters.AddWithValue("@Password", hashedPassword);
                     command.Parameters.AddWithValue("@Naam", naam);
                     command.Parameters.AddWithValue("@Admin", admin);
+                    //command.Parameters.AddWithValue("@Admin", admin ? 1 : 0);
                     int count = Convert.ToInt32(command.ExecuteScalar());
 
 
