@@ -68,9 +68,12 @@
                             {
                                 @if (Model.bestellingsSnackIds.Contains(snack.Id))
                                 {
-                                    <div>
-                                        <button type="submit" asp-page-handler="Add" class="btn btn-success">Toegevoegd</button>
-                                    </div>
+                                    <form method="post">
+                                        <div>
+                                            <button type="submit" asp-page-handler="Redirect" class="btn btn-success">Toegevoegd</button>
+                                        </div>
+                                    </form>
+                                  
                                 }
                                 else
                                 {

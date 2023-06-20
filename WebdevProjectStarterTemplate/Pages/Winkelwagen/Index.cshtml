@@ -26,7 +26,7 @@
                    
                             <td>@bestelling.Snack.Naam</td>
                             <td>@bestelling.Snack.Snackbar.Naam <td>
-                            <td>
+                           
                                 <input type="hidden" name="aantal" value="@bestelling.Aantal">
                                 <input type="hidden" name="bestellingId" value="@bestelling.Id">
                                     @if (bestelling.Bevestigd == 0)
@@ -39,7 +39,7 @@
                                     {
                                 <button type="submit" asp-page-handler="Increment" class="btn btn-succes">+</button>
                                     }
-                            </td>
+                           
                             <td>
                                     @bestelling.Opmerking
                  
