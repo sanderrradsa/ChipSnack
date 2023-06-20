@@ -42,6 +42,7 @@ namespace WebdevProjectStarterTemplate.Pages.Snacks
                 return Redirect("~/Snackbars/Index");
             }
 
+            
             var createdSnack = new SnackReposiroty().Add(snack);
 
             return Redirect("~/Snackbars/Index");

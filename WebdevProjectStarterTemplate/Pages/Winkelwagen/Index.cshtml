@@ -81,5 +81,29 @@
             
        
         </div>
+        <div class="col" id="diplaysnacks">
+            
+        </div>
+        @* 
+        jQuery core slim V3.7.0 (newest stable version as of 13/06/2023)
+        CDN: code.jquery.com
+        
+        Scripts in dit bestand zijn gemaakt en getest met de bovenstaande versie. Upgrade at own risk.  
+        *@
+        <script src="https://code.jquery.com/jquery-3.7.0.slim.min.js" integrity="sha256-tG5mcZUtJsZvyKAxYLVXrmjKBVLd6VpVccqz/r4ypFE=" crossorigin="anonymous"></script>
+        <script>
+        $(document).ready(function ()  {
+            let snackWindow = $("#diplaysnacks")
+            snackWindow.load("https://localhost:44364/Snacks", function () {
+                let knop = $(".toevoegForm button")
+                knop.attr("formaction", "Winkelwagen?Handler=Add")
+            })
+            
+            snackWindow.remove($("header"), $("footer"))
+            
+        }
+        )
+            
+        </script>
     </div>
 }
