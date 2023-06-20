@@ -17,12 +17,14 @@ namespace WebdevProjectStarterTemplate.Pages.Login
     
     public class IndexModel : PageModel
     {
+        
         private IDbConnection GetConnection()
         {
             return new DbUtils().GetDbConnection();
         }
 
         [HttpPost]
+        // Deze methode wordt uitgevoerd wanneer het login-formulier wordt ingediend via een HTTP POST-verzoek
         public async Task<IActionResult> OnPostAsync(string username, string password)
         {
 
@@ -50,12 +52,12 @@ namespace WebdevProjectStarterTemplate.Pages.Login
                         if (count == 1 && admin)
                         {
 
-                            // Login successful, redirect to a different page
+                            // Inloggen is gelukt, is een admin, doorverwijzen naar een andere pagina
 
                             var claims = new List<Claim>{
                         new Claim(ClaimTypes.Name, username),
                         new Claim(ClaimTypes.Role, "admin")
-                        // Add any additional claims you need
+                        // Voeg eventuele aanvullende claims toe
                         };
 
                             var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -64,8 +66,8 @@ namespace WebdevProjectStarterTemplate.Pages.Login
 
                             var authProperties = new AuthenticationProperties
                             {
-                                IsPersistent = true, // Set the cookie to be persistent
-                                ExpiresUtc = DateTime.UtcNow.AddMonths(1) // Set the expiration date of the cookie
+                                IsPersistent = true, // Maak de cookie persistent
+                                ExpiresUtc = DateTime.UtcNow.AddMonths(1) // Stel de vervaldatum van de cookie in
 
 
                             };
@@ -78,13 +80,13 @@ namespace WebdevProjectStarterTemplate.Pages.Login
                         else if (count == 1 && !admin)
                         {
 
-                            // Login successful, redirect to a different page
+                            // Inloggen is gelukt, geen admin doorverwijzen naar een andere pagina
 
                             var claims = new List<Claim>{
                         new Claim(ClaimTypes.Name, username),
                         new Claim(ClaimTypes.Role, "gebruiker")
                         
-                        // Add any additional claims you need
+                             // Voeg eventuele aanvullende claims toe
                         };
 
                             var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -93,27 +95,28 @@ namespace WebdevProjectStarterTemplate.Pages.Login
 
                             var authProperties = new AuthenticationProperties
                             {
-                                IsPersistent = true, // Set the cookie to be persistent
-                                ExpiresUtc = DateTime.UtcNow.AddMonths(1) // Set the expiration date of the cookie
+                                IsPersistent = true, // Maak de cookie persistent
+                                ExpiresUtc = DateTime.UtcNow.AddMonths(1) //  Stel de vervaldatum van de cookie in
 
 
                             };
 
                             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, authProperties);
 
-                            //return RedirectToPage("/Index");
+                            
 
                             return RedirectToPage("/Index");
                         }
                         else
                         {
-                            // Login failed, display error page
+                            // Aanmelden mislukt, foutpagina weergeven
                             return RedirectToPage("/Login/LoginFailed");
                         }
                     }
                 }
             }
         }
+        // Methode voor het hashen van het wachtwoord
         private string HashPassword(string password)
         {
             using (SHA256 sha256Hash = SHA256.Create())
@@ -123,6 +126,7 @@ namespace WebdevProjectStarterTemplate.Pages.Login
                 StringBuilder builder = new StringBuilder();
                 for (int i = 0; i < bytes.Length; i++)
                 {
+                    // Converteer elke byte naar zijn hexadecimale representatie en voeg deze toe aan de builder
                     builder.Append(bytes[i].ToString("x2"));
                 }
                 return builder.ToString();

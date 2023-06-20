@@ -51,13 +51,13 @@ namespace WebdevProjectStarterTemplate.Pages.Login
                         if (count == 1 && admin)
                         {
 
-                            // Login successful, redirect to a different page
+                            // Inloggen is gelukt, doorsturen naar een andere pagina
 
                             var claims = new List<Claim>{
-                        new Claim(ClaimTypes.Name, username),
-                        new Claim(ClaimTypes.Role, "admin")
-                        // Add any additional claims you need
-                        };
+        new Claim(ClaimTypes.Name, username),
+        new Claim(ClaimTypes.Role, "admin")
+        // Voeg eventuele extra claims toe die nodig zijn
+    };
 
                             var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
@@ -65,27 +65,24 @@ namespace WebdevProjectStarterTemplate.Pages.Login
 
                             var authProperties = new AuthenticationProperties
                             {
-                                IsPersistent = true, // Set the cookie to be persistent
-                                ExpiresUtc = DateTime.UtcNow.AddMonths(1) // Set the expiration date of the cookie
-
-
+                                IsPersistent = true, // Zet de cookie als persistent
+                                ExpiresUtc = DateTime.UtcNow.AddMonths(1) // Stel de vervaldatum van de cookie in
                             };
 
                             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, authProperties);
-
 
                             return RedirectToPage("/Index");
                         }
                         else if (count == 1 && !admin)
                         {
 
-                            // Login successful, redirect to a different page
+                            // Inloggen is gelukt, doorsturen naar een andere pagina
 
                             var claims = new List<Claim>{
-                        new Claim(ClaimTypes.Name, username),
-                        new Claim(ClaimTypes.Role, "gebruiker")
-                        // Add any additional claims you need
-                        };
+                            new Claim(ClaimTypes.Name, username),
+                            new Claim(ClaimTypes.Role, "gebruiker")
+                            // Voeg eventuele extra claims toe die nodig zijn
+                            };
 
                             var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
@@ -93,10 +90,8 @@ namespace WebdevProjectStarterTemplate.Pages.Login
 
                             var authProperties = new AuthenticationProperties
                             {
-                                IsPersistent = true, // Set the cookie to be persistent
-                                ExpiresUtc = DateTime.UtcNow.AddMonths(1) // Set the expiration date of the cookie
-
-
+                                IsPersistent = true, // Zet de cookie als persistent
+                                ExpiresUtc = DateTime.UtcNow.AddMonths(1) // Stel de vervaldatum van de cookie in
                             };
 
                             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, authProperties);
@@ -107,14 +102,16 @@ namespace WebdevProjectStarterTemplate.Pages.Login
                         }
                         else
                         {
-                            // Login failed, display error page
+                            // Inloggen is mislukt, toon foutpagina
                             return RedirectToPage("/Login/LoginFailed");
                         }
+
                     }
                 }
             }
 
         }
+        // Methode voor het hashen van het wachtwoord
         private string HashPassword(string password)
         {
             using (SHA256 sha256Hash = SHA256.Create())

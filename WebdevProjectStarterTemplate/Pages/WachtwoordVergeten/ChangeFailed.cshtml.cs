@@ -15,33 +15,39 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace WebdevProjectStarterTemplate.Pages.WachtwoordVergeten
 {
-            [Authorize(Roles = "admin")]
+    [Authorize(Roles = "admin")]
     public class ChangeFailedModel : PageModel
     {
-
         public void OnGet()
         {
+            // Leeg OnGet-methode, geen functionaliteit
         }
+        /// <summary>
+        /// Retourneert een databaseverbinding
+        /// </summary>
+        /// <returns>Databaseverbinding</returns>
         private IDbConnection GetConnection()
         {
             return new DbUtils().GetDbConnection();
         }
-
+        /// <summary>
+        /// Verwerkt het POST-verzoek voor het wijzigen van een mislukt wachtwoord.
+        /// </summary>
+        /// <param name="username">Gebruikersnaam</param>
+        /// <param name="password">Nieuw wachtwoord</param>
+        /// <returns>Redirect naar de succespagina of de wijzigingsfoutpagina</returns>
         [HttpPost]
         public async Task<IActionResult> OnPostAsync(string username, string password)
         {
             try
             {
-
                 bool doesExist;
                 string connectionString = GetConnection().ConnectionString;
-
-                string hashedPassword = HashPassword(password);
-
+                string hashedPassword = HashPassword(password); // Hash het wachtwoord
                 using (var connection = new MySqlConnection(connectionString))
                 {
                     connection.Open();
-                    string query1 = "SELECT * FROM gebruiker where email = @Username";
+                    string query1 = "SELECT * FROM gebruiker WHERE email = @Username";
                     using (var command1 = new MySqlCommand(@query1, connection))
                     {
                         command1.Parameters.AddWithValue("@Username", username);
@@ -50,9 +56,7 @@ namespace WebdevProjectStarterTemplate.Pages.WachtwoordVergeten
                         reader.Close();
                         await reader.CloseAsync();
                         connection.Close();
-
                     }
-
                     if (doesExist)
                     {
                         connection.Open();
@@ -64,26 +68,27 @@ namespace WebdevProjectStarterTemplate.Pages.WachtwoordVergeten
 
                             int count = Convert.ToInt32(command.ExecuteScalar());
 
-                            return RedirectToPage("/WachtwoordVergeten/Succes");
+                            return RedirectToPage("/WachtwoordVergeten/Succes"); // Doorverwijzen naar de succespagina
                         }
                     }
-
                     else
                     {
-                        // Login failed, display error page
+                        // Inloggen mislukt, toon foutpagina
                         return RedirectToPage("/WachtwoordVergeten/ChangeFailed");
                     }
-
                 }
             }
             catch
             {
-                // Login failed, display error page
+                // Inloggen mislukt, toon foutpagina
                 return RedirectToPage("/WachtwoordVergeten/ChangeFailed");
             }
-
-        
         }
+        /// <summary>
+        /// Hash het wachtwoord met behulp van SHA256
+        /// </summary>
+        /// <param name="password">Wachtwoord</param>
+        /// <returns>Gehasht wachtwoord</returns>
         private string HashPassword(string password)
         {
             using (SHA256 sha256Hash = SHA256.Create())

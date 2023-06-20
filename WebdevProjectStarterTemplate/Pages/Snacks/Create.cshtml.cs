@@ -13,12 +13,16 @@ namespace WebdevProjectStarterTemplate.Pages.Snacks
         public List<Snackbar> ListSnackBars = new List<Snackbar>();
         public List<Categorie> ListCategorie = new List<Categorie>();
         AccountController _accountController = new AccountController();
+
+        // Handler voor GET-verzoek
         public void OnGet()
         {
             snack = new Snack();
             GetSnackbars();
             GetCategorie();
         }
+
+        // Methode om de Snackbars op te halen
         public void GetSnackbars()
         {
             var Snackbars = new SnackbarRepository().Get();
@@ -27,6 +31,8 @@ namespace WebdevProjectStarterTemplate.Pages.Snacks
                 ListSnackBars.Add(snackbar);
             }
         }
+
+        // Methode om de Categorieën op te halen
         public void GetCategorie()
         {
             var Categorie = new CategorieRepository().Get();
@@ -35,6 +41,7 @@ namespace WebdevProjectStarterTemplate.Pages.Snacks
                 ListCategorie.Add(categorie);
             }
         }
+        // Handler voor POST-verzoek
         public IActionResult OnPost()
         {
  

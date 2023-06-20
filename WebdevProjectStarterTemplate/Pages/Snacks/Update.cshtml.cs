@@ -29,40 +29,58 @@ namespace WebdevProjectStarterTemplate.Pages.Snacks
         //    return Page();
         //}
 
+        /// <summary>
+        /// Verwerkt het GET-verzoek voor het bewerken van een snack.
+        /// </summary>
+        /// <param name="snackId">ID van de snack die wordt bewerkt</param>
         public void OnGet(int snackId)
         {
-            snack = new SnackReposiroty().Get(snackId);
-            GetSnackbars();
-            GetCategorie();
+            snack = new SnackReposiroty().Get(snackId); // Haal de snack op met het opgegeven ID
+            GetSnackbars(); // Haal de snackbars op
+            GetCategorie(); // Haal de categorieën op
         }
-        
+
+        /// <summary>
+        /// Haalt de lijst met snackbars op en voegt deze toe aan de lijst.
+        /// </summary>
         public void GetSnackbars()
         {
-            var Snackbars = new SnackbarRepository().Get();
+            var Snackbars = new SnackbarRepository().Get(); // Haal de snackbars op
             foreach (var snackbar in Snackbars)
             {
-                ListSnackBars.Add(snackbar);
+                ListSnackBars.Add(snackbar); // Voeg elke snackbar toe aan de lijst
             }
         }
+
+        /// <summary>
+        /// Haalt de lijst met categorieën op en voegt deze toe aan de lijst.
+        /// </summary>
         public void GetCategorie()
         {
-            var Categorie = new CategorieRepository().Get();
+            var Categorie = new CategorieRepository().Get(); // Haal de categorieën op
             foreach (var categorie in Categorie)
             {
-                ListCategorie.Add(categorie);
+                ListCategorie.Add(categorie); // Voeg elke categorie toe aan de lijst
             }
         }
+
+        /// <summary>
+        /// Verwerkt het POST-verzoek voor het bijwerken van een snack.
+        /// </summary>
+        /// <param name="snack">Bijgewerkte snackgegevens</param>
+        /// <returns>De pagina van de snackbars</returns>
         public IActionResult OnPost(Snack snack)
         {
             if (!ModelState.IsValid)
             {
-                return Redirect("~/Snackbars/Index");
+                return Redirect("~/Snackbars/Index"); // Als de modelvalidatie mislukt, doorverwijzen naar de snackbars pagina
             }
 
-            var updatedSnack = new SnackReposiroty().Update(snack);
+            var updatedSnack = new SnackReposiroty().Update(snack); // Bijwerken van de snackgegevens
 
             return Redirect("~/Snackbars/Index");
         }
+
 
         /*public IActionResult OnPostCancel()
         {
