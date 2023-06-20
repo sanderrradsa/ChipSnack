@@ -45,8 +45,8 @@
                  
 
                                 </td>
-                            <td>@bestelling.Snack.Prijs $</td>
-                            <td>@(bestelling.Snack.Prijs * bestelling.Aantal) $</td>
+                            <td>@((bestelling.Snack.Prijs / 100m).ToString("0.00"))$</td>
+                            <td>@((bestelling.Snack.Prijs * bestelling.Aantal / 100m).ToString("0.00")) $</td>
                             <td>
                             @if (bestelling.Bevestigd == 0)
                                     {
@@ -62,9 +62,9 @@
                 </tbody>
             </table>
             <p>
-                @(Model.TotalOrderValue / 100.0)
+                @((Model.TotalOrderValue / 100m).ToString("0.00"))
             van
-                @(Model.budgets / 100.0)
+                @((Model.budgets / 100m).ToString("0.00"))
             </p>
             @if (Model.TotalOrderValue > Model.budgets)
             {
