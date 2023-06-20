@@ -1,38 +1,36 @@
 ﻿@page
 @model WebdevProjectStarterTemplate.Pages.WachtwoordVergeten.IndexModel
 
-
 <!DOCTYPE html>
 <html>
 <head>
     <title>Wachtwoord Veranderen</title>
 </head>
 <body>
-    <h1>Verander Wachtwoord</h1>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <h1 class="text-center">Verander Wachtwoord</h1>
+                <form method="post">
+                    <!-- Email input -->
+                    <div class="form-group">
+                        <label class="form-label" for="username">Email addres</label>
+                        <input type="email" id="username" name="Username" class="form-control" />
+                    </div>
 
+                    <!-- Password input -->
+                    <div class="form-group">
+                        <label class="form-label" for="password">Wachtwoord</label>
+                        <input type="password" id="password" name="Password" class="form-control" />
+                    </div>
 
-    <form method="post">
-        <!-- Email input -->
-        <div class="form-outline mb-4">
-            <label class="form-label" for="username">Email address</label>
-            <input type="email" id="username" name="Username" class="form-control" />
-
+                    <!-- Submit button -->
+                    <div class="text-center m-2">
+                        <button type="submit" class="btn btn-primary">Verander Wachtwoord</button>
+                    </div>
+                </form>
+            </div>
         </div>
-
-        <!-- Password input -->
-        <div class="form-outline mb-4">
-            <label class="form-label" for="password">Password</label>
-            <input type="password" id="password" name="Password" class="form-control" />
-
-        </div>
-
-
-
-        <!-- Submit button -->
-        <button type="submit" class="btn btn-primary btn-block mb-4">Verander Wachtwoord</button>
-
- 
-    </form>
+    </div>
 </body>
 </html>
-

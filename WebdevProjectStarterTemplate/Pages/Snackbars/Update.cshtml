@@ -1,4 +1,5 @@
 ﻿@page "{snackbarId:int}"
+@using System.Globalization;
 @model WebdevProjectStarterTemplate.Pages.Snackbars.Update
 
 <div class="row">
@@ -33,7 +34,9 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Naam: @snack.Naam</h5>
-                    <p class="card-text"><strong>Prijs in centen:</strong> @snack.Prijs</p>
+                    <p class="card-text">
+                    <strong>Prijs:</strong> @((snack.Prijs / 100m).ToString("C", new CultureInfo("nl-NL")))
+                    </p>
                     <p class="card-text"><strong>Beschrijving:</strong> @snack.Beschrijving</p>
                     <a asp-page="/Snacks/Delete" asp-route-snackId="@snack.Id" class="btn btn-danger">Verwijderen</a>
                     <a asp-page="/Snacks/Update" asp-route-snackId="@snack.Id" class="btn btn-info">Bijwerken</a>
