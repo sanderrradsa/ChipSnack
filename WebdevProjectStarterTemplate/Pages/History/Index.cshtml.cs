@@ -40,35 +40,39 @@ public class Index : PageModel
     public int? geselecteerdEindJaar;
     public int? geselecteerdeEindWeek;
     public TijdsRelativiteit GeselecteerdeRelativiteit;
-    
+
 
     public void OnGet(int? jaar, int? week, int? eindJaar, int? eindWeek, TijdsRelativiteit relativiteit = TijdsRelativiteit.Tijdens)
     {
+        var huidigeDatum = DateTime.Today;
+        var cal = new CultureInfo("en-US").Calendar;
 
-		var dt = DateTime.Today;
-        Calendar cal = new CultureInfo("en-US").Calendar;
-        int currentWeek = cal.GetWeekOfYear(dt, CalendarWeekRule.FirstDay, DayOfWeek.Monday) -1;
-        string date = DateTime.Now.ToString("yyyy");
-        int currentYear = Convert.ToInt32(date);		
+        // Variabele die de huidige week van het jaar bevat, op basis van de gegeven kalenderinstellingen
+        var huidigeWeek = cal.GetWeekOfYear(huidigeDatum, CalendarWeekRule.FirstDay, DayOfWeek.Monday) - 1;
 
-        geselecteerdJaar = jaar ?? currentYear; //ziet er dom uit, maar deze worden nu toegankelijk aan de model.
-        geselecteerdeWeek = week ?? currentWeek;
+        // Variabele die het huidige jaar bevat, geëxtraheerd uit de huidige datum
+        var huidigJaar = Convert.ToInt32(DateTime.Now.ToString("yyyy"));
+        geselecteerdJaar = jaar ?? huidigJaar;
 
+        // De geselecteerde week en of jaar die wordt toegewezen aan het model
+        geselecteerdeWeek = week ?? huidigeWeek;
         geselecteerdEindJaar = eindJaar;
         geselecteerdeEindWeek = eindWeek;
-
         BeschikbareJaren = new HistoryRepository().GetAvailableYears();
 
+        // De geselecteerde tijdsrelativiteit die wordt toegewezen aan het model, standaard ingesteld op "Tijdens" indien niet opgegeven
         GeselecteerdeRelativiteit = relativiteit;
-        
+
         if (geselecteerdJaar is not null)
         {
-            History = new HistoryRepository().Get(GeselecteerdeRelativiteit, (int)geselecteerdJaar, geselecteerdeWeek,
-                geselecteerdEindJaar, geselecteerdeEindWeek);
+            // Haal de bijbehorende geschiedenis op basis van de opgegeven parameters
+            History = new HistoryRepository().Get(GeselecteerdeRelativiteit, (int)geselecteerdJaar, geselecteerdeWeek, geselecteerdEindJaar, geselecteerdeEindWeek);
         }
         else
         {
+            // Haal de algemene geschiedenis op via de HistoryRepository
             History = new HistoryRepository().Get();
         }
     }
+
 }

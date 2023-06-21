@@ -12,7 +12,7 @@ namespace WebdevProjectStarterTemplate.Pages.Login
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
-            return RedirectToPage("/Login/Index"); // Redirect to desired page after logout
+            return RedirectToPage("/Login/Index"); // Redirect naar gewenste pagina na afmelden
         }
     }
 }

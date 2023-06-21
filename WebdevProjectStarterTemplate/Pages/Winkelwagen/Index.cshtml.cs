@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Org.BouncyCastle.Bcpg;
+using System;
 using System.Globalization;
 using WebdevProjectStarterTemplate.Models;
 using WebdevProjectStarterTemplate.Repositories;
@@ -23,6 +24,7 @@ namespace WebdevProjectStarterTemplate.Pages.Winkelwagen
 
         public int year { get; set; }
         public int week { get; set; }
+        // Deze methode wordt uitgevoerd wanneer de pagina wordt geladen via een HTTP GET-verzoek
         public void OnGet()
         {
             userId = ac.GetID(User.Identity.Name);
@@ -36,16 +38,17 @@ namespace WebdevProjectStarterTemplate.Pages.Winkelwagen
             budgets = Convert.ToInt32(getbudgets.BudgetMax);
             GetTotalOrderValue();
         }
-
+        // Deze methode wordt uitgevoerd wanneer het formulier wordt ingediend en er een bestelling increment-actie wordt uitgevoerd
         public IActionResult OnPostIncrement(int bestellingId)
         {
-                var updatedOrder = new BestellingRepository().Update(1, bestellingId);
+            var updatedOrder = new BestellingRepository().Update(1, bestellingId);
             OnGet();
 
             return Page();
 
         }
-		public IActionResult OnPostDecrement(int bestellingId, int aantal)
+        // Deze methode wordt uitgevoerd wanneer het formulier wordt ingediend en er een decrement-actie wordt uitgevoerd
+        public IActionResult OnPostDecrement(int bestellingId, int aantal)
     	{	
         	if (aantal > 1)
         	{
@@ -53,8 +56,8 @@ namespace WebdevProjectStarterTemplate.Pages.Winkelwagen
         	}
         	OnGet();
         	return Page();
-    	}
-
+        }
+        // Deze methode wordt uitgevoerd wanneer het formulier wordt ingediend en er een lock-in-order-actie wordt uitgevoerd
         public IActionResult OnPostLockInOrder()
         {
             OnGet();
@@ -63,7 +66,7 @@ namespace WebdevProjectStarterTemplate.Pages.Winkelwagen
             return Page();
 
         }
-
+        // Deze methode berekent de totale bestelwaarde op basis van de bestellingen
         public void GetTotalOrderValue()
         {
             TotalOrderValue = 0;
@@ -72,7 +75,7 @@ namespace WebdevProjectStarterTemplate.Pages.Winkelwagen
                 TotalOrderValue += bestelling.Snack.Prijs * bestelling.Aantal;
             }
         }
-        
+        // Deze methode wordt uitgevoerd wanneer het formulier wordt ingediend en er een add-actie wordt uitgevoerd
         public IActionResult OnPostAdd(int snackId, string opmerking)
         {
             OnGet();

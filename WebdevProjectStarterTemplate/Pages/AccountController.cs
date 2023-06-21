@@ -57,12 +57,9 @@ namespace WebdevProjectStarterTemplate.Pages
         [HttpGet]
         public int GetID(string username)
         {
-            int ReaderInt = 0;
-            
+            int ReaderInt = 0;    
             try
             {
-                
-
                 string connectionString = GetConnection().ConnectionString;
                 using (var connection = new MySqlConnection(connectionString))
                 {
@@ -78,10 +75,6 @@ namespace WebdevProjectStarterTemplate.Pages
                         {
                             ReaderInt = reader.GetInt32(reader.GetOrdinal("id"));
                         }
-
-
-
-
                         int count = Convert.ToInt32(command.ExecuteScalar());
                         string query1 = "SELECT * FROM gebruiker where email = @Username and rol = 1";
                     }
@@ -90,12 +83,8 @@ namespace WebdevProjectStarterTemplate.Pages
             }
             catch
             {
-                ///
                 return ReaderInt;
             }
-            
-            
-
         }
         [HttpGet]
         public bool IsAdmin(string username)
@@ -104,13 +93,10 @@ namespace WebdevProjectStarterTemplate.Pages
 
             try
             {
-
-
                 string connectionString = GetConnection().ConnectionString;
                 using (var connection = new MySqlConnection(connectionString))
                 {
                     connection.Open();
-
                     string query = "SELECT rol FROM gebruiker WHERE email = @Username;";
                     using (var command = new MySqlCommand(query, connection))
                     {
@@ -121,10 +107,7 @@ namespace WebdevProjectStarterTemplate.Pages
                         {
                             ReaderInt = reader.GetInt32("rol");
                         }
-
-
-
-
+                        // Controleren op het aantal rijen dat wordt geretourneerd
                         int count = Convert.ToInt32(command.ExecuteScalar());
                         string query1 = "SELECT * FROM gebruiker where email = @Username and rol = 1";
                     }
@@ -141,7 +124,7 @@ namespace WebdevProjectStarterTemplate.Pages
             }
             catch
             {
-                ///
+                // Als er een fout optreedt, wordt de standaardwaarde van ReaderInt gebruikt
                 if (ReaderInt == 1)
                 {
                     return true;
@@ -151,9 +134,6 @@ namespace WebdevProjectStarterTemplate.Pages
                     return false;
                 }
             }
-
-
-
         }
     }
 }

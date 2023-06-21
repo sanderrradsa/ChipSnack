@@ -107,26 +107,28 @@ Scripts in dit bestand zijn gemaakt en getest met de bovenstaande versie. Upgrad
 *@
 <script src="https://code.jquery.com/jquery-3.7.0.slim.min.js" integrity="sha256-tG5mcZUtJsZvyKAxYLVXrmjKBVLd6VpVccqz/r4ypFE=" crossorigin="anonymous"></script>
 <script>
-function updateEindDatumFields() {
-    const eindDatum = $("#einddatum>select, #einddatum>input")
-    
-    console.log("update")
-    selected_value = $("#tijdsrelativiteit>input:checked").val()
-    if (selected_value === "VanTotEnMet") {
-        eindDatum.prop("disabled", false)
-        return false   
+    // Functie voor het bijwerken van de einddatumvelden op basis van de geselecteerde waarde van 'tijdsrelativiteit'
+    function updateEindDatumFields() {
+        const eindDatum = $("#einddatum>select, #einddatum>input")
+
+        console.log("update")
+        selected_value = $("#tijdsrelativiteit>input:checked").val()
+        if (selected_value === "VanTotEnMet") {
+            eindDatum.prop("disabled", false)
+            return false
+        }
+
+        eindDatum.prop("disabled", "disabled")
+        return true
     }
-    
-    eindDatum.prop("disabled", "disabled")
-    return true
-}
 
+    // Wacht tot het document klaar is met laden
+    $(document).ready(function () {
+        // Roep de functie aan om de einddatumvelden bij te werken
+        updateEindDatumFields()
+    })
 
-$(document).ready(function () {
-    updateEindDatumFields()
-})
-
-
-$("#tijdsrelativiteit>input").on("change", updateEindDatumFields)
+    // Voeg een gebeurtenisluisteraar toe aan de tijdsrelativiteitselementen
+    $("#tijdsrelativiteit>input").on("change", updateEindDatumFields)
 
 </script>

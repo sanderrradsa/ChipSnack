@@ -3,18 +3,18 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebdevProjectStarterTemplate.Models;
 using WebdevProjectStarterTemplate.Repositories;
 
-namespace WebdevProjectStarterTemplate.Pages.Categories;
-
-[Authorize]
-public class Index : PageModel
+namespace WebdevProjectStarterTemplate.Pages.Categories
 {
-    public IEnumerable<Categorie> Categories { get; set; } = null!;
-    public IEnumerable<Categorie> CategoriesWithProduct { get; set; } = null!;
-    
-    public void OnGet()
+    [Authorize]
+    public class Index : PageModel
     {
-        Categories = new CategorieRepository().Get();
-    }
+        public IEnumerable<Categorie> Categories { get; set; } = null!;
+        public IEnumerable<Categorie> CategoriesWithProduct { get; set; } = null!;
 
-    
+        public void OnGet()
+        {
+            // Haal alle categorieën op
+            Categories = new CategorieRepository().Get();
+        }
+    }
 }
