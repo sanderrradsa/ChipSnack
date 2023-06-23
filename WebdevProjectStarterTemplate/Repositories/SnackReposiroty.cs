@@ -78,6 +78,7 @@ namespace WebdevProjectStarterTemplate.Repositories
         }
         public Snack Add(Snack snack)
         {
+            Console.WriteLine(snack.Naam);
             const string sql = @"
         INSERT INTO snack (naam, prijs, beschrijving, snackbarid, categorieId)
         VALUES (@Naam, @Prijs, @Beschrijving, @Snackbarid, @CategorieId);
