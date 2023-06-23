@@ -1,35 +1,40 @@
-# Template voor zowel het project als de individiuele opdracht (NHLStenden Café).
+# Project chipsnack
 
-Benodigheden:
-* [.NET 7](https://dotnet.microsoft.com/download) of hoger, 
-* [MySQL](https://dev.mysql.com/downloads/installer/)
+Welkom bij het lunchsite project van groep 3C (Jorrit de Haan, Bram Jonker, Sander Burger, Bas wijkstra)
 
-## Database aanmaken
-Om je database aan te maken voor de tabellen (Product & Category) en deze te vullen met data, 
-is het aan te raden het bestand `MysqlCafe.sql` te gebruiken.
 
-## Connectionstring aanpassen (indien nodig)
-Pas je connectionstring aan in `appsettings.json` als de verbinding anders is dan die van mij (username, password, locatie, port, etc):
+
+
+## Database
+
+### Setup
+- [chipsnack.sql](Database_Setup/chipsnack.sql) Maakt de database aan voor dit project (gaat er van uit dat er nog geen database is)
+- [Required.sql](Database_setup/Required.sql) vult de database met data die nodig is om te functioneren (gaat er van uit dat de database leeg is)
+- [Dummy.sql](Database_setup/Required.sql) Vult de database met test data (gaat er van uit dat de database leeg is)
+
+
+### Credentials
+Pas je connectionstring aan in [appsettings](./appsettings.json):
 ```json
-"ConnectionStrings": {
-  "WebdevCourseRazorPages.Exercises.MySQL": "Server=127.0.0.1;Port=3306;Database=WebdevProject;Uid=root;Pwd=Test@1234!;"
+"ConnectionStrings" : {
+  "WebdevCourseRazorPages.Exercises.MySQL": "Server=127.0.0.1;Port=3306;Database=[DB_NAME];Uid=[USER];Pwd=[PASSWORD];"
 }
 ```
 
 ## Project structuur (directories)
 
 Het project bestaat uit de volgende directories:
-* Models: Hierin staan de modellen (Category, Product) die gebruikt worden in de applicatie.
-* Repositories: Hier staan de repositories die gebruikt worden om de modellen op te slaan in de database.
-* Pages/Categories: Hier staan de Razor Pages die gebruikt worden om de categorieën te beheren.
+* Models: Hierin staan de modellen (Categorie, Snack, etc) die gebruikt worden in de applicatie.
+* Repositories: Hier staan de methodes die gebruikt worden om de modellen te synchroniseren met de databaase.
+* Pages: Paginas
 
 
 ## Gebruikte technieken
 
 De voglende technieken worden gebruikt in het project:
 * [ASP.NET Core Razor Pages](https://docs.microsoft.com/en-us/aspnet/core/razor-pages/?view=aspnetcore-5.0&tabs=visual-studio)
-* [Dapper](https://github.com/DapperLib/Dapper) voor documentatie zie [Dapper Tutorial](https://dapper-tutorial.net/dapper)
+* [Dapper](https://github.com/DapperLib/Dapper) voor het mappen van SQL data op objecten. Voor documentatie zie [Dapper Tutorial](https://dapper-tutorial.net/dapper)
 * [MySQL](https://dev.mysql.com/downloads/installer/)
 * [Bootstrap](https://getbootstrap.com/docs/5.0/getting-started/introduction/)
-* en last but not least HTML & CSS :-)
+* [jQuery](https://jquery.com/)
 
