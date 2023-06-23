@@ -8,12 +8,11 @@ namespace WebdevProjectStarterTemplate.Pages.Categories
     [Authorize]
     public class Index : PageModel
     {
+        /// <summary>Alle categoriÃ«n, om te laten zien in het overzicht</summary>
         public IEnumerable<Categorie> Categories { get; set; } = null!;
-        public IEnumerable<Categorie> CategoriesWithProduct { get; set; } = null!;
 
         public void OnGet()
         {
-            // Haal alle categorieën op
             Categories = new CategorieRepository().Get();
         }
     }

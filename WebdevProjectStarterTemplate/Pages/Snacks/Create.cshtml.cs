@@ -32,7 +32,7 @@ namespace WebdevProjectStarterTemplate.Pages.Snacks
             }
         }
 
-        // Methode om de Categorieën op te halen
+        // Methode om de CategorieÃ«n op te halen
         public void GetCategorie()
         {
             var Categorie = new CategorieRepository().Get();
@@ -52,7 +52,7 @@ namespace WebdevProjectStarterTemplate.Pages.Snacks
             // TODO: ModelState.Isvalid returned altijd false??? andere manier om te validaten, of meer onderzoek naar 'IsValid'
 
 
-            var createdSnack = new SnackReposiroty().Add(snack);
+            var createdSnack = new SnackRepository().Add(snack);
 
             return Redirect("~/Snackbars/Index");
         }

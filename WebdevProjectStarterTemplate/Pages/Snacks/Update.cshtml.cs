@@ -35,9 +35,9 @@ namespace WebdevProjectStarterTemplate.Pages.Snacks
         /// <param name="snackId">ID van de snack die wordt bewerkt</param>
         public void OnGet(int snackId)
         {
-            snack = new SnackReposiroty().Get(snackId); // Haal de snack op met het opgegeven ID
+            snack = new SnackRepository().Get(snackId); // Haal de snack op met het opgegeven ID
             GetSnackbars(); // Haal de snackbars op
-            GetCategorie(); // Haal de categorieën op
+            GetCategorie(); // Haal de categorieÃ«n op
         }
 
         /// <summary>
@@ -53,11 +53,11 @@ namespace WebdevProjectStarterTemplate.Pages.Snacks
         }
 
         /// <summary>
-        /// Haalt de lijst met categorieën op en voegt deze toe aan de lijst.
+        /// Haalt de lijst met categorieÃ«n op en voegt deze toe aan de lijst.
         /// </summary>
         public void GetCategorie()
         {
-            var Categorie = new CategorieRepository().Get(); // Haal de categorieën op
+            var Categorie = new CategorieRepository().Get(); // Haal de categorieÃ«n op
             foreach (var categorie in Categorie)
             {
                 ListCategorie.Add(categorie); // Voeg elke categorie toe aan de lijst
@@ -76,7 +76,7 @@ namespace WebdevProjectStarterTemplate.Pages.Snacks
                 return Redirect("~/Snackbars/Index"); // Als de modelvalidatie mislukt, doorverwijzen naar de snackbars pagina
             }
 
-            var updatedSnack = new SnackReposiroty().Update(snack); // Bijwerken van de snackgegevens
+            var updatedSnack = new SnackRepository().Update(snack); // Bijwerken van de snackgegevens
 
             return Redirect("~/Snackbars/Index");
         }

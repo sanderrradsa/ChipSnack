@@ -50,7 +50,7 @@ public class Index : PageModel
         // Variabele die de huidige week van het jaar bevat, op basis van de gegeven kalenderinstellingen
         var huidigeWeek = cal.GetWeekOfYear(huidigeDatum, CalendarWeekRule.FirstDay, DayOfWeek.Monday) - 1;
 
-        // Variabele die het huidige jaar bevat, geëxtraheerd uit de huidige datum
+        // Variabele die het huidige jaar bevat, uit de huidige datum
         var huidigJaar = Convert.ToInt32(DateTime.Now.ToString("yyyy"));
         geselecteerdJaar = jaar ?? huidigJaar;
 
@@ -70,7 +70,7 @@ public class Index : PageModel
         }
         else
         {
-            // Haal de algemene geschiedenis op via de HistoryRepository
+            // Haal alle geschiedenis op via de HistoryRepository
             History = new HistoryRepository().Get();
         }
     }

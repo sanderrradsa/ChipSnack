@@ -9,24 +9,26 @@ namespace WebdevProjectStarterTemplate.Pages.Snackbars
     [Authorize]
     public class CreateModel : PageModel
     {
+        /// <summary>Gebind aan form in de cshtml, inputs worden automatisch gebruikt voor het invullen van de moddel</summary>
         [BindProperty] public Snackbar Snackbar { get; set; } = null!;
         // Handler voor GET-verzoek
         public void OnGet()
         {
-        
+            //
         }
-        // Handler voor POST-verzoek bij het maken van een nieuwe Snackbar
+        
+        // "creeer knop"
         public IActionResult OnPost()
         {
             if (!ModelState.IsValid)
             {
                 return Page(); // Als de modelvalidatie mislukt, blijf op dezelfde pagina en geef foutmeldingen weer
             }
-            // Voeg de nieuwe Snackbar toe aan de repository
-            var createdSnackbar = new SnackbarRepository().Add(Snackbar);
+            // Voeg de nieuwe Snackbar toe aan de db
+            new SnackbarRepository().Add(Snackbar);
             return RedirectToPage(nameof(Index));
         }
-        // Handler voor POST-verzoek bij annuleren
+        // "anuleren" knop
         public IActionResult OnPostCancel()
         {
             return Redirect(nameof(Index));

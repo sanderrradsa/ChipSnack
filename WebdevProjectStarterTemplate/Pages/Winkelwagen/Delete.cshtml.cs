@@ -18,7 +18,7 @@ namespace WebdevProjectStarterTemplate.Pages.Winkelwagen
         public void OnGet([FromRoute] int bestellingId)
         {
             Bestelling getsnackId = new BestellingRepository().Get(bestellingId);
-            snack = new SnackReposiroty().Get(getsnackId.SnackId);
+            snack = new SnackRepository().Get(getsnackId.SnackId);
         }
         /// <summary>
         /// Verwijdert de bestelling met de gegeven bestellingId.

@@ -9,7 +9,7 @@ using WebdevProjectStarterTemplate.Models;
 
 namespace WebdevProjectStarterTemplate.Repositories
 {
-    public class SnackReposiroty
+    public class SnackRepository
     {
         private IDbConnection GetConnection()
         {
@@ -41,12 +41,6 @@ namespace WebdevProjectStarterTemplate.Repositories
             using var connection = GetConnection();
             var snacks = connection.Query<Snack>(sql, new { snackbarId });
             return snacks;
-        }
-
-        // Van snackbar obj of van id? welke is beter?
-        public IEnumerable<Snack> GetFromSnackBar(Snackbar snackbar)
-        {
-            return GetFromSnackBar(snackbar.Id);
         }
 
         public IEnumerable<Snack> GetFromCategory(int categoryId)

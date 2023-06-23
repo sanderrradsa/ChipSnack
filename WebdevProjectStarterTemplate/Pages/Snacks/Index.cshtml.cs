@@ -22,9 +22,9 @@ namespace WebdevProjectStarterTemplate.Pages.Snacks
         public IEnumerable<Snackbar> SnackbarFilters; // Snackbar filters
         public IEnumerable<Categorie> CategoryFilters; // Categorie filters
 
-        public SnackReposiroty SnackRepository; // Repository voor snacks
+        public SnackRepository SnackRepository; // Repository voor snacks
         public SnackbarRepository SnackbarRepository; // Repository voor snackbars
-        public CategorieRepository CategorieRepository; // Repository voor categorieën
+        public CategorieRepository CategorieRepository; // Repository voor categorieÃ«n
 
         public int selectedSnackbarId = -1; // Geselecteerde snackbar ID
         public int selectedCategoryId = -1; // Geselecteerde categorie ID
@@ -39,7 +39,7 @@ namespace WebdevProjectStarterTemplate.Pages.Snacks
             string date = DateTime.Now.ToString("yyyy");
             year = Convert.ToInt32(date); // Huidig jaar
             isAdmin = ac.IsAdmin(User.Identity.Name); // Controleer of gebruiker een beheerder is
-            SnackRepository = new SnackReposiroty();
+            SnackRepository = new SnackRepository();
             SnackbarRepository = new SnackbarRepository();
             CategorieRepository = new CategorieRepository();
             selectedSnackbarId = snackbarID ?? -1; // Wijs geselecteerde snackbar ID toe, indien aanwezig
@@ -61,7 +61,7 @@ namespace WebdevProjectStarterTemplate.Pages.Snacks
                 SelectedSnacks = SnackRepository.Get(); // Haal alle snacks op
             }
             SnackbarFilters = SnackbarRepository.Get(); // Haal snackbars op voor filteropties
-            CategoryFilters = CategorieRepository.Get(); // Haal categorieën op voor filteropties
+            CategoryFilters = CategorieRepository.Get(); // Haal categorieÃ«n op voor filteropties
             AddedSnacks(); // Voeg de snacks toe die zijn toegevoegd aan "Mijn bestelling" aan de lijst
         }
         /// <summary>

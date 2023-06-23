@@ -11,36 +11,24 @@ namespace WebdevProjectStarterTemplate.Pages.Categories
     {
         [BindProperty]
         public Categorie categorie { get; set; } = null!;
-
-        public List<Categorie> ListCategorie = new List<Categorie>();
-        public void OnGet()
-        {
-            // Haal alle categorieën op
-            GetCategorie();
-        }
-        public void GetCategorie()
-        {
-            // Haal alle categorieën op en voeg ze toe aan de lijst
-            var Categorie = new CategorieRepository().Get();
-            foreach (var categorie in Categorie)
-            {
-                ListCategorie.Add(categorie);
-            }
-        }
+        
+        
+        // Voeg de nieuwe categorie toe (Aanmaken knop)
         public IActionResult OnPost()
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
-            // Voeg de nieuwe categorie toe
-            var createdCategorie = new CategorieRepository().Add(categorie);
-            // Doorverwijzen naar de indexpagina van categorieën
+            
+            new CategorieRepository().Add(categorie);
+            // Terug naar overzicht
             return RedirectToPage("Index");
         }
+        
+        // "Anuleer knop"
         public IActionResult OnPostCancel()
         {
-            // Annuleren en doorverwijzen naar de indexpagina van categorieën
             return Redirect(nameof(Index));
         }
     }

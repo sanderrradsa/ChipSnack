@@ -27,168 +27,85 @@ SET time_zone = "+00:00";
 -- Tabelstructuur voor tabel `bestelling`
 --
 
-CREATE TABLE `bestelling` (
-  `id` int(11) NOT NULL,
-  `gebruikerId` int(11) NOT NULL,
-  `aantal` int(11) NOT NULL,
-  `opmerking` varchar(255) NOT NULL,
-  `weeknr` int(11) NOT NULL,
-  `jaar` int(11) NOT NULL,
-  `herhalen` smallint(6) NOT NULL,
-  `snackId` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Tabelstructuur voor tabel `categorie`
---
-
-CREATE TABLE `categorie` (
-  `id` int(11) NOT NULL,
-  `naam` varchar(64) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Tabelstructuur voor tabel `gebruiker`
---
-
-CREATE TABLE `gebruiker` (
-  `id` int(11) NOT NULL,
-  `naam` varchar(32) NOT NULL,
-  `email` varchar(64) NOT NULL,
-  `microsoftId` int(11) NOT NULL,
-  `wachtwoord` varchar(255) NOT NULL,
-  `rol` smallint(6) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Tabelstructuur voor tabel `snack`
---
-
-CREATE TABLE `snack` (
-  `id` int(11) NOT NULL,
-  `naam` varchar(64) NOT NULL,
-  `prijs` int(11) NOT NULL,
-  `beschrijving` varchar(255) NOT NULL,
-  `snackbarId` int(11) DEFAULT NULL,
-  `categorieId` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Tabelstructuur voor tabel `snackbar`
---
-
-CREATE TABLE `snackbar` (
-  `id` int(11) NOT NULL,
-  `naam` varchar(64) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Indexen voor geëxporteerde tabellen
---
-
---
--- Indexen voor tabel `bestelling`
---
-ALTER TABLE `bestelling`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `gebruikerId` (`gebruikerId`),
-  ADD KEY `snackId` (`snackId`);
-
---
--- Indexen voor tabel `categorie`
---
-ALTER TABLE `categorie`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexen voor tabel `gebruiker`
---
-ALTER TABLE `gebruiker`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexen voor tabel `snack`
---
-ALTER TABLE `snack`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `snackbarId` (`snackbarId`),
-  ADD KEY `categorieId` (`categorieId`);
-
---
--- Indexen voor tabel `snackbar`
---
-ALTER TABLE `snackbar`
-  ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT voor geëxporteerde tabellen
---
-
---
--- AUTO_INCREMENT voor een tabel `bestelling`
---
-ALTER TABLE `bestelling`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT voor een tabel `categorie`
---
-ALTER TABLE `categorie`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT voor een tabel `gebruiker`
---
-ALTER TABLE `gebruiker`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT voor een tabel `snack`
---
-ALTER TABLE `snack`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT voor een tabel `snackbar`
---
-ALTER TABLE `snackbar`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- Beperkingen voor geëxporteerde tabellen
---
-
---
--- Beperkingen voor tabel `bestelling`
---
-ALTER TABLE `bestelling`
-  ADD CONSTRAINT `bestelling_ibfk_1` FOREIGN KEY (`snackId`) REFERENCES `snack` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `bestelling_ibfk_2` FOREIGN KEY (`gebruikerId`) REFERENCES `gebruiker` (`id`) ON UPDATE CASCADE;
-
---
--- Beperkingen voor tabel `snack`
---
-ALTER TABLE `snack`
-  ADD CONSTRAINT `snack_ibfk_1` FOREIGN KEY (`categorieId`) REFERENCES `categorie` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `snack_ibfk_2` FOREIGN KEY (`snackbarId`) REFERENCES `snackbar` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
-
--- Handmatige toevoegingen starten hier
-CREATE TABLE `budget` (
-    budget int PRIMARY KEY NOT NULL
+create table budget
+(
+    id        int not null,
+    budgetMax int not null
 );
 
-SET sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));
+create table categorie
+(
+    id   int auto_increment
+        primary key,
+    naam varchar(64) not null
+);
 
-ALTER TABLE bestelling ADD bevestigd SMALLINT NOT NULL;
--- Handmatige toevoeginegen eidigen hier
+create table gebruiker
+(
+    id         int auto_increment
+        primary key,
+    naam       varchar(32)  not null,
+    email      varchar(64)  not null,
+    wachtwoord varchar(255) not null,
+    rol        smallint     not null
+);
+
+create table snackbar
+(
+    id   int auto_increment
+        primary key,
+    naam varchar(64) not null
+);
+
+create table snack
+(
+    id           int auto_increment
+        primary key,
+    naam         varchar(64)  not null,
+    prijs        int          not null,
+    beschrijving varchar(255) null,
+    snackbarId   int          null,
+    categorieId  int          null,
+    constraint snack_ibfk_1
+        foreign key (categorieId) references categorie (id)
+            on update cascade on delete set null,
+    constraint snack_ibfk_2
+        foreign key (snackbarId) references snackbar (id)
+            on update cascade on delete set null
+);
+
+create table bestelling
+(
+    id          int auto_increment
+        primary key,
+    gebruikerId int               not null,
+    aantal      int               not null,
+    opmerking   varchar(255)      null,
+    weeknr      int               not null,
+    jaar        int               not null,
+    herhalen    tinyint default 0 null,
+    snackId     int               null,
+    bevestigd   tinyint default 0 null,
+    constraint bestelling_ibfk_2
+        foreign key (gebruikerId) references gebruiker (id)
+            on update cascade,
+    constraint bestelling_ibfk_3
+        foreign key (snackId) references snack (id)
+            on delete cascade
+);
+
+create index gebruikerId
+    on bestelling (gebruikerId);
+
+create index snackId
+    on bestelling (snackId);
+
+create index categorieId
+    on snack (categorieId);
+
+create index snackbarId
+    on snack (snackbarId);
+
 
 COMMIT;
 

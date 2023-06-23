@@ -15,13 +15,13 @@ namespace WebdevProjectStarterTemplate.Pages.Snackbars
         {
             Snackbar = new SnackbarRepository().Get(snackbarId);
         }
-        // Handler voor POST-verzoek bij het verwijderen van de Snackbar
+        // "Verwijder" knop
         public IActionResult OnPostDelete([FromRoute] int snackbarId)
         {
-            bool success = new SnackbarRepository().Delete(snackbarId);
+            bool success = new SnackbarRepository().Delete(snackbarId); // TODO: handle success = false
             return RedirectToPage(nameof(Index));
         }
-        // Handler voor POST-verzoek bij annuleren
+        // "Anuleer" knop
         public IActionResult OnPostCancel()
         {
             return RedirectToPage(nameof(Index));
